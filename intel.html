@@ -6,6 +6,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>try{if(localStorage.getItem('sqoutiq-theme')==='light')document.documentElement.classList.add('light-mode')}catch(e){}</script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#0b0c10;--surface:#161821;--surface2:#1d1f2b;--border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.15);--text:#f3f4f6;--muted:#9ca3af;--muted2:#6b7280;--accent:#9b51e0;--accent-dim:rgba(155,81,224,0.15);--accent-dim2:rgba(155,81,224,0.08);--blue:#00a8cc;--blue-dim:rgba(0,168,204,0.15);--amber:#f59e0b;--amber-dim:rgba(245,158,11,0.15);--green:#10b981;--green-dim:rgba(16,185,129,0.15);--red:#ef4444;--red-dim:rgba(239,68,68,0.15);--font:'DM Sans',sans-serif;--mono:'DM Mono',monospace}
@@ -174,8 +175,9 @@ const pb=document.getElementById('profile-btn'),pd=document.getElementById('prof
 pb.addEventListener('click',e=>{e.stopPropagation();const o=pd.classList.toggle('open');pc.classList.toggle('open',o)});
 document.addEventListener('click',()=>{pd.classList.remove('open');pc.classList.remove('open')});pd.addEventListener('click',e=>e.stopPropagation());
 document.querySelectorAll('.seg-ctrl button').forEach(btn=>{btn.addEventListener('click',()=>{btn.closest('.seg-ctrl').querySelectorAll('button').forEach(b=>b.classList.remove('active'));btn.classList.add('active')})});
+const THEME_STORAGE_KEY='sqoutiq-theme';
 let isLight=false;
-function applyTheme(light){isLight=light;document.documentElement.classList.toggle('light-mode',light);const pill=document.getElementById('theme-pill'),icon=document.getElementById('theme-icon'),txt=document.getElementById('theme-text');if(light){pill.classList.remove('on');txt.textContent='Light Mode';icon.innerHTML='<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';}else{pill.classList.add('on');txt.textContent='Dark Mode';icon.innerHTML='<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';}updateCharts(light);}
+function applyTheme(light,persist=true){isLight=light;document.documentElement.classList.toggle('light-mode',light);if(persist){try{localStorage.setItem(THEME_STORAGE_KEY,light?'light':'dark')}catch(e){}}const pill=document.getElementById('theme-pill'),icon=document.getElementById('theme-icon'),txt=document.getElementById('theme-text');if(light){pill.classList.remove('on');txt.textContent='Light Mode';icon.innerHTML='<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';}else{pill.classList.add('on');txt.textContent='Dark Mode';icon.innerHTML='<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';}updateCharts(light);}
 document.getElementById('theme-toggle').addEventListener('click',()=>applyTheme(!isLight));
 
 // Lead data
@@ -253,6 +255,7 @@ function updateCharts(light){
   scoreChart.options.scales.y.grid.color=g;scoreChart.options.scales.y.ticks.color=t;scoreChart.options.scales.x.ticks.color=t;scoreChart.options.plugins.tooltip.backgroundColor=tb;scoreChart.options.plugins.tooltip.borderColor=tc;scoreChart.options.plugins.tooltip.bodyColor=tbody;scoreChart.update();
   typeChart.options.plugins.legend.labels.color=lc;typeChart.options.plugins.tooltip.backgroundColor=tb;typeChart.options.plugins.tooltip.borderColor=tc;typeChart.options.plugins.tooltip.bodyColor=tbody;typeChart.update();
 }
+try{applyTheme(localStorage.getItem(THEME_STORAGE_KEY)==='light',false)}catch(e){applyTheme(false,false)}
 </script>
 </body>
 </html>
