@@ -6,6 +6,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>try{if(localStorage.getItem('sqoutiq-theme')==='light')document.documentElement.classList.add('light-mode')}catch(e){}</script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#0b0c10;--surface:#161821;--surface2:#1d1f2b;--border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.15);--text:#f3f4f6;--muted:#9ca3af;--muted2:#6b7280;--accent:#9b51e0;--accent-dim:rgba(155,81,224,0.15);--accent-dim2:rgba(155,81,224,0.08);--blue:#00a8cc;--blue-dim:rgba(0,168,204,0.15);--amber:#f59e0b;--amber-dim:rgba(245,158,11,0.15);--green:#10b981;--green-dim:rgba(16,185,129,0.15);--red:#ef4444;--red-dim:rgba(239,68,68,0.15);--font:'DM Sans',sans-serif;--mono:'DM Mono',monospace}
@@ -215,9 +216,11 @@ pd.addEventListener('click',e=>e.stopPropagation());
 document.querySelectorAll('.seg-ctrl button').forEach(btn=>{btn.addEventListener('click',()=>{btn.closest('.seg-ctrl').querySelectorAll('button').forEach(b=>b.classList.remove('active'));btn.classList.add('active')})});
 
 // Theme
+const THEME_STORAGE_KEY='sqoutiq-theme';
 let isLight=false;
-function applyTheme(light){
+function applyTheme(light,persist=true){
   isLight=light;document.documentElement.classList.toggle('light-mode',light);
+  if(persist){try{localStorage.setItem(THEME_STORAGE_KEY,light?'light':'dark')}catch(e){}}
   const pill=document.getElementById('theme-pill'),icon=document.getElementById('theme-icon'),txt=document.getElementById('theme-text');
   const logo=document.getElementById('brand-logo'); // Added Logo Reference
   
@@ -262,6 +265,7 @@ function updateChart(light){
   chart.options.plugins.tooltip.backgroundColor=tb;chart.options.plugins.tooltip.borderColor=tc;chart.options.plugins.tooltip.titleColor=tt;chart.options.plugins.tooltip.bodyColor=tb2;
   chart.update();
 }
+try{applyTheme(localStorage.getItem(THEME_STORAGE_KEY)==='light',false)}catch(e){applyTheme(false,false)}
 </script>
 </body>
 </html>
