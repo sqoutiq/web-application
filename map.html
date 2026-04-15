@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.heat/0.2.0/leaflet-heat.js"></script>
+<script>try{if(localStorage.getItem('sqoutiq-theme')==='light')document.documentElement.classList.add('light-mode')}catch(e){}</script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#0b0c10;--surface:#161821;--surface2:#1d1f2b;--border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.15);--text:#f3f4f6;--muted:#9ca3af;--muted2:#6b7280;--accent:#9b51e0;--accent-dim:rgba(155,81,224,0.15);--accent-dim2:rgba(155,81,224,0.08);--blue:#00a8cc;--blue-dim:rgba(0,168,204,0.15);--amber:#f59e0b;--amber-dim:rgba(245,158,11,0.15);--green:#10b981;--green-dim:rgba(16,185,129,0.15);--red:#ef4444;--red-dim:rgba(239,68,68,0.15);--font:'DM Sans',sans-serif;--mono:'DM Mono',monospace}
@@ -227,9 +228,11 @@ main{flex:1;display:flex;flex-direction:column;overflow:hidden}
 const pb=document.getElementById('profile-btn'),pd=document.getElementById('profile-dropdown'),pc=document.getElementById('profile-caret');
 pb.addEventListener('click',e=>{e.stopPropagation();const o=pd.classList.toggle('open');pc.classList.toggle('open',o)});
 document.addEventListener('click',()=>{pd.classList.remove('open');pc.classList.remove('open')});pd.addEventListener('click',e=>e.stopPropagation());
+const THEME_STORAGE_KEY='sqoutiq-theme';
 let isLight=false;
-function applyTheme(light){
+function applyTheme(light,persist=true){
   isLight=light;document.documentElement.classList.toggle('light-mode',light);
+  if(persist){try{localStorage.setItem(THEME_STORAGE_KEY,light?'light':'dark')}catch(e){}}
   const pill=document.getElementById('theme-pill'),icon=document.getElementById('theme-icon'),txt=document.getElementById('theme-text');
   if(light){pill.classList.remove('on');txt.textContent='Light Mode';icon.innerHTML='<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';}
   else{pill.classList.add('on');txt.textContent='Dark Mode';icon.innerHTML='<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';}
@@ -425,6 +428,7 @@ function jumpToRegion(r){const [lat,lng,z]=regions[r]||regions.la;map.setView([l
 map.on('zoomend',()=>{
   if(map.getZoom()>=12){zipLabelGroup.addTo(map);}else{map.removeLayer(zipLabelGroup);}
 });
+try{applyTheme(localStorage.getItem(THEME_STORAGE_KEY)==='light',false)}catch(e){applyTheme(false,false)}
 </script>
 </body>
 </html>
