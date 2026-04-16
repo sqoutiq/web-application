@@ -14,7 +14,7 @@
 body{font-family:var(--font);background:var(--bg);color:var(--text);display:flex;height:100vh;overflow:hidden;font-size:15px;line-height:1.5;transition:background .3s,color .3s}
 ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--muted2);border-radius:3px}
 aside{width:256px;flex-shrink:0;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;transition:background .3s,border-color .3s}
-.logo{padding:26px 24px 22px;border-bottom:1px solid var(--border)}.logo-name{font-size:24px;font-weight:700;letter-spacing:-.03em;color:var(--text)}.logo-tag{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-top:3px;font-weight:600}
+.logo{padding:14px 24px 12px;border-bottom:1px solid var(--border)}.brand-logo{display:block;width:198px;height:98px;object-fit:cover;object-position:center}
 nav{flex:1;padding:18px 0;overflow-y:auto}
 .nav-section-label{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted2);padding:14px 24px 6px;font-weight:700}
 .nav-item{display:flex;align-items:center;gap:11px;padding:10px 24px;font-size:14px;font-weight:500;color:var(--muted);cursor:pointer;transition:color .2s,background .2s;position:relative;text-decoration:none}
@@ -83,7 +83,7 @@ tbody tr:last-child td{border-bottom:none}tbody tr:hover td{background:var(--acc
 </head>
 <body>
 <aside>
-  <div class="logo"><div class="logo-name">sqoutiq</div><div class="logo-tag">HVAC Intelligence</div></div>
+  <div class="logo"><img class="brand-logo" id="brand-logo" src="Dark.png" alt="sqoutiq"></div>
   <nav>
     <div class="nav-section-label">Overview</div>
     <a class="nav-item" href="index.html">
@@ -177,7 +177,7 @@ document.addEventListener('click',()=>{pd.classList.remove('open');pc.classList.
 document.querySelectorAll('.seg-ctrl button').forEach(btn=>{btn.addEventListener('click',()=>{btn.closest('.seg-ctrl').querySelectorAll('button').forEach(b=>b.classList.remove('active'));btn.classList.add('active')})});
 const THEME_STORAGE_KEY='sqoutiq-theme';
 let isLight=false;
-function applyTheme(light,persist=true){isLight=light;document.documentElement.classList.toggle('light-mode',light);if(persist){try{localStorage.setItem(THEME_STORAGE_KEY,light?'light':'dark')}catch(e){}}const pill=document.getElementById('theme-pill'),icon=document.getElementById('theme-icon'),txt=document.getElementById('theme-text');if(light){pill.classList.remove('on');txt.textContent='Light Mode';icon.innerHTML='<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';}else{pill.classList.add('on');txt.textContent='Dark Mode';icon.innerHTML='<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';}updateCharts(light);}
+function applyTheme(light,persist=true){isLight=light;document.documentElement.classList.toggle('light-mode',light);if(persist){try{localStorage.setItem(THEME_STORAGE_KEY,light?'light':'dark')}catch(e){}}const pill=document.getElementById('theme-pill'),icon=document.getElementById('theme-icon'),txt=document.getElementById('theme-text'),logo=document.getElementById('brand-logo');if(light){pill.classList.remove('on');txt.textContent='Light Mode';if(logo)logo.src='Light.png';icon.innerHTML='<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';}else{pill.classList.add('on');txt.textContent='Dark Mode';if(logo)logo.src='Dark.png';icon.innerHTML='<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';}updateCharts(light);}
 document.getElementById('theme-toggle').addEventListener('click',()=>applyTheme(!isLight));
 
 // Lead data
