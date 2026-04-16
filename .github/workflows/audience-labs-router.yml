@@ -2,11 +2,13 @@ name: Audience Labs Supabase Router
 
 on:
   workflow_dispatch:
-
+ 
 
 jobs:
   route-audience-labs:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Check out repository
@@ -27,3 +29,18 @@ jobs:
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
           TYPE_SUFFIX: hvac
         run: python audience_labs_supabase_router.py
+
+      - name: Export frontend leads data
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          TYPE_SUFFIX: hvac
+        run: python export_public_leads.py
+
+      - name: Commit updated frontend leads data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add leads-data.json
+          git diff --cached --quiet || git commit -m "Update frontend leads data"
+          git push
