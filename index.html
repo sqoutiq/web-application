@@ -6,6 +6,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="supabase-config.js"></script>
+<script src="leads.js"></script>
 <script>try{if(localStorage.getItem('sqoutiq-theme')==='light')document.documentElement.classList.add('light-mode')}catch(e){}</script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -99,7 +101,7 @@ tbody tr:last-child td{border-bottom:none}tbody tr:hover td{background:var(--acc
   <div class="sidebar-profile">
     <button class="profile-btn" id="profile-btn">
       <div class="profile-avatar">JD</div>
-      <div class="profile-info"><div class="profile-name">Jordan Davis</div><div class="profile-role">Admin · LA Metro</div></div>
+      <div class="profile-info"><div class="profile-name">Jordan Davis</div><div class="profile-role">Admin · HVAC Territory</div></div>
       <svg class="profile-caret" id="profile-caret" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 6 8 10 12 6"/></svg>
     </button>
     <div class="profile-dropdown" id="profile-dropdown">
@@ -125,14 +127,14 @@ tbody tr:last-child td{border-bottom:none}tbody tr:hover td{background:var(--acc
   <div class="topbar">
     <div class="topbar-left">
       <h1>Intent Dashboard <span class="status-dot"></span></h1>
-      <p>Los Angeles Metro Area &mdash; Last Updated: Just now</p>
+      <p>Southwest Riverside & North County HVAC Territory &mdash; Last Updated: Just now</p>
     </div>
     <div class="topbar-right">
       <div class="seg-ctrl">
         <button>24h</button><button class="active">14d</button><button>30d</button><button>All</button>
       </div>
       <select class="top-select">
-        <option>Los Angeles Metro</option><option>San Francisco Bay Area</option><option>San Diego Metro</option><option>Sacramento Metro</option>
+        <option>All HVAC Cities</option><option>Murrieta</option><option>Temecula</option><option>Menifee</option><option>Perris</option><option>Riverside</option><option>Oceanside</option><option>Corona</option><option>Lake Elsinore</option><option>Moreno Valley</option>
       </select>
     </div>
   </div>
@@ -141,18 +143,18 @@ tbody tr:last-child td{border-bottom:none}tbody tr:hover td{background:var(--acc
     <div class="metrics">
       <div class="metric-card amethyst">
         <div class="metric-label">Total Volume Signals</div>
-        <div class="metric-value">4,850 <span>active</span></div>
-        <div class="metric-delta"><span class="delta-dot" style="background:var(--accent)"></span><span class="d-ac">+32% vs last period</span></div>
+        <div class="metric-value" id="metric-total">-- <span>loading</span></div>
+        <div class="metric-delta"><span class="delta-dot" style="background:var(--accent)"></span><span class="d-ac" id="metric-total-note">Waiting for Supabase</span></div>
       </div>
       <div class="metric-card sapphire">
         <div class="metric-label">Avg. Opportunity Score</div>
-        <div class="metric-value">91 <span>/ 100</span></div>
-        <div class="metric-delta"><span class="delta-dot" style="background:var(--muted)"></span><span class="d-nu">High conversion probability</span></div>
+        <div class="metric-value" id="metric-avg-score">-- <span>/ 100</span></div>
+        <div class="metric-delta"><span class="delta-dot" style="background:var(--muted)"></span><span class="d-nu" id="metric-score-note">Live scores only</span></div>
       </div>
       <div class="metric-card amber">
         <div class="metric-label">New Opportunities Today</div>
-        <div class="metric-value">284 <span>opportunities</span></div>
-        <div class="metric-delta"><span class="delta-dot" style="background:var(--amber)"></span><span class="d-am">+45 vs yesterday</span></div>
+        <div class="metric-value" id="metric-new-today">-- <span>opportunities</span></div>
+        <div class="metric-delta"><span class="delta-dot" style="background:var(--amber)"></span><span class="d-am" id="metric-today-note">No fallback data</span></div>
       </div>
     </div>
 
@@ -173,31 +175,23 @@ tbody tr:last-child td{border-bottom:none}tbody tr:hover td{background:var(--acc
 
     <div class="row3">
       <div class="card">
-        <div class="card-head"><div><div class="card-title">Top Heat Zones</div><div class="card-sub">Ranked by ZIP signal score</div></div></div>
+        <div class="card-head"><div><div class="card-title">Top City Zones</div><div class="card-sub">Ranked by HVAC signal score</div></div></div>
         <div class="card-body">
           <table>
-            <thead><tr><th style="width:44px">Rank</th><th>ZIP Code</th><th style="text-align:right">Score</th></tr></thead>
-            <tbody>
-              <tr><td><span class="rank-badge">01</span></td><td style="font-family:var(--mono);font-size:14px">90210</td><td style="text-align:right"><span class="score-val sh">195</span></td></tr>
-              <tr><td><span class="rank-badge">02</span></td><td style="font-family:var(--mono);font-size:14px">90401</td><td style="text-align:right"><span class="score-val sh">188</span></td></tr>
-              <tr><td><span class="rank-badge">03</span></td><td style="font-family:var(--mono);font-size:14px">90028</td><td style="text-align:right"><span class="score-val sh">182</span></td></tr>
-              <tr><td><span class="rank-badge">04</span></td><td style="font-family:var(--mono);font-size:14px">91403</td><td style="text-align:right"><span class="score-val sm">168</span></td></tr>
-              <tr><td><span class="rank-badge">05</span></td><td style="font-family:var(--mono);font-size:14px">90001</td><td style="text-align:right"><span class="score-val sh">190</span></td></tr>
+            <thead><tr><th style="width:44px">Rank</th><th>City / ZIP</th><th style="text-align:right">Score</th></tr></thead>
+            <tbody id="top-city-tbody">
+              <tr><td colspan="3" class="address-txt">Loading live Supabase city tables...</td></tr>
             </tbody>
           </table>
         </div>
       </div>
       <div class="card">
-        <div class="card-head"><div><div class="card-title">High-Value Opportunities Tracker</div><div class="card-sub">Live feed of lucrative intent signals</div></div></div>
+        <div class="card-head"><div><div class="card-title">Recent HVAC Leads</div><div class="card-sub">Live feed from Supabase city tables</div></div></div>
         <div class="card-body" style="overflow-x:auto">
           <table class="spaced-t" style="min-width:480px">
-            <thead><tr><th>Contact Name</th><th>Phone Number</th><th>Property Address</th><th style="text-align:right">Est. Job Value</th></tr></thead>
-            <tbody>
-              <tr><td><strong class="contact-link">Michael Chen</strong></td><td><span class="contact-phone">(310) 555-0192</span></td><td><span class="address-txt">1422 Wilshire Blvd, Santa Monica</span></td><td class="val-txt">$24,500</td></tr>
-              <tr><td><strong class="contact-link">Sarah Jenkins</strong></td><td><span class="contact-phone">(415) 555-8831</span></td><td><span class="address-txt">7100 Market St, San Francisco</span></td><td class="val-txt">$185,000</td></tr>
-              <tr><td><strong class="contact-link">David Rodriguez</strong></td><td><span class="contact-phone">(619) 555-3421</span></td><td><span class="address-txt">2801 Mission Blvd, San Diego</span></td><td class="val-txt">$18,200</td></tr>
-              <tr><td><strong class="contact-link">Emily Carter</strong></td><td><span class="contact-phone">(916) 555-9011</span></td><td><span class="address-txt">1000 J St, Sacramento</span></td><td class="val-txt">$8,400</td></tr>
-              <tr><td><strong class="contact-link">James Thompson</strong></td><td><span class="contact-phone">(408) 555-4420</span></td><td><span class="address-txt">5900 Stevens Creek Blvd, San Jose</span></td><td class="val-txt">$5,800</td></tr>
+            <thead><tr><th>Contact Name</th><th>Phone Number</th><th>City</th><th>ZIP</th><th style="text-align:right">Score</th></tr></thead>
+            <tbody id="dashboard-leads-tbody">
+              <tr><td colspan="5" class="address-txt">Loading live Supabase leads...</td></tr>
             </tbody>
           </table>
         </div>
@@ -254,9 +248,9 @@ const gB=ctxD.createLinearGradient(0,0,0,250);gB.addColorStop(0,'rgba(0,168,204,
 let chart=new Chart(ctxD,{type:'line',data:{
   labels:['Day 1','Day 2','Day 3','Day 4','Day 5','Day 6','Day 7','Day 8','Day 9','Day 10','Day 11','Day 12','Day 13','Today'],
   datasets:[
-    {label:'Current',data:[280,310,340,290,420,510,480,410,380,450,520,590,620,580],borderColor:'#9b51e0',backgroundColor:gA,borderWidth:2.5,tension:.45,fill:true,pointRadius:3,pointBackgroundColor:'#9b51e0',pointBorderColor:'#0b0c10',pointBorderWidth:2,pointHoverRadius:5},
-    {label:'Previous',data:[210,240,260,220,310,380,350,290,260,310,390,440,480,430],borderColor:'#00a8cc',borderDash:[6,5],backgroundColor:gB,borderWidth:2,tension:.45,fill:true,pointRadius:2.5,pointBackgroundColor:'#00a8cc',pointBorderColor:'#0b0c10',pointBorderWidth:2,pointHoverRadius:4}
-  ]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{display:false},tooltip:{backgroundColor:'#1d1f2b',borderColor:'rgba(255,255,255,0.08)',borderWidth:1,titleColor:'#9ca3af',bodyColor:'#f3f4f6',padding:10,cornerRadius:8}},scales:{y:{beginAtZero:false,min:150,grid:{color:'rgba(255,255,255,0.04)'},border:{display:false},ticks:{color:'#6b7280',font:{family:'DM Mono',size:11},maxTicksLimit:6}},x:{grid:{display:false},border:{display:false},ticks:{color:'#6b7280',font:{family:'DM Sans',size:11}}}}}});
+    {label:'Current',data:Array(14).fill(0),borderColor:'#9b51e0',backgroundColor:gA,borderWidth:2.5,tension:.45,fill:true,pointRadius:3,pointBackgroundColor:'#9b51e0',pointBorderColor:'#0b0c10',pointBorderWidth:2,pointHoverRadius:5},
+    {label:'Previous',data:Array(14).fill(0),borderColor:'#00a8cc',borderDash:[6,5],backgroundColor:gB,borderWidth:2,tension:.45,fill:true,pointRadius:2.5,pointBackgroundColor:'#00a8cc',pointBorderColor:'#0b0c10',pointBorderWidth:2,pointHoverRadius:4}
+  ]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{display:false},tooltip:{backgroundColor:'#1d1f2b',borderColor:'rgba(255,255,255,0.08)',borderWidth:1,titleColor:'#9ca3af',bodyColor:'#f3f4f6',padding:10,cornerRadius:8}},scales:{y:{beginAtZero:true,min:0,grid:{color:'rgba(255,255,255,0.04)'},border:{display:false},ticks:{color:'#6b7280',font:{family:'DM Mono',size:11},maxTicksLimit:6}},x:{grid:{display:false},border:{display:false},ticks:{color:'#6b7280',font:{family:'DM Sans',size:11}}}}}});
 
 function updateChart(light){
   const g=light?'rgba(0,0,0,0.05)':'rgba(255,255,255,0.04)',t='#6b7280',bg=light?'#fff':'#0b0c10',tb=light?'#fff':'#1d1f2b',tc=light?'rgba(0,0,0,0.1)':'rgba(255,255,255,0.08)',tt=light?'#4b5563':'#9ca3af',tb2=light?'#111827':'#f3f4f6';
@@ -265,6 +259,73 @@ function updateChart(light){
   chart.options.plugins.tooltip.backgroundColor=tb;chart.options.plugins.tooltip.borderColor=tc;chart.options.plugins.tooltip.titleColor=tt;chart.options.plugins.tooltip.bodyColor=tb2;
   chart.update();
 }
+function renderDashboardFromLeads(leads){
+  if(!leads.length){
+    showDashboardMessage('No live Supabase rows found yet.');
+    return;
+  }
+  const total=document.getElementById('metric-total'),avg=document.getElementById('metric-avg-score'),today=document.getElementById('metric-new-today');
+  const totalNote=document.getElementById('metric-total-note'),scoreNote=document.getElementById('metric-score-note'),todayNote=document.getElementById('metric-today-note');
+  const avgScore=Math.round(leads.reduce((sum,lead)=>sum+lead.score,0)/leads.length);
+  if(total) total.innerHTML=`${leads.length.toLocaleString()} <span>active</span>`;
+  if(avg) avg.innerHTML=`${avgScore} <span>/ 100</span>`;
+  if(today) today.innerHTML=`${leads.length.toLocaleString()} <span>opportunities</span>`;
+  if(totalNote) totalNote.textContent='Live from Supabase';
+  if(scoreNote) scoreNote.textContent='Score range 75-100';
+  if(todayNote) todayNote.textContent='Current refresh';
+
+  const byCity={};
+  leads.forEach(lead=>{
+    byCity[lead.region] ??= {city:lead.city,zips:new Set(),count:0,totalScore:0};
+    byCity[lead.region].count++;
+    byCity[lead.region].totalScore+=lead.score;
+    if(lead.zip) byCity[lead.region].zips.add(lead.zip);
+  });
+  const topCities=Object.values(byCity)
+    .map(city=>({...city,score:Math.round(city.totalScore/city.count)}))
+    .sort((a,b)=>b.score-a.score)
+    .slice(0,5);
+  const topBody=document.getElementById('top-city-tbody');
+  if(topBody){
+    topBody.innerHTML=topCities.map((city,index)=>`<tr><td><span class="rank-badge">${String(index+1).padStart(2,'0')}</span></td><td><strong>${city.city}</strong><br><span class="address-txt">${[...city.zips].slice(0,3).join(', ')}</span></td><td style="text-align:right"><span class="score-val ${city.score>=90?'sh':'sm'}">${city.score}</span></td></tr>`).join('');
+  }
+
+  const leadsBody=document.getElementById('dashboard-leads-tbody');
+  if(leadsBody){
+    leadsBody.innerHTML=leads.slice(0,5).map(lead=>`<tr><td><strong class="contact-link">${lead.name}</strong></td><td><span class="contact-phone">${lead.phone}</span></td><td>${lead.city}</td><td><span class="address-txt">${lead.zip}</span></td><td class="val-txt">${lead.score}</td></tr>`).join('');
+  }
+}
+function showDashboardMessage(message){
+  const total=document.getElementById('metric-total'),avg=document.getElementById('metric-avg-score'),today=document.getElementById('metric-new-today');
+  const totalNote=document.getElementById('metric-total-note'),scoreNote=document.getElementById('metric-score-note'),todayNote=document.getElementById('metric-today-note');
+  if(total) total.innerHTML='-- <span>not connected</span>';
+  if(avg) avg.innerHTML='-- <span>/ 100</span>';
+  if(today) today.innerHTML='-- <span>opportunities</span>';
+  if(totalNote) totalNote.textContent=message;
+  if(scoreNote) scoreNote.textContent='No fallback data';
+  if(todayNote) todayNote.textContent='Live data only';
+  const top=document.getElementById('top-city-tbody');
+  const leadsBody=document.getElementById('dashboard-leads-tbody');
+  if(top) top.innerHTML=`<tr><td colspan="3" class="address-txt">${message}</td></tr>`;
+  if(leadsBody) leadsBody.innerHTML=`<tr><td colspan="5" class="address-txt">${message}</td></tr>`;
+  if(chart){
+    chart.data.datasets.forEach(ds=>{ds.data=chart.data.labels.map(()=>0)});
+    chart.update();
+  }
+}
+async function loadLiveDashboard(){
+  if(!window.SqoutiqData || !SqoutiqData.isConfigured()){
+    showDashboardMessage('Add Supabase URL and anon key in supabase-config.js.');
+    return;
+  }
+  try{renderDashboardFromLeads(await SqoutiqData.fetchLeads());}
+  catch(error){
+    console.warn('Supabase dashboard load failed',error);
+    showDashboardMessage('Supabase request failed. Check anon key, URL, and table permissions.');
+  }
+}
+loadLiveDashboard();
+setInterval(loadLiveDashboard,60000);
 try{applyTheme(localStorage.getItem(THEME_STORAGE_KEY)==='light',false)}catch(e){applyTheme(false,false)}
 </script>
 </body>
