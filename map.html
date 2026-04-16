@@ -44,36 +44,16 @@ nav{flex:1;padding:18px 0;overflow-y:auto}
 main{flex:1;display:flex;flex-direction:column;overflow:hidden}
 .topbar{display:flex;align-items:center;justify-content:space-between;padding:18px 28px;border-bottom:1px solid var(--border);background:var(--surface);flex-shrink:0;transition:background .3s,border-color .3s;z-index:10}
 .topbar-left h1{font-size:18px;font-weight:600;letter-spacing:-.015em}.topbar-left p{font-size:12.5px;color:var(--muted);margin-top:2px}
-.topbar-right{display:flex;align-items:center;gap:9px}
+.topbar-right{display:flex;align-items:center;gap:9px;flex-wrap:wrap;justify-content:flex-end}
 .seg-ctrl{display:flex;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:3px;gap:3px}
 .seg-ctrl button{padding:5px 13px;border:none;background:none;color:var(--muted);font-family:var(--font);font-size:13px;font-weight:600;border-radius:6px;cursor:pointer;transition:all .15s}
 .seg-ctrl button.active{background:var(--surface);color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.12);border:1px solid var(--border2)}
 .top-select{background:var(--surface2);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:13px;font-weight:600;padding:7px 13px;border-radius:8px;outline:none;cursor:pointer}
+.date-select{min-width:142px;color-scheme:dark}.light-mode .date-select{color-scheme:light}
 
 /* MAP WRAPPER */
 .map-wrapper{flex:1;position:relative;overflow:hidden}
 #map{position:absolute;inset:0;width:100%;height:100%;z-index:1}
-
-/* FLOATING PANELS */
-.map-panel{position:absolute;right:16px;top:16px;width:290px;z-index:500;display:flex;flex-direction:column;gap:10px;pointer-events:all}
-.panel-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;backdrop-filter:blur(12px);transition:background .3s,border-color .3s}
-.panel-head{padding:13px 16px 10px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-.panel-title{font-size:13.5px;font-weight:700;color:var(--text)}
-.panel-sub{font-size:11.5px;color:var(--muted);margin-top:1px}
-.panel-body{padding:12px 16px}
-
-/* Panel table */
-.ptable{width:100%;border-collapse:collapse}
-.ptable th{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted2);font-weight:700;padding:0 0 10px;text-align:left;border-bottom:1px solid var(--border)}
-.ptable td{padding:10px 0;font-size:13px;color:var(--text);border-bottom:1px solid var(--border);vertical-align:middle}
-.ptable tr:last-child td{border-bottom:none}
-.score-pill{font-family:var(--mono);font-size:12px;font-weight:700}
-.sh{color:var(--accent)}.sm{color:var(--amber)}.sl{color:var(--muted2)}
-.trend-up{color:var(--green);font-size:12px;font-weight:700}.trend-dn{color:var(--red);font-size:12px;font-weight:700}.trend-nu{color:var(--muted2);font-size:12px;font-weight:700}
-
-/* Stats list */
-.stat-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--border)}
-.stat-row:last-child{border-bottom:none}.stat-label{font-size:12px;color:var(--muted)}.stat-val{font-family:var(--mono);font-size:12.5px;font-weight:700;color:var(--text)}
 
 /* LEGEND */
 .map-legend{position:absolute;left:16px;bottom:28px;z-index:500;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 14px;backdrop-filter:blur(12px)}
@@ -86,12 +66,12 @@ main{flex:1;display:flex;flex-direction:column;overflow:hidden}
 .lt-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
 
 /* MAP CONTROLS (floating top-left) */
-.map-controls{position:absolute;left:16px;top:16px;z-index:500;display:flex;flex-direction:column;gap:6px}
-.mc-group{background:var(--surface);border:1px solid var(--border);border-radius:9px;overflow:hidden}
-.mc-btn{display:flex;align-items:center;justify-content:center;width:36px;height:36px;background:none;border:none;color:var(--muted);cursor:pointer;transition:all .15s;font-size:16px;font-weight:700}
+.map-controls{position:absolute;left:16px;top:16px;z-index:500;display:flex;flex-direction:column;align-items:flex-start;gap:8px}
+.mc-group{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;width:40px;display:flex;flex-direction:column}
+.mc-btn{display:flex;align-items:center;justify-content:center;width:40px;height:34px;background:none;border:none;color:var(--muted);cursor:pointer;transition:all .15s;font-size:16px;font-weight:700;line-height:1}
 .mc-btn:hover{background:var(--accent-dim2);color:var(--text)}
 .mc-btn+.mc-btn{border-top:1px solid var(--border)}
-.mc-tag{background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:6px 10px;font-size:11px;font-weight:600;color:var(--muted);white-space:nowrap}
+.reset-btn{width:auto;height:28px;padding:0 10px;border:1px solid var(--border);border-radius:8px;background:var(--surface);font-size:11px;font-weight:700}
 
 /* Leaflet popup overrides */
 .leaflet-popup-content-wrapper{background:var(--surface)!important;border:1px solid var(--border)!important;border-radius:10px!important;box-shadow:0 8px 32px rgba(0,0,0,.4)!important;padding:0!important}
@@ -111,9 +91,9 @@ main{flex:1;display:flex;flex-direction:column;overflow:hidden}
 
 /* Opportunity popup */
 .lead-pop{padding:14px 16px;min-width:220px}
-.lead-name{font-size:15px;font-weight:700;color:var(--blue)}
-.lead-addr{font-size:12px;color:var(--muted);margin-top:2px}
-.lead-badge{display:inline-flex;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:700;background:var(--accent-dim);color:var(--accent);margin-top:8px}
+.lead-name{font-size:15px;font-weight:700;color:var(--blue);margin-bottom:8px}
+.lead-line{display:block;font-size:12.5px;color:var(--muted);margin-top:5px;text-decoration:none}
+.lead-line:hover{text-decoration:underline;color:var(--blue)}
 .lead-val{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--text);margin-top:4px}
 </style>
 </head>
@@ -144,15 +124,10 @@ main{flex:1;display:flex;flex-direction:column;overflow:hidden}
   <div class="topbar">
     <div class="topbar-left">
       <h1>Map Insights</h1>
-      <p>Live signal heatmap — Southwest Riverside & North County HVAC cities</p>
+      <p>Live opportunity heatmap - Southwest Riverside & North County HVAC cities</p>
     </div>
     <div class="topbar-right">
-      <div class="seg-ctrl">
-        <button class="active" onclick="setLayer('heat')">Heatmap</button>
-        <button onclick="setLayer('pins')">Opportunity Pins</button>
-        <button onclick="setLayer('both')">Both</button>
-      </div>
-      <select class="top-select" id="region-select" onchange="jumpToRegion(this.value)">
+      <div class="seg-ctrl" id="layer-filter"><button class="active" onclick="setLayer('heat',this)">Heatmap</button><button onclick="setLayer('pins',this)">Opportunity Pins</button><button onclick="setLayer('both',this)">Both</button></div><div class="seg-ctrl" id="map-time-filter"><button class="active" data-range="24h">24h</button><button data-range="48h">48h</button><button data-range="all">All Time</button></div><input class="top-select date-select" type="date" id="map-date-filter" aria-label="Show opportunities from exact date"><select class="top-select" id="region-select">
         <option value="all">All HVAC Cities</option>
         <option value="murrieta">Murrieta</option>
         <option value="temecula">Temecula</option>
@@ -174,47 +149,13 @@ main{flex:1;display:flex;flex-direction:column;overflow:hidden}
     <div class="map-controls">
       <div class="mc-group">
         <button class="mc-btn" onclick="map.zoomIn()" title="Zoom in">+</button>
-        <button class="mc-btn" onclick="map.zoomOut()" title="Zoom out">−</button>
+        <button class="mc-btn" onclick="map.zoomOut()" title="Zoom out">-</button>
       </div>
-      <button class="mc-btn mc-group" onclick="map.setView([33.79,-117.18],10)" title="Reset view" style="width:auto;padding:0 10px;font-size:11px">Reset</button>
+      <button class="mc-btn reset-btn" onclick="map.setView([33.79,-117.18],10)" title="Reset view">Reset</button>
     </div>
-
-    <!-- Floating right panel -->
-    <div class="map-panel">
-      <!-- Stats -->
-      <div class="panel-card">
-        <div class="panel-head">
-          <div><div class="panel-title">Zone Stats</div><div class="panel-sub">HVAC cities · Real-time</div></div>
-          <div style="width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px rgba(16,185,129,0.2);animation:pulse 2s infinite"></div>
-        </div>
-        <div class="panel-body" style="padding-top:8px;padding-bottom:8px">
-          <div class="stat-row"><span class="stat-label">City tables</span><span class="stat-val">9</span></div>
-          <div class="stat-row"><span class="stat-label">Active ZIP zones</span><span class="stat-val" id="map-zone-count">64</span></div>
-          <div class="stat-row"><span class="stat-label">Total signals</span><span class="stat-val" id="map-total-signals">--</span></div>
-          <div class="stat-row"><span class="stat-label">Avg. per city</span><span class="stat-val" id="map-avg-city">--</span></div>
-          <div class="stat-row"><span class="stat-label">Highest score</span><span class="stat-val" id="map-high-score" style="color:var(--accent)">100</span></div>
-          <div class="stat-row"><span class="stat-label">Coverage area</span><span class="stat-val">64 ZIPs</span></div>
-          <div class="stat-row"><span class="stat-label">Peak hour</span><span class="stat-val">10–11 AM</span></div>
-        </div>
-      </div>
-
-      <!-- Top ZIP table -->
-      <div class="panel-card">
-        <div class="panel-head"><div class="panel-title">Top Heat Zones</div></div>
-        <div class="panel-body" style="padding-top:6px;padding-bottom:6px">
-          <table class="ptable">
-            <thead><tr><th>ZIP</th><th>City</th><th>Score</th><th>Trend</th></tr></thead>
-            <tbody id="map-top-zones">
-              <tr><td colspan="4" style="font-size:11.5px;color:var(--muted)">Waiting for live opportunity data.</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
     <!-- Legend -->
     <div class="map-legend">
-      <div class="legend-title">Signal Intensity</div>
+      <div class="legend-title">Opportunity Intensity</div>
       <div class="legend-scale">
         <div>
           <div class="legend-bar"></div>
@@ -222,9 +163,9 @@ main{flex:1;display:flex;flex-direction:column;overflow:hidden}
         </div>
       </div>
       <div class="legend-types" style="margin-top:12px">
-        <div class="lt-row"><div class="lt-dot" style="background:#9b51e0"></div>ZIP Zone (score 90-100)</div>
-        <div class="lt-row"><div class="lt-dot" style="background:#f59e0b"></div>ZIP Zone (score 80-89)</div>
-        <div class="lt-row"><div class="lt-dot" style="background:#6b7280;opacity:.7"></div>ZIP Zone (score 75-79)</div>
+        <div class="lt-row"><div class="lt-dot" style="background:#9b51e0"></div>Score 90-100</div>
+        <div class="lt-row"><div class="lt-dot" style="background:#f59e0b"></div>Score 80-89</div>
+        <div class="lt-row"><div class="lt-dot" style="background:#6b7280;opacity:.7"></div>Score 75-79</div>
         <div class="lt-row" style="margin-top:4px"><div class="lt-dot" style="background:#00a8cc;border:2px solid #fff"></div>Opportunity Pin</div>
       </div>
     </div>
@@ -250,216 +191,62 @@ function applyTheme(light,persist=true){
 }
 document.getElementById('theme-toggle').addEventListener('click',()=>applyTheme(!isLight));
 
-// ── ZIP Zone Data (real LA Metro coordinates) ─────────────────────────────
-const zipZones=SqoutiqData.CITY_TABLES.flatMap(city=>city.zips.map((zip,index)=>({
-  zip,
-  name:city.label,
-  lat:city.center[0]+((index%3)-1)*0.012,
-  lng:city.center[1]+(Math.floor(index/3)-1)*0.012,
-  score:75+((index*7+city.slug.length)%26),
-  signals:12+((index*5+city.slug.length)%38),
-  trend:index%4===0?'-3%':`+${(index%5)+2}%`,
-  value:'HVAC opportunity zone'
-})));
+// ── Opportunity Map Data ─────────────────────────────
+let allMapLeads=[];
+let currentMapLeads=[];
+let currentLayerMode='heat';
 
-const leadPins=[];
+function escapeHtml(value){return String(value||'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]))}
+function phoneHref(phone){const digits=String(phone||'').replace(/\D/g,'');return digits ? `tel:${digits.length===10?'+1':''}${digits}` : '#'}
+function mapHref(lead){return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(`${lead.address || ''}, ${lead.city || ''}, CA ${lead.zip || ''}`)}`}
+function leadDate(lead){const raw=lead.timeStamp || lead.created_at || '';const date=raw ? new Date(raw) : null;return date && !Number.isNaN(date.getTime()) ? date : null}
+function localDateKey(date){return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`}
+function selectedRange(){const active=document.querySelector('#map-time-filter button.active');return active ? active.dataset.range : '24h'}
+function selectedRegion(){const select=document.getElementById('region-select');return select ? select.value : 'all'}
+function selectedExactDate(){const input=document.getElementById('map-date-filter');return input ? input.value : ''}
+function filteredMapLeads(){let leads=allMapLeads.slice();const region=selectedRegion();if(region&&region!=='all')leads=leads.filter(lead=>lead.region===region);const exact=selectedExactDate();if(exact){return leads.filter(lead=>{const date=leadDate(lead);return date&&localDateKey(date)===exact})}const range=selectedRange();if(range==='all')return leads;const cutoff=Date.now()-((range==='48h'?48:24)*60*60*1000);return leads.filter(lead=>{const date=leadDate(lead);return date&&date.getTime()>=cutoff})}
+function leadPoint(lead){const city=SqoutiqData.CITY_TABLES.find(c=>c.slug===lead.region)||SqoutiqData.CITY_TABLES[0];const seed=(lead.phone||lead.name||lead.address||'').split('').reduce((sum,ch)=>sum+ch.charCodeAt(0),0);return{lat:city.center[0]+((seed%11)-5)*0.0035,lng:city.center[1]+(((seed>>3)%11)-5)*0.0035}}
+function buildHeatPoints(leads=currentMapLeads){const pts=[];leads.forEach(lead=>{const point=leadPoint(lead);const intensity=Math.max(0.45,lead.score/100);pts.push([point.lat,point.lng,intensity]);for(let i=0;i<4;i++){const angle=(i/4)*Math.PI*2;const dist=0.006+(lead.score/100)*0.004;pts.push([point.lat+Math.cos(angle)*dist,point.lng+Math.sin(angle)*dist,intensity*0.55])}});return pts}
 
-// ── Build Heatmap Points ────────────────────────────────────────────────────
-// Each ZIP gets a central point plus cluster spread for realistic heat blobs
-function buildHeatPoints(){
-  const pts=[];
-  zipZones.forEach(z=>{
-    const intensity=z.score/100;
-    // Central point — high weight
-    pts.push([z.lat,z.lng,intensity]);
-    // Spray surrounding points for blob realism
-    const spread=0.018,n=Math.round(intensity*18);
-    for(let i=0;i<n;i++){
-      const angle=Math.random()*Math.PI*2;
-      const dist=Math.random()*spread;
-      pts.push([z.lat+Math.cos(angle)*dist,z.lng+Math.sin(angle)*dist,intensity*0.75*Math.random()]);
-    }
-  });
-  return pts;
-}
-
-// ── Init Leaflet Map ────────────────────────────────────────────────────────
 const darkTile=L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',subdomains:'abcd',maxZoom:19});
 const lightTile=L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',subdomains:'abcd',maxZoom:19});
-
 const map=L.map('map',{center:[33.79,-117.18],zoom:10,zoomControl:false,attributionControl:true});
 darkTile.addTo(map);
-
-// Style attribution
 map.attributionControl.setPrefix('');
-
-// ── Heatmap Layer ──────────────────────────────────────────────────────────
-const heatLayer=L.heatLayer(buildHeatPoints(),{
-  radius:38,
-  blur:28,
-  maxZoom:13,
-  max:1.0,
-  gradient:{0.0:'transparent',0.25:'rgba(0,100,180,0.6)',0.45:'rgba(0,168,204,0.8)',0.65:'rgba(155,81,224,0.9)',0.82:'rgba(219,39,119,0.95)',1.0:'rgba(239,68,68,1)'}
-});
+const heatLayer=L.heatLayer([],{radius:30,blur:22,maxZoom:13,max:1.0,gradient:{0.0:'transparent',0.25:'rgba(0,100,180,0.6)',0.45:'rgba(0,168,204,0.8)',0.65:'rgba(155,81,224,0.9)',0.82:'rgba(219,39,119,0.95)',1.0:'rgba(239,68,68,1)'}});
+const leadMarkerGroup=L.layerGroup();
 heatLayer.addTo(map);
 
-// ── ZIP Zone Circle Markers ───────────────────────────────────────────────
-const zipMarkers=[];
-zipZones.forEach(z=>{
-  const col=z.score>=90?'#9b51e0':z.score>=80?'#f59e0b':'#6b7280';
-  const size=z.score>=90?14:z.score>=80?10:8;
-  const m=L.circleMarker([z.lat,z.lng],{
-    radius:size,
-    fillColor:col,
-    color:'#fff',
-    weight:2,
-    opacity:0.9,
-    fillOpacity:0.85,
-  });
-
-  // ZIP code label
-  const labelIcon=L.divIcon({
-    className:'',
-    html:`<div style="font-family:'DM Mono',monospace;font-size:10px;font-weight:700;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,0.8);white-space:nowrap;pointer-events:none">${z.zip}</div>`,
-    iconAnchor:[14,20]
-  });
-  const label=L.marker([z.lat,z.lng],{icon:labelIcon,interactive:false});
-
-  const popContent=`<div class="pop-inner">
-    <div class="pop-zip">${z.zip}</div>
-    <div class="pop-name">${z.name}</div>
-    <div class="pop-divider"></div>
-    <div class="pop-row"><span class="pop-label">Signal Score</span><span class="pop-val" style="color:${col}">${z.score}</span></div>
-    <div class="pop-row"><span class="pop-label">Active Signals</span><span class="pop-val">${z.signals}</span></div>
-    <div class="pop-row"><span class="pop-label">Trend</span><span class="pop-val" style="color:${z.trend.startsWith('+')?'#10b981':z.trend==='0%'?'#9ca3af':'#ef4444'}">${z.trend}</span></div>
-    <div class="pop-row"><span class="pop-label">City Table</span><span class="pop-val">${z.name.toLowerCase().replaceAll(' ','_')}_hvac</span></div>
-  </div>`;
-
-  m.bindPopup(popContent,{maxWidth:240,className:''});
-  m.on('mouseover',()=>m.openPopup());
-  zipMarkers.push({m,label});
-});
-
-// ── Opportunity Pin Markers ────────────────────────────────────────────────
-const leadMarkerGroup=L.layerGroup();
-leadPins.forEach(l=>{
-  const icon=L.divIcon({
-    className:'',
-    html:`<div style="width:30px;height:30px;background:#00a8cc;border:2.5px solid #fff;border-radius:50% 50% 50% 0;transform:rotate(-45deg);box-shadow:0 3px 12px rgba(0,168,204,0.5)">
-      <div style="transform:rotate(45deg);width:100%;height:100%;display:flex;align-items:center;justify-content:center">
-        <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="2.5"><path d="M8 1C5.24 1 3 3.24 3 6c0 3.75 5 9 5 9s5-5.25 5-9c0-2.76-2.24-5-5-5z"/><circle cx="8" cy="6" r="1.5" fill="#fff" stroke="none"/></svg>
-      </div>
-    </div>`,
-    iconSize:[30,30],
-    iconAnchor:[15,30],
-    popupAnchor:[0,-32]
-  });
-  const m=L.marker([l.lat,l.lng],{icon});
-  const scColor=l.score>=80?'#9b51e0':l.score>=60?'#f59e0b':'#9ca3af';
-  m.bindPopup(`<div class="lead-pop">
-    <div class="lead-name">${l.name}</div>
-    <div class="lead-addr">${l.addr}</div>
-    <div class="lead-badge">${l.type}</div>
-    <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
-      <span style="font-size:11px;color:var(--muted)">Score</span>
-      <span style="font-family:'DM Mono',monospace;font-size:14px;font-weight:700;color:${scColor}">${l.score}</span>
-    </div>
-  </div>`,{maxWidth:240});
-  leadMarkerGroup.addLayer(m);
-});
-
-// ── Zip circle layer group ─────────────────────────────────────────────────
-const zipCircleGroup=L.layerGroup();
-const zipLabelGroup=L.layerGroup();
-zipMarkers.forEach(({m,label})=>{zipCircleGroup.addLayer(m);zipLabelGroup.addLayer(label)});
-zipCircleGroup.addTo(map);
-zipLabelGroup.addTo(map);
-leadMarkerGroup.addTo(map);
-
-function addLeadMarker(lead){
-  const city=SqoutiqData.CITY_TABLES.find(c=>c.slug===lead.region) || SqoutiqData.CITY_TABLES[0];
-  const seed=(lead.phone || lead.name || '').split('').reduce((sum,ch)=>sum+ch.charCodeAt(0),0);
-  const lat=city.center[0]+((seed%7)-3)*0.004;
-  const lng=city.center[1]+(((seed>>3)%7)-3)*0.004;
-  const icon=L.divIcon({
-    className:'',
-    html:`<div style="width:30px;height:30px;background:#00a8cc;border:2.5px solid #fff;border-radius:50% 50% 50% 0;transform:rotate(-45deg);box-shadow:0 3px 12px rgba(0,168,204,0.5)"><div style="transform:rotate(45deg);width:100%;height:100%;display:flex;align-items:center;justify-content:center"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="2.5"><path d="M8 1C5.24 1 3 3.24 3 6c0 3.75 5 9 5 9s5-5.25 5-9c0-2.76-2.24-5-5-5z"/><circle cx="8" cy="6" r="1.5" fill="#fff" stroke="none"/></svg></div></div>`,
-    iconSize:[30,30],iconAnchor:[15,30],popupAnchor:[0,-32]
-  });
-  const scColor=lead.score>=90?'#9b51e0':lead.score>=80?'#f59e0b':'#9ca3af';
-  const m=L.marker([lat,lng],{icon});
-  m.bindPopup(`<div class="lead-pop"><div class="lead-name">${lead.name}</div><div class="lead-addr">${lead.city}, CA ${lead.zip}</div><div class="lead-badge">HVAC Opportunity</div><div style="display:flex;align-items:center;gap:8px;margin-top:8px"><span style="font-size:11px;color:var(--muted)">Score</span><span style="font-family:'DM Mono',monospace;font-size:14px;font-weight:700;color:${scColor}">${lead.score}</span></div></div>`,{maxWidth:240});
-  leadMarkerGroup.addLayer(m);
-}
-
-function renderMapSummary(leads){
-  const total=document.getElementById('map-total-signals');
-  const avg=document.getElementById('map-avg-city');
-  const high=document.getElementById('map-high-score');
-  if(!leads.length){
-    if(total) total.textContent='0';
-    if(avg) avg.textContent='--';
-    const top=document.getElementById('map-top-zones');
-    if(top) top.innerHTML='<tr><td colspan="4" style="font-size:11.5px;color:var(--muted)">No live opportunities found yet.</td></tr>';
-    return;
-  }
-  if(total) total.textContent=leads.length.toLocaleString();
-  if(high) high.textContent=Math.max(...leads.map(l=>l.score));
-  const byCity={};
-  leads.forEach(lead=>{byCity[lead.region]??={city:lead.city,zips:new Set(),count:0,totalScore:0};byCity[lead.region].count++;byCity[lead.region].totalScore+=lead.score;if(lead.zip)byCity[lead.region].zips.add(lead.zip);});
-  const cities=Object.values(byCity).map(city=>({...city,score:Math.round(city.totalScore/city.count)})).sort((a,b)=>b.score-a.score);
-  if(avg) avg.textContent=(leads.length/cities.length).toFixed(1);
-  const top=document.getElementById('map-top-zones');
-  if(top) top.innerHTML=cities.slice(0,6).map(city=>`<tr><td style="font-family:var(--mono);font-size:12px;font-weight:700">${[...city.zips][0]||''}</td><td style="font-size:11.5px;color:var(--muted)">${city.city}</td><td><span class="score-pill ${city.score>=90?'sh':'sm'}">${city.score}</span></td><td><span class="trend-up">live</span></td></tr>`).join('');
-}
-
-async function loadLiveMap(){
-  const top=document.getElementById('map-top-zones');
-  if(!window.SqoutiqData || !SqoutiqData.isConfigured()){
-    if(top) top.innerHTML='<tr><td colspan="4" style="font-size:11.5px;color:var(--muted)">Waiting for live opportunity data.</td></tr>';
-    return;
-  }
-  try{
-    const liveLeads=await SqoutiqData.fetchLeads();
-    leadMarkerGroup.clearLayers();
-    liveLeads.slice(0,250).forEach(addLeadMarker);
-    renderMapSummary(liveLeads);
-  }
-  catch(error){
-    console.warn('Map data load failed',error);
-    if(top) top.innerHTML='<tr><td colspan="4" style="font-size:11.5px;color:var(--muted)">Live opportunity data request failed.</td></tr>';
-  }
-}
+function addLeadMarker(lead){const {lat,lng}=leadPoint(lead);const icon=L.divIcon({className:'',html:`<div style="width:22px;height:22px;background:#00a8cc;border:2px solid #fff;border-radius:50% 50% 50% 0;transform:rotate(-45deg);box-shadow:0 2px 8px rgba(0,168,204,0.45)"><div style="transform:rotate(45deg);width:100%;height:100%;display:flex;align-items:center;justify-content:center"><svg width="9" height="9" viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="2.5"><path d="M8 1C5.24 1 3 3.24 3 6c0 3.75 5 9 5 9s5-5.25 5-9c0-2.76-2.24-5-5-5z"/><circle cx="8" cy="6" r="1.5" fill="#fff" stroke="none"/></svg></div></div>`,iconSize:[22,22],iconAnchor:[11,22],popupAnchor:[0,-24]});const scColor=lead.score>=90?'#9b51e0':lead.score>=80?'#f59e0b':'#9ca3af';const marker=L.marker([lat,lng],{icon});marker.bindPopup(`<div class="lead-pop"><div class="lead-name">${escapeHtml(lead.name)}</div>${lead.email?`<a class="lead-line" href="mailto:${escapeHtml(lead.email)}">${escapeHtml(lead.email)}</a>`:'<span class="lead-line">No email</span>'}${lead.phone?`<a class="lead-line" href="${phoneHref(lead.phone)}">${escapeHtml(lead.phone)}</a>`:'<span class="lead-line">No phone</span>'}${lead.address?`<a class="lead-line" href="${mapHref(lead)}" target="_blank" rel="noopener">${escapeHtml(lead.address)}, ${escapeHtml(lead.city)} ${escapeHtml(lead.zip)}</a>`:'<span class="lead-line">No address</span>'}<div style="display:flex;align-items:center;gap:8px;margin-top:10px"><span style="font-size:11px;color:var(--muted)">Intent Score</span><span style="font-family:'DM Mono',monospace;font-size:14px;font-weight:700;color:${scColor}">${lead.score}</span></div></div>`,{maxWidth:280});leadMarkerGroup.addLayer(marker)}
+function applyLayerMode(){if(currentLayerMode==='heat'){heatLayer.addTo(map);map.removeLayer(leadMarkerGroup)}else if(currentLayerMode==='pins'){map.removeLayer(heatLayer);leadMarkerGroup.addTo(map)}else{heatLayer.addTo(map);leadMarkerGroup.addTo(map)}}
+function renderMap(){currentMapLeads=filteredMapLeads();leadMarkerGroup.clearLayers();currentMapLeads.slice(0,400).forEach(addLeadMarker);heatLayer.setLatLngs(buildHeatPoints(currentMapLeads));applyLayerMode()}
+async function loadLiveMap(){if(!window.SqoutiqData||!SqoutiqData.isConfigured())return;try{allMapLeads=await SqoutiqData.fetchLeads();renderMap()}catch(error){console.warn('Map data load failed',error)}}
 loadLiveMap();
 setInterval(loadLiveMap,60000);
 
 // ── Layer toggling ─────────────────────────────────────────────────────────
-function setLayer(mode){
-  document.querySelectorAll('.seg-ctrl button').forEach(b=>b.classList.remove('active'));
-  event.target.classList.add('active');
-  if(mode==='heat'){
-    heatLayer.addTo(map);
-    zipCircleGroup.addTo(map);zipLabelGroup.addTo(map);
-    map.removeLayer(leadMarkerGroup);
-  }else if(mode==='pins'){
-    map.removeLayer(heatLayer);
-    map.removeLayer(zipCircleGroup);map.removeLayer(zipLabelGroup);
-    leadMarkerGroup.addTo(map);
-  }else{
-    heatLayer.addTo(map);
-    zipCircleGroup.addTo(map);zipLabelGroup.addTo(map);
-    leadMarkerGroup.addTo(map);
-  }
+function setLayer(mode,button){
+  currentLayerMode=mode;
+  document.querySelectorAll('#layer-filter button').forEach(b=>b.classList.remove('active'));
+  if(button) button.classList.add('active');
+  applyLayerMode();
 }
 
 // ── Region jump ─────────────────────────────────────────────────────────────
 const regions={all:[33.79,-117.18,10],murrieta:[33.5539,-117.2139,12],temecula:[33.4936,-117.1484,12],menifee:[33.6971,-117.1853,12],perris:[33.7825,-117.2286,12],riverside:[33.9806,-117.3755,11],oceanside:[33.1959,-117.3795,12],corona:[33.8753,-117.5664,12],lake_elsinore:[33.6681,-117.3273,12],moreno_valley:[33.9425,-117.2297,12]};
 function jumpToRegion(r){const [lat,lng,z]=regions[r]||regions.all;map.setView([lat,lng],z);}
 
-// ── Labels only show above zoom 12 ─────────────────────────────────────────
-map.on('zoomend',()=>{
-  if(map.getZoom()>=12){zipLabelGroup.addTo(map);}else{map.removeLayer(zipLabelGroup);}
+document.querySelectorAll('#map-time-filter button').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('#map-time-filter button').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const dateInput=document.getElementById('map-date-filter');
+    if(dateInput) dateInput.value='';
+    renderMap();
+  });
 });
+document.getElementById('map-date-filter').addEventListener('change',renderMap);
+document.getElementById('region-select').addEventListener('change',event=>{jumpToRegion(event.target.value);renderMap();});
 try{applyTheme(localStorage.getItem(THEME_STORAGE_KEY)==='light',false)}catch(e){applyTheme(false,false)}
 </script>
 </body>
