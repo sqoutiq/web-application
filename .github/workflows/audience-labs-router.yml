@@ -3,6 +3,7 @@ name: Audience Labs Supabase Router
 on:
   workflow_dispatch:
 
+
 jobs:
   route-audience-labs:
     runs-on: ubuntu-latest
@@ -24,5 +25,5 @@ jobs:
           AUDIENCE_LABS_API_KEY: ${{ secrets.AUDIENCE_LABS_API_KEY }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
-          TYPE_SUFFIX: roofing
+          TYPE_SUFFIX: hvac
         run: python audience_labs_supabase_router.py
