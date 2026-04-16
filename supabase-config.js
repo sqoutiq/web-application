@@ -5,5 +5,5 @@ window.SQOUTIQ_SUPABASE = {
 };
 
 window.SQOUTIQ_ADMIN = {
-  createUserEndpoint: "https://yragaccpvfybrixpxvis.functions.supabase.co/create-user"
+  createUserEndpoint: "https://yragaccpvfybrixpxvis.supabase.co/functions/v1/create-user"
 };
