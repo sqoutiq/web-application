@@ -6,6 +6,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="supabase-config.js"></script>
+<script src="leads.js"></script>
 <script>try{if(localStorage.getItem('sqoutiq-theme')==='light')document.documentElement.classList.add('light-mode')}catch(e){}</script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -98,7 +100,7 @@ tbody tr:last-child td{border-bottom:none}tbody tr:hover td{background:var(--acc
       <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="8" r="2.5"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.42 1.42M11.53 11.53l1.42 1.42M3.05 12.95l1.42-1.42M11.53 4.47l1.42-1.42"/></svg>Preferences</a>
   </nav>
   <div class="sidebar-profile">
-    <button class="profile-btn" id="profile-btn"><div class="profile-avatar">JD</div><div class="profile-info"><div class="profile-name">Jordan Davis</div><div class="profile-role">Admin · LA Metro</div></div><svg class="profile-caret" id="profile-caret" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 6 8 10 12 6"/></svg></button>
+    <button class="profile-btn" id="profile-btn"><div class="profile-avatar">JD</div><div class="profile-info"><div class="profile-name">Jordan Davis</div><div class="profile-role">Admin · HVAC Territory</div></div><svg class="profile-caret" id="profile-caret" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 6 8 10 12 6"/></svg></button>
     <div class="profile-dropdown" id="profile-dropdown">
       <a class="pd-item" href="settings.html"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="5" r="3"/><path d="M1.5 14c0-3.5 3-5 6.5-5s6.5 1.5 6.5 5"/></svg>My Profile</a>
       <div class="theme-row" id="theme-toggle"><div class="theme-row-left"><svg id="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><span id="theme-text">Dark Mode</span></div><div class="pill on" id="theme-pill"><div class="knob"></div></div></div>
@@ -127,10 +129,10 @@ tbody tr:last-child td{border-bottom:none}tbody tr:hover td{background:var(--acc
 
   <div class="content">
     <div class="metrics-4">
-      <div class="metric-card amethyst"><div class="metric-label">Total Leads</div><div class="metric-value">1,284 <span>signals</span></div><div class="metric-delta"><span class="delta-dot" style="background:var(--green)"></span><span class="d-up">+18% this week</span></div></div>
-      <div class="metric-card green"><div class="metric-label">Qualified (Score ≥80)</div><div class="metric-value">347 <span>leads</span></div><div class="metric-delta"><span class="delta-dot" style="background:var(--green)"></span><span class="d-up">27% conversion rate</span></div></div>
-      <div class="metric-card amber"><div class="metric-label">Avg. Lead Score</div><div class="metric-value">74 <span>/ 100</span></div><div class="metric-delta"><span class="delta-dot" style="background:var(--amber)"></span><span class="d-am">+3 pts vs last month</span></div></div>
-      <div class="metric-card sapphire"><div class="metric-label">Est. Pipeline Value</div><div class="metric-value">$2.1M <span>total</span></div><div class="metric-delta"><span class="delta-dot" style="background:var(--blue)"></span><span class="d-bl">Across 347 leads</span></div></div>
+      <div class="metric-card amethyst"><div class="metric-label">Total Leads</div><div class="metric-value" id="intel-total">-- <span>not connected</span></div><div class="metric-delta"><span class="delta-dot" style="background:var(--green)"></span><span class="d-up">Live city tables</span></div></div>
+      <div class="metric-card green"><div class="metric-label">Qualified (Score &gt;= 80)</div><div class="metric-value" id="intel-qualified">-- <span>leads</span></div><div class="metric-delta"><span class="delta-dot" style="background:var(--green)"></span><span class="d-up">Ready for outreach</span></div></div>
+      <div class="metric-card amber"><div class="metric-label">Avg. Lead Score</div><div class="metric-value" id="intel-avg-score">-- <span>/ 100</span></div><div class="metric-delta"><span class="delta-dot" style="background:var(--amber)"></span><span class="d-am">Score range 75-100</span></div></div>
+      <div class="metric-card sapphire"><div class="metric-label">Active City Tables</div><div class="metric-value">9 <span>cities</span></div><div class="metric-delta"><span class="delta-dot" style="background:var(--blue)"></span><span class="d-bl">Supabase HVAC tables</span></div></div>
     </div>
 
     <div class="row-half">
@@ -150,15 +152,15 @@ tbody tr:last-child td{border-bottom:none}tbody tr:hover td{background:var(--acc
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="7" cy="7" r="5"/><line x1="11" y1="11" x2="15" y2="15"/></svg>
           <input class="search-input" type="text" placeholder="Search by name, address or ZIP…" id="srch">
         </div>
-        <select class="filter-select" id="sf-score"><option value="">All Scores</option><option value="h">High (80+)</option><option value="m">Medium (50–79)</option><option value="l">Low (&lt;50)</option></select>
+        <select class="filter-select" id="sf-score"><option value="">All Scores</option><option value="h">High (90-100)</option><option value="m">Qualified (80-89)</option><option value="l">Review (75-79)</option></select>
         <select class="filter-select" id="sf-type"><option value="">All Types</option><option value="AC">AC Repair</option><option value="Install">Installation</option><option value="Maintain">Maintenance</option><option value="Heating">Heating</option></select>
-        <select class="filter-select" id="sf-region"><option value="">All ZIPs</option><option value="90210">90210</option><option value="90401">90401</option><option value="90028">90028</option></select>
+        <select class="filter-select" id="sf-region"><option value="">All Cities</option><option value="murrieta">Murrieta</option><option value="temecula">Temecula</option><option value="menifee">Menifee</option><option value="perris">Perris</option><option value="riverside">Riverside</option><option value="oceanside">Oceanside</option><option value="corona">Corona</option><option value="lake_elsinore">Lake Elsinore</option><option value="moreno_valley">Moreno Valley</option></select>
       </div>
       <div style="overflow-x:auto">
         <table>
           <thead>
             <tr>
-              <th>Contact</th><th>Phone</th><th>Property Address</th><th>ZIP</th><th>Type</th><th>Score</th><th>Signal</th><th style="text-align:right">Est. Value</th>
+              <th>Contact</th><th>Phone</th><th>Property Address</th><th>City</th><th>ZIP</th><th>Type</th><th>Score</th><th>Signal</th>
             </tr>
           </thead>
           <tbody id="intel-tbody"></tbody>
@@ -180,29 +182,12 @@ let isLight=false;
 function applyTheme(light,persist=true){isLight=light;document.documentElement.classList.toggle('light-mode',light);if(persist){try{localStorage.setItem(THEME_STORAGE_KEY,light?'light':'dark')}catch(e){}}const pill=document.getElementById('theme-pill'),icon=document.getElementById('theme-icon'),txt=document.getElementById('theme-text'),logo=document.getElementById('brand-logo');if(light){pill.classList.remove('on');txt.textContent='Light Mode';if(logo)logo.src='Light.png';icon.innerHTML='<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';}else{pill.classList.add('on');txt.textContent='Dark Mode';if(logo)logo.src='Dark.png';icon.innerHTML='<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';}updateCharts(light);}
 document.getElementById('theme-toggle').addEventListener('click',()=>applyTheme(!isLight));
 
-// Lead data
-const leads=[
-  {name:'Michael Chen',phone:'(310) 555-0192',address:'1422 Wilshire Blvd, Santa Monica',zip:'90401',type:'AC',score:94,sig:4,value:24500},
-  {name:'Sarah Jenkins',phone:'(415) 555-8831',address:'7100 Market St, San Francisco',zip:'90401',type:'Install',score:88,sig:4,value:185000},
-  {name:'David Rodriguez',phone:'(619) 555-3421',address:'2801 Mission Blvd, San Diego',zip:'90028',type:'Maintain',score:76,sig:3,value:18200},
-  {name:'Emily Carter',phone:'(916) 555-9011',address:'1000 J St, Sacramento',zip:'90210',type:'Heating',score:71,sig:3,value:8400},
-  {name:'James Thompson',phone:'(408) 555-4420',address:'5900 Stevens Creek Blvd, San Jose',zip:'90028',type:'AC',score:65,sig:2,value:5800},
-  {name:'Linda Perez',phone:'(213) 555-7821',address:'435 S Grand Ave, Los Angeles',zip:'90012',type:'Install',score:91,sig:4,value:42000},
-  {name:'Ryan Foster',phone:'(310) 555-3348',address:'820 Ocean Ave, Santa Monica',zip:'90401',type:'AC',score:83,sig:4,value:12800},
-  {name:'Amanda Wu',phone:'(818) 555-2291',address:'12440 Burbank Blvd, N. Hollywood',zip:'91601',type:'Maintain',score:58,sig:2,value:3200},
-  {name:'Chris Mendez',phone:'(562) 555-9920',address:'302 E Ocean Blvd, Long Beach',zip:'90805',type:'Heating',score:79,sig:3,value:9100},
-  {name:'Megan Hall',phone:'(626) 555-5412',address:'180 N Fair Oaks Ave, Pasadena',zip:'91107',type:'AC',score:86,sig:4,value:17400},
-  {name:'Derek Kim',phone:'(323) 555-0811',address:'8291 Sunset Blvd, Hollywood',zip:'90028',type:'Install',score:92,sig:4,value:58000},
-  {name:'Priya Nair',phone:'(310) 555-4490',address:'2200 Century Park E, Los Angeles',zip:'90067',type:'AC',score:77,sig:3,value:14200},
-  {name:'Tom Bradley',phone:'(818) 555-6631',address:'505 N Brand Blvd, Glendale',zip:'91203',type:'Heating',score:44,sig:1,value:2100},
-  {name:'Sofia Reyes',phone:'(310) 555-2271',address:'9900 Wilshire Blvd, Beverly Hills',zip:'90210',type:'Maintain',score:89,sig:4,value:31000},
-  {name:'Ethan Moore',phone:'(424) 555-8840',address:'3760 Motor Ave, Culver City',zip:'90230',type:'AC',score:62,sig:2,value:7500},
-];
+let activeLeads=[];
 
-function scClass(s){return s>=80?'sh':s>=60?'sm':'sl'}
+function scClass(s){return s>=90?'sh':s>=80?'sm':'sl'}
 function typeBadge(t){const m={AC:'b-blue',Install:'b-accent',Maintain:'b-green',Heating:'b-amber'};return`<span class="badge ${m[t]||'b-blue'}">${t}</span>`}
 function sigMeter(n){return`<div class="signal-meter">${[1,2,3,4].map(i=>`<div class="sig-bar${i<=n?' on':''}"></div>`).join('')}</div>`}
-function barColor(s){return s>=80?'var(--accent)':s>=60?'var(--amber)':'var(--muted)'}
+function barColor(s){return s>=90?'var(--accent)':s>=80?'var(--amber)':'var(--muted)'}
 
 function render(data){
   const tb=document.getElementById('intel-tbody'),es=document.getElementById('empty-state');
@@ -211,11 +196,11 @@ function render(data){
     <td><strong class="contact-link">${r.name}</strong></td>
     <td><span class="contact-phone">${r.phone}</span></td>
     <td><span class="address-txt">${r.address}</span></td>
+    <td>${r.city}</td>
     <td style="font-family:var(--mono);font-size:12.5px">${r.zip}</td>
     <td>${typeBadge(r.type)}</td>
     <td><div class="score-wrap"><span class="score-num ${scClass(r.score)}">${r.score}</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:${r.score}%;background:${barColor(r.score)}"></div></div></div></td>
     <td>${sigMeter(r.sig)}</td>
-    <td class="val-txt">$${r.value.toLocaleString()}</td>
   </tr>`).join('');
 }
 
@@ -224,31 +209,80 @@ function filterLeads(){
   const sc=document.getElementById('sf-score').value;
   const ty=document.getElementById('sf-type').value;
   const rg=document.getElementById('sf-region').value;
-  render(leads.filter(r=>{
-    const ms=!q||r.name.toLowerCase().includes(q)||r.address.toLowerCase().includes(q);
-    const mscore=!sc||(sc==='h'&&r.score>=80)||(sc==='m'&&r.score>=50&&r.score<80)||(sc==='l'&&r.score<50);
+  render(activeLeads.filter(r=>{
+    const ms=!q||r.name.toLowerCase().includes(q)||r.address.toLowerCase().includes(q)||r.city.toLowerCase().includes(q)||r.zip.includes(q);
+    const mscore=!sc||(sc==='h'&&r.score>=90)||(sc==='m'&&r.score>=80&&r.score<90)||(sc==='l'&&r.score>=75&&r.score<80);
     const mtype=!ty||r.type===ty;
-    const mreg=!rg||r.zip===rg;
+    const mreg=!rg||r.region===rg;
     return ms&&mscore&&mtype&&mreg;
   }));
 }
 
-render(leads);
+render([]);
 ['srch','sf-score','sf-type','sf-region'].forEach(id=>document.getElementById(id).addEventListener('input',filterLeads));
 document.getElementById('sf-score').addEventListener('change',filterLeads);
 document.getElementById('sf-type').addEventListener('change',filterLeads);
 document.getElementById('sf-region').addEventListener('change',filterLeads);
 
+function updateIntelMetrics(data){
+  const total=document.getElementById('intel-total'),qualified=document.getElementById('intel-qualified'),avg=document.getElementById('intel-avg-score');
+  const avgScore=data.length?Math.round(data.reduce((sum,lead)=>sum+lead.score,0)/data.length):0;
+  if(total) total.innerHTML=`${data.length.toLocaleString()} <span>signals</span>`;
+  if(qualified) qualified.innerHTML=`${data.filter(lead=>lead.score>=80).length.toLocaleString()} <span>leads</span>`;
+  if(avg) avg.innerHTML=`${data.length?avgScore:'--'} <span>/ 100</span>`;
+}
+function showIntelMessage(message){
+  activeLeads=[];
+  updateIntelMetrics([]);
+  const es=document.getElementById('empty-state');
+  if(es) es.textContent=message;
+  render([]);
+  updateIntelCharts([]);
+}
+async function loadLiveIntel(){
+  if(!window.SqoutiqData || !SqoutiqData.isConfigured()){
+    showIntelMessage('Add Supabase URL and anon key in supabase-config.js.');
+    return;
+  }
+  try{
+    const liveLeads=await SqoutiqData.fetchLeads();
+    activeLeads=liveLeads;
+    updateIntelMetrics(activeLeads);
+    updateIntelCharts(activeLeads);
+    filterLeads();
+  }catch(error){
+    console.warn('Supabase intel load failed',error);
+    showIntelMessage('Supabase request failed. Check anon key, URL, and table permissions.');
+  }
+}
+
 // Charts
 Chart.defaults.font.family="'DM Sans',sans-serif";
 let scoreChart=new Chart(document.getElementById('scoreChart'),{type:'bar',data:{
-  labels:['0–19','20–39','40–59','60–79','80–89','90–100'],
-  datasets:[{data:[8,22,98,215,284,63],backgroundColor:['#6b7280','#6b7280','#00a8cc','#f59e0b','#9b51e0','#10b981'],borderRadius:5,borderSkipped:false}]
+  labels:['75-79','80-84','85-89','90-94','95-100'],
+  datasets:[{data:[0,0,0,0,0],backgroundColor:['#6b7280','#f59e0b','#00a8cc','#9b51e0','#10b981'],borderRadius:5,borderSkipped:false}]
 },options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{backgroundColor:'#1d1f2b',borderColor:'rgba(255,255,255,0.08)',borderWidth:1,bodyColor:'#f3f4f6',padding:8,cornerRadius:7}},scales:{y:{grid:{color:'rgba(255,255,255,0.04)'},border:{display:false},ticks:{color:'#6b7280',font:{family:'DM Mono',size:11}}},x:{grid:{display:false},border:{display:false},ticks:{color:'#6b7280',font:{family:'DM Sans',size:11}}}}}});
 let typeChart=new Chart(document.getElementById('typeChart'),{type:'doughnut',data:{
-  labels:['AC Repair','Installation','Maintenance','Heating'],
-  datasets:[{data:[38,24,22,16],backgroundColor:['#9b51e0','#00a8cc','#10b981','#f59e0b'],borderWidth:0,hoverOffset:6}]
+  labels:SqoutiqData.cityOptions().map(city=>city.label),
+  datasets:[{data:SqoutiqData.cityOptions().map(()=>0),backgroundColor:['#9b51e0','#00a8cc','#10b981','#f59e0b','#ef4444','#64748b','#14b8a6','#84cc16','#f97316'],borderWidth:0,hoverOffset:6}]
 },options:{responsive:true,maintainAspectRatio:false,cutout:'68%',plugins:{legend:{position:'right',labels:{color:'#9ca3af',font:{family:'DM Sans',size:12},boxWidth:10,padding:12}},tooltip:{backgroundColor:'#1d1f2b',borderColor:'rgba(255,255,255,0.08)',borderWidth:1,bodyColor:'#f3f4f6',padding:8,cornerRadius:7}}}});
+
+function updateIntelCharts(data){
+  const bins=[0,0,0,0,0];
+  const byCity=Object.fromEntries(SqoutiqData.cityOptions().map(city=>[city.slug,0]));
+  data.forEach(lead=>{
+    if(lead.score>=95) bins[4]++;
+    else if(lead.score>=90) bins[3]++;
+    else if(lead.score>=85) bins[2]++;
+    else if(lead.score>=80) bins[1]++;
+    else bins[0]++;
+    if(byCity[lead.region]!==undefined) byCity[lead.region]++;
+  });
+  scoreChart.data.datasets[0].data=bins;
+  typeChart.data.datasets[0].data=SqoutiqData.cityOptions().map(city=>byCity[city.slug]||0);
+  scoreChart.update();
+  typeChart.update();
+}
 
 function updateCharts(light){
   const g=light?'rgba(0,0,0,0.05)':'rgba(255,255,255,0.04)',t='#6b7280',tb=light?'#fff':'#1d1f2b',tc=light?'rgba(0,0,0,0.1)':'rgba(255,255,255,0.08)',tbody=light?'#111827':'#f3f4f6',lc=light?'#4b5563':'#9ca3af';
@@ -256,6 +290,8 @@ function updateCharts(light){
   typeChart.options.plugins.legend.labels.color=lc;typeChart.options.plugins.tooltip.backgroundColor=tb;typeChart.options.plugins.tooltip.borderColor=tc;typeChart.options.plugins.tooltip.bodyColor=tbody;typeChart.update();
 }
 try{applyTheme(localStorage.getItem(THEME_STORAGE_KEY)==='light',false)}catch(e){applyTheme(false,false)}
+loadLiveIntel();
+setInterval(loadLiveIntel,60000);
 </script>
 </body>
 </html>
