@@ -47,6 +47,8 @@ SELECT_COLUMNS = ",".join(
         "PERSONAL_CITY",
         "PERSONAL_STATE",
         "PERSONAL_ZIP",
+        "LATITUDE",
+        "LONGITUDE",
         "NET_WORTH",
         "INCOME_RANGE",
         "time_stamp",
@@ -148,6 +150,14 @@ def clean_phone(value: Any) -> str:
     return str(value or "")
 
 
+def clean_coordinate(value: Any) -> float | None:
+    try:
+        number = float(value)
+    except (TypeError, ValueError):
+        return None
+    return number
+
+
 def normalize_lead(row: dict[str, Any], city: dict[str, str]) -> dict[str, Any]:
     first = str(row.get("FIRST_NAME") or "").strip()
     last = str(row.get("LAST_NAME") or "").strip()
@@ -161,6 +171,8 @@ def normalize_lead(row: dict[str, Any], city: dict[str, str]) -> dict[str, Any]:
         "table": city["table"],
         "zip": clean_zip(row.get("PERSONAL_ZIP")),
         "email": row.get("PERSONAL_VERIFIED_EMAIL") or "",
+        "lat": clean_coordinate(row.get("LATITUDE")),
+        "lng": clean_coordinate(row.get("LONGITUDE")),
         "incomeRange": row.get("INCOME_RANGE") or "",
         "netWorth": row.get("NET_WORTH") or "",
         "score": score,
@@ -176,6 +188,13 @@ def fetch_city(city: dict[str, str]) -> list[dict[str, Any]]:
         f"?select={SELECT_COLUMNS}&order=created_at.desc&limit={MAX_ROWS_PER_CITY}"
     )
     response = requests.get(url, headers=headers(), timeout=90)
+    if response.status_code == 400 and ("LATITUDE" in response.text or "LONGITUDE" in response.text):
+        fallback_columns = SELECT_COLUMNS.replace(",LATITUDE,LONGITUDE", "")
+        url = (
+            f"{SUPABASE_URL}/rest/v1/{city['table']}"
+            f"?select={fallback_columns}&order=created_at.desc&limit={MAX_ROWS_PER_CITY}"
+        )
+        response = requests.get(url, headers=headers(), timeout=90)
     if response.status_code != 200:
         raise RuntimeError(f"{city['table']} failed: HTTP {response.status_code} {response.text}")
     return [normalize_lead(row, city) for row in response.json()]

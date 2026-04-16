@@ -102,6 +102,11 @@
     return String(value || "");
   }
 
+  function cleanCoordinate(value){
+    const number = Number(value);
+    return Number.isFinite(number) ? number : null;
+  }
+
   function normalizeLead(row, city){
     const first = String(row.FIRST_NAME || "").trim();
     const last = String(row.LAST_NAME || "").trim();
@@ -115,6 +120,8 @@
       table: city.table,
       zip: cleanZip(row.PERSONAL_ZIP),
       email: row.PERSONAL_VERIFIED_EMAIL || "",
+      lat: cleanCoordinate(row.LATITUDE),
+      lng: cleanCoordinate(row.LONGITUDE),
       incomeRange: row.INCOME_RANGE || "",
       netWorth: row.NET_WORTH || "",
       score,
@@ -127,7 +134,7 @@
   async function fetchCityTable(city){
     const cfg = config();
     const base = cfg.url.replace(/\/$/, "");
-    const columns = [
+    const baseColumns = [
       "FIRST_NAME",
       "LAST_NAME",
       "PERSONAL_VERIFIED_EMAIL",
@@ -140,9 +147,15 @@
       "INCOME_RANGE",
       "time_stamp",
       "created_at"
-    ].join(",");
+    ];
+    const geoColumns = ["LATITUDE", "LONGITUDE"];
+    const columns = baseColumns.concat(geoColumns).join(",");
     const url = `${base}/rest/v1/${city.table}?select=${columns}&order=created_at.desc&limit=${MAX_ROWS_PER_CITY}`;
-    const response = await fetch(url, { headers: requestHeaders() });
+    let response = await fetch(url, { headers: requestHeaders() });
+    if(!response.ok && response.status === 400){
+      const fallbackUrl = `${base}/rest/v1/${city.table}?select=${baseColumns.join(",")}&order=created_at.desc&limit=${MAX_ROWS_PER_CITY}`;
+      response = await fetch(fallbackUrl, { headers: requestHeaders() });
+    }
     if(!response.ok){
       throw new Error(`${city.table}: ${response.status} ${await response.text()}`);
     }
