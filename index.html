@@ -96,7 +96,7 @@ document.getElementById('login-form').addEventListener('submit',async event=>{
   btn.disabled=true;btn.textContent='Signing in...';msg.textContent='';
   try{
     await SqoutiqAuth.login(document.getElementById('email').value.trim(),document.getElementById('password').value);
-    window.location.href='dash.html';
+    window.location.href='dash/';
   }catch(error){
     msg.textContent=error.message || 'Login failed.';
     btn.disabled=false;btn.textContent='Open Dashboard';
