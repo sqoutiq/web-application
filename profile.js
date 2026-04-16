@@ -22,6 +22,10 @@
 
   function displayName(user){
     const meta=user?.user_metadata || {};
+    const first = meta.first_name || meta.firstName || meta.given_name || meta.givenName || "";
+    const last = meta.last_name || meta.lastName || meta.family_name || meta.familyName || "";
+    const joined = `${first} ${last}`.trim();
+    if(joined) return joined;
     const fromMeta = meta.full_name || meta.fullName || meta.name || meta.display_name || meta.displayName;
     if(fromMeta) return fromMeta;
     const emailName = user?.email ? user.email.split("@")[0].replace(/[._-]+/g," ").trim() : "";

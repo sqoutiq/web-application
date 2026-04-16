@@ -61,9 +61,12 @@
       throw new Error(`Login failed: ${detail}`);
     }
     if(payload.user && !payload.user.user_metadata?.full_name){
+      const meta=payload.user.user_metadata || {};
+      const first=meta.first_name || meta.firstName || meta.given_name || meta.givenName || "";
+      const last=meta.last_name || meta.lastName || meta.family_name || meta.familyName || "";
       payload.user.user_metadata = {
-        ...(payload.user.user_metadata || {}),
-        full_name: payload.user.email ? payload.user.email.split("@")[0].replace(/[._-]+/g," ").replace(/\b\w/g,ch=>ch.toUpperCase()) : "Viewer"
+        ...meta,
+        full_name: `${first} ${last}`.trim() || (payload.user.email ? payload.user.email.split("@")[0].replace(/[._-]+/g," ").replace(/\b\w/g,ch=>ch.toUpperCase()) : "Viewer")
       };
     }
     setSession(payload);
