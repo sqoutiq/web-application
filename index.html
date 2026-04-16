@@ -15,7 +15,6 @@
 :root.light-mode{--bg:#f0f2f5;--surface:#fff;--surface2:#f8fafc;--border:#e2e8f0;--text:#0f172a;--muted:#64748b;--accent:#7c3aed;--accent2:#e65749;--green:#047857;--red:#b91c1c}
 body{min-height:100vh;font-family:var(--font);background:var(--bg);color:var(--text);display:grid;grid-template-columns:1.05fr .95fr;overflow:hidden}
 .brand-panel{position:relative;padding:38px 48px;display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(145deg,rgba(155,81,224,.14),transparent 42%),linear-gradient(20deg,rgba(255,102,85,.12),transparent 48%),var(--surface)}
-.brand-top{display:flex;align-items:center;justify-content:space-between;gap:18px}
 .brand-logo{width:218px;height:108px;object-fit:cover;object-position:center}
 .hvac-scene{min-height:330px;display:flex;flex-direction:column;justify-content:center;gap:22px}
 .kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent2);font-weight:700}
@@ -27,7 +26,7 @@ h1{font-size:44px;line-height:1.02;letter-spacing:-.04em;max-width:590px}
 .hvac-strip{border:1px solid var(--border);border-radius:8px;background:linear-gradient(90deg,rgba(0,168,204,.12),rgba(155,81,224,.16));padding:16px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .hvac-step{min-height:72px;border:1px solid var(--border);border-radius:8px;background:rgba(255,255,255,.035);padding:12px}
 .hvac-step strong{display:block;font-size:13px;color:var(--text);margin-bottom:4px}.hvac-step span{font-size:12px;color:var(--muted)}
-.theme-toggle{display:flex;align-items:center;gap:9px;border:1px solid var(--border);background:var(--surface2);color:var(--muted);border-radius:8px;padding:8px 10px;font-size:13px;font-weight:600;cursor:pointer}
+.theme-toggle{position:absolute;left:48px;bottom:30px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);background:var(--surface2);color:var(--muted);border-radius:8px;padding:0;cursor:pointer}
 .theme-toggle svg{width:15px;height:15px}
 .login-panel{display:flex;align-items:center;justify-content:center;padding:34px;background:var(--bg)}
 .login-card{width:min(430px,100%);background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:28px}
@@ -42,13 +41,10 @@ button{width:100%;height:46px;border:0;border-radius:8px;background:linear-gradi
 </head>
 <body>
 <section class="brand-panel">
-  <div class="brand-top">
-    <img class="brand-logo" id="brand-logo" src="Dark.png" alt="sqoutIQ">
-    <button class="theme-toggle" type="button" id="theme-toggle" aria-label="Toggle theme">
-      <svg id="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-      <span id="theme-text">Dark</span>
-    </button>
-  </div>
+  <img class="brand-logo" id="brand-logo" src="Dark.png" alt="sqoutIQ">
+  <button class="theme-toggle" type="button" id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+    <svg id="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+  </button>
   <div class="hvac-scene">
     <div class="kicker">HVAC Intent Command Center</div>
     <h1>Live homeowner demand across your service cities.</h1>
@@ -64,7 +60,7 @@ button{width:100%;height:46px;border:0;border-radius:8px;background:linear-gradi
       <div class="stat"><div class="stat-num">HVAC</div><div class="stat-label">Opportunity category</div></div>
     </div>
   </div>
-  <p class="fine">Accounts are created by the workspace admin. There is no public registration.</p>
+  <p class="fine" style="padding-left:46px">Accounts are created by the workspace admin. There is no public registration.</p>
 </section>
 <main class="login-panel">
   <form class="login-card" id="login-form">
@@ -87,9 +83,8 @@ function applyLoginTheme(light,persist=true){
   isLight=light;
   document.documentElement.classList.toggle('light-mode',light);
   if(persist){try{localStorage.setItem(THEME_STORAGE_KEY,light?'light':'dark')}catch(e){}}
-  const logo=document.getElementById('brand-logo'),text=document.getElementById('theme-text'),icon=document.getElementById('theme-icon');
+  const logo=document.getElementById('brand-logo'),icon=document.getElementById('theme-icon');
   if(logo) logo.src=light?'Light.png':'Dark.png';
-  if(text) text.textContent=light?'Light':'Dark';
   if(icon) icon.innerHTML=light?'<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>':'<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
 }
 document.getElementById('theme-toggle').addEventListener('click',()=>applyLoginTheme(!isLight));
