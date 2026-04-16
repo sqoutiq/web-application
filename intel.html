@@ -54,7 +54,7 @@ main{flex:1;display:flex;flex-direction:column;overflow:hidden}
 .top-select:hover{border-color:var(--border2)}
 .date-select{min-width:142px;color-scheme:dark}.light-mode .date-select{color-scheme:light}
 .content{flex:1;overflow-y:auto;padding:24px 28px;display:flex;flex-direction:column;gap:20px}
-.metrics-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.metrics-4{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
 .metric-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;position:relative;overflow:hidden;transition:border-color .2s,background .3s}
 .metric-card:hover{border-color:var(--border2)}.metric-card::after{content:'';position:absolute;top:0;right:0;width:65px;height:65px;border-radius:0 12px 0 65px;opacity:.06}
 .metric-card.amethyst::after{background:var(--accent)}.metric-card.sapphire::after{background:var(--blue)}.metric-card.amber::after{background:var(--amber)}.metric-card.green::after{background:var(--green)}
@@ -62,7 +62,6 @@ main{flex:1;display:flex;flex-direction:column;overflow:hidden}
 .metric-value{font-size:32px;font-weight:400;letter-spacing:-.03em;line-height:1;color:var(--text)}.metric-value span{font-size:13px;color:var(--muted);font-weight:400;margin-left:3px}
 .metric-delta{margin-top:10px;font-size:12.5px;display:flex;align-items:center;gap:6px;font-weight:500}
 .delta-dot{width:6px;height:6px;border-radius:50%}.d-up{color:var(--green)}.d-ac{color:var(--accent)}.d-am{color:var(--amber)}.d-bl{color:var(--blue)}.d-nu{color:var(--muted)}
-.analytics-grid{display:grid;grid-template-columns:1fr;gap:16px}
 .card{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:background .3s,border-color .3s}
 .card-head{display:flex;align-items:flex-start;justify-content:space-between;padding:18px 20px 14px;border-bottom:1px solid var(--border)}
 .card-title{font-size:16px;font-weight:600;color:var(--text)}.card-sub{font-size:12.5px;color:var(--muted);margin-top:2px}.card-body{padding:18px 20px}
@@ -138,16 +137,7 @@ tbody tr:last-child td{border-bottom:none}tbody tr:hover td{background:var(--acc
   <div class="content">
     <div class="metrics-4">
       <div class="metric-card amethyst"><div class="metric-label">Total Opportunities</div><div class="metric-value" id="intel-total">-- <span>not connected</span></div><div class="metric-delta"><span class="delta-dot" style="background:var(--green)"></span><span class="d-up">Live city data</span></div></div>
-      <div class="metric-card green"><div class="metric-label">Qualified (Score &gt;= 80)</div><div class="metric-value" id="intel-qualified">-- <span>opportunities</span></div><div class="metric-delta"><span class="delta-dot" style="background:var(--green)"></span><span class="d-up">Ready for outreach</span></div></div>
       <div class="metric-card amber"><div class="metric-label">Avg. Opportunity Score</div><div class="metric-value" id="intel-avg-score">-- <span>/ 100</span></div><div class="metric-delta"><span class="delta-dot" style="background:var(--amber)"></span><span class="d-am">Live</span></div></div>
-      <div class="metric-card sapphire"><div class="metric-label">Active City Data</div><div class="metric-value">9 <span>cities</span></div><div class="metric-delta"><span class="delta-dot" style="background:var(--blue)"></span><span class="d-bl">HVAC coverage</span></div></div>
-    </div>
-
-    <div class="analytics-grid">
-      <div class="card">
-        <div class="card-head"><div><div class="card-title">Score Distribution</div><div class="card-sub">Opportunity quality breakdown by score band</div></div></div>
-        <div class="card-body" style="padding-bottom:12px"><div style="position:relative;width:100%;height:200px"><canvas id="scoreChart"></canvas></div></div>
-      </div>
     </div>
 
     <div class="card">
@@ -250,7 +240,6 @@ function filterLeads(){
   });
   activeLeads=filtered;
   updateIntelMetrics(activeLeads);
-  updateIntelCharts(activeLeads);
   render(activeLeads);
 }
 
@@ -280,10 +269,9 @@ document.getElementById('export-csv').addEventListener('click',()=>{
 });
 
 function updateIntelMetrics(data){
-  const total=document.getElementById('intel-total'),qualified=document.getElementById('intel-qualified'),avg=document.getElementById('intel-avg-score');
+  const total=document.getElementById('intel-total'),avg=document.getElementById('intel-avg-score');
   const avgScore=data.length?Math.round(data.reduce((sum,lead)=>sum+lead.score,0)/data.length):0;
   if(total) total.innerHTML=`${data.length.toLocaleString()} <span>opportunities</span>`;
-  if(qualified) qualified.innerHTML=`${data.filter(lead=>lead.score>=80).length.toLocaleString()} <span>opportunities</span>`;
   if(avg) avg.innerHTML=`${data.length?avgScore:'--'} <span>/ 100</span>`;
 }
 function showIntelMessage(message){
@@ -293,7 +281,6 @@ function showIntelMessage(message){
   const es=document.getElementById('empty-state');
   if(es) es.textContent=message;
   render([]);
-  updateIntelCharts([]);
 }
 async function loadLiveIntel(){
   if(!window.SqoutiqData || !SqoutiqData.isConfigured()){
@@ -309,28 +296,8 @@ async function loadLiveIntel(){
   }
 }
 
-// Charts
-Chart.defaults.font.family="'DM Sans',sans-serif";
-let scoreChart=new Chart(document.getElementById('scoreChart'),{type:'bar',data:{
-  labels:['75-79','80-84','85-89','90-94','95-100'],
-  datasets:[{data:[0,0,0,0,0],backgroundColor:['#6b7280','#f59e0b','#00a8cc','#9b51e0','#10b981'],borderRadius:5,borderSkipped:false}]
-},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{backgroundColor:'#1d1f2b',borderColor:'rgba(255,255,255,0.08)',borderWidth:1,bodyColor:'#f3f4f6',padding:8,cornerRadius:7}},scales:{y:{grid:{color:'rgba(255,255,255,0.04)'},border:{display:false},ticks:{color:'#6b7280',font:{family:'DM Mono',size:11}}},x:{grid:{display:false},border:{display:false},ticks:{color:'#6b7280',font:{family:'DM Sans',size:11}}}}}});
-function updateIntelCharts(data){
-  const bins=[0,0,0,0,0];
-  data.forEach(lead=>{
-    if(lead.score>=95) bins[4]++;
-    else if(lead.score>=90) bins[3]++;
-    else if(lead.score>=85) bins[2]++;
-    else if(lead.score>=80) bins[1]++;
-    else bins[0]++;
-  });
-  scoreChart.data.datasets[0].data=bins;
-  scoreChart.update();
-}
-
 function updateCharts(light){
-  const g=light?'rgba(0,0,0,0.05)':'rgba(255,255,255,0.04)',t='#6b7280',tb=light?'#fff':'#1d1f2b',tc=light?'rgba(0,0,0,0.1)':'rgba(255,255,255,0.08)',tbody=light?'#111827':'#f3f4f6';
-  scoreChart.options.scales.y.grid.color=g;scoreChart.options.scales.y.ticks.color=t;scoreChart.options.scales.x.ticks.color=t;scoreChart.options.plugins.tooltip.backgroundColor=tb;scoreChart.options.plugins.tooltip.borderColor=tc;scoreChart.options.plugins.tooltip.bodyColor=tbody;scoreChart.update();
+  return light;
 }
 try{applyTheme(localStorage.getItem(THEME_STORAGE_KEY)==='light',false)}catch(e){applyTheme(false,false)}
 loadLiveIntel();
