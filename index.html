@@ -170,10 +170,9 @@ tbody tr:last-child td{border-bottom:none}tbody tr:hover td{background:var(--acc
     <div class="row2">
       <div class="card">
         <div class="card-head">
-          <div><div class="card-title">Daily Demand Pulse</div><div class="card-sub">Total signal volume tracked over the past 14 days</div></div>
+          <div><div class="card-title">Daily Demand Pulse</div><div class="card-sub">Daily leads refreshed over the past 7 days</div></div>
           <div class="chart-legend">
-            <div class="legend-item"><div class="legend-sw" style="background:var(--accent)"></div>Current Period</div>
-            <div class="legend-item"><div class="legend-sw dashed"></div>Previous Period</div>
+            <div class="legend-item"><div class="legend-sw" style="background:var(--accent)"></div>Leads Refreshed</div>
           </div>
         </div>
         <div class="card-body" style="padding-bottom:12px">
@@ -252,23 +251,47 @@ document.getElementById('theme-toggle').addEventListener('click',()=>applyTheme(
 // Chart
 Chart.defaults.font.family="'DM Sans',sans-serif";
 const ctxD=document.getElementById('demandChart').getContext('2d');
-const gA=ctxD.createLinearGradient(0,0,0,250);gA.addColorStop(0,'rgba(155,81,224,0.22)');gA.addColorStop(1,'rgba(155,81,224,0)');
-const gB=ctxD.createLinearGradient(0,0,0,250);gB.addColorStop(0,'rgba(0,168,204,0.12)');gB.addColorStop(1,'rgba(0,168,204,0)');
-let chart=new Chart(ctxD,{type:'line',data:{
-  labels:['Day 1','Day 2','Day 3','Day 4','Day 5','Day 6','Day 7','Day 8','Day 9','Day 10','Day 11','Day 12','Day 13','Today'],
+const gA=ctxD.createLinearGradient(0,0,0,250);gA.addColorStop(0,'rgba(155,81,224,0.9)');gA.addColorStop(1,'rgba(155,81,224,0.35)');
+function lastSevenDayBuckets(){
+  const days=[];
+  const today=new Date();
+  today.setHours(0,0,0,0);
+  for(let offset=6;offset>=0;offset--){
+    const day=new Date(today);
+    day.setDate(today.getDate()-offset);
+    const key=`${day.getFullYear()}-${String(day.getMonth()+1).padStart(2,'0')}-${String(day.getDate()).padStart(2,'0')}`;
+    days.push({key,label:`${day.getMonth()+1}/${day.getDate()}`,count:0});
+  }
+  return days;
+}
+let chart=new Chart(ctxD,{type:'bar',data:{
+  labels:lastSevenDayBuckets().map(day=>day.label),
   datasets:[
-    {label:'Current',data:Array(14).fill(0),borderColor:'#9b51e0',backgroundColor:gA,borderWidth:2.5,tension:.45,fill:true,pointRadius:3,pointBackgroundColor:'#9b51e0',pointBorderColor:'#0b0c10',pointBorderWidth:2,pointHoverRadius:5},
-    {label:'Previous',data:Array(14).fill(0),borderColor:'#00a8cc',borderDash:[6,5],backgroundColor:gB,borderWidth:2,tension:.45,fill:true,pointRadius:2.5,pointBackgroundColor:'#00a8cc',pointBorderColor:'#0b0c10',pointBorderWidth:2,pointHoverRadius:4}
-  ]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{display:false},tooltip:{backgroundColor:'#1d1f2b',borderColor:'rgba(255,255,255,0.08)',borderWidth:1,titleColor:'#9ca3af',bodyColor:'#f3f4f6',padding:10,cornerRadius:8}},scales:{y:{beginAtZero:true,min:0,grid:{color:'rgba(255,255,255,0.04)'},border:{display:false},ticks:{color:'#6b7280',font:{family:'DM Mono',size:11},maxTicksLimit:6}},x:{grid:{display:false},border:{display:false},ticks:{color:'#6b7280',font:{family:'DM Sans',size:11}}}}}});
+    {label:'Leads Refreshed',data:Array(7).fill(0),backgroundColor:gA,borderColor:'#9b51e0',borderWidth:1,borderRadius:6,borderSkipped:false,maxBarThickness:54}
+  ]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{display:false},tooltip:{backgroundColor:'#1d1f2b',borderColor:'rgba(255,255,255,0.08)',borderWidth:1,titleColor:'#9ca3af',bodyColor:'#f3f4f6',padding:10,cornerRadius:8,callbacks:{label:ctx=>`${ctx.parsed.y} leads refreshed`}}},scales:{y:{beginAtZero:true,min:0,grid:{color:'rgba(255,255,255,0.04)'},border:{display:false},ticks:{precision:0,color:'#6b7280',font:{family:'DM Mono',size:11},maxTicksLimit:6}},x:{grid:{display:false},border:{display:false},ticks:{color:'#6b7280',font:{family:'DM Sans',size:11}}}}}});
 
 function updateChart(light){
   const g=light?'rgba(0,0,0,0.05)':'rgba(255,255,255,0.04)',t='#6b7280',bg=light?'#fff':'#0b0c10',tb=light?'#fff':'#1d1f2b',tc=light?'rgba(0,0,0,0.1)':'rgba(255,255,255,0.08)',tt=light?'#4b5563':'#9ca3af',tb2=light?'#111827':'#f3f4f6';
   chart.options.scales.y.grid.color=g;chart.options.scales.y.ticks.color=t;chart.options.scales.x.ticks.color=t;
-  chart.data.datasets[0].pointBorderColor=bg;chart.data.datasets[1].pointBorderColor=bg;
   chart.options.plugins.tooltip.backgroundColor=tb;chart.options.plugins.tooltip.borderColor=tc;chart.options.plugins.tooltip.titleColor=tt;chart.options.plugins.tooltip.bodyColor=tb2;
   chart.update();
 }
 let allDashboardLeads=[];
+
+function updateDailyChart(leads){
+  const days=lastSevenDayBuckets();
+  const byKey=Object.fromEntries(days.map(day=>[day.key,day]));
+  leads.forEach(lead=>{
+    const raw=lead.timeStamp || lead.created_at || '';
+    const date=raw ? new Date(raw) : null;
+    if(!date || Number.isNaN(date.getTime())) return;
+    const key=`${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+    if(byKey[key]) byKey[key].count++;
+  });
+  chart.data.labels=days.map(day=>day.label);
+  chart.data.datasets[0].data=days.map(day=>day.count);
+  chart.update();
+}
 
 function selectedCity(){
   const select=document.getElementById('city-select');
@@ -334,10 +357,11 @@ function renderDashboardFromLeads(leads){
   if(total) total.innerHTML=`${leads.length.toLocaleString()} <span>active</span>`;
   if(avg) avg.innerHTML=`${avgScore} <span>/ 100</span>`;
   if(today) today.innerHTML=`${leads.length.toLocaleString()} <span>opportunities</span>`;
-  if(totalNote) totalNote.textContent='Live from Supabase';
-  if(scoreNote) scoreNote.textContent='Score range 75-100';
+  if(totalNote) totalNote.textContent='Live';
+  if(scoreNote) scoreNote.textContent='Live';
   if(todayNote) todayNote.textContent='Current refresh';
 
+  updateDailyChart(leads);
   renderTopZones(leads, city);
 
   const leadsBody=document.getElementById('dashboard-leads-tbody');
@@ -359,7 +383,8 @@ function showDashboardMessage(message){
   if(top) top.innerHTML=`<tr><td colspan="3" class="address-txt">${message}</td></tr>`;
   if(leadsBody) leadsBody.innerHTML=`<tr><td colspan="5" class="address-txt">${message}</td></tr>`;
   if(chart){
-    chart.data.datasets.forEach(ds=>{ds.data=chart.data.labels.map(()=>0)});
+    chart.data.labels=lastSevenDayBuckets().map(day=>day.label);
+    chart.data.datasets.forEach(ds=>{ds.data=Array(7).fill(0)});
     chart.update();
   }
 }
