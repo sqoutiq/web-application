@@ -1,0 +1,16 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/dash", "destination": "/dash.html" },
+    { "source": "/dash/", "destination": "/dash.html" },
+    { "source": "/intel", "destination": "/intel.html" },
+    { "source": "/intel/", "destination": "/intel.html" },
+    { "source": "/map", "destination": "/map.html" },
+    { "source": "/map/", "destination": "/map.html" },
+    { "source": "/settings", "destination": "/settings.html" },
+    { "source": "/settings/", "destination": "/settings.html" },
+    { "source": "/admin", "destination": "/admin.html" },
+    { "source": "/admin/", "destination": "/admin.html" }
+  ]
+}
