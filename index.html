@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>sqoutIQ - Login</title>
+<link rel="icon" type="image/png" href="/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="supabase-config.js"></script>
@@ -96,7 +97,7 @@ document.getElementById('login-form').addEventListener('submit',async event=>{
   btn.disabled=true;btn.textContent='Signing in...';msg.textContent='';
   try{
     await SqoutiqAuth.login(document.getElementById('email').value.trim(),document.getElementById('password').value);
-    window.location.href='dash/';
+    window.location.href='/dash';
   }catch(error){
     msg.textContent=error.message || 'Login failed.';
     btn.disabled=false;btn.textContent='Open Dashboard';
