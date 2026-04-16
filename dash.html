@@ -47,6 +47,7 @@ main{flex:1;display:flex;flex-direction:column;overflow:hidden}
 .seg-ctrl button{padding:5px 13px;border:none;background:none;color:var(--muted);font-family:var(--font);font-size:13px;font-weight:600;border-radius:6px;cursor:pointer;transition:all .15s}
 .seg-ctrl button.active{background:var(--surface);color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.12);border:1px solid var(--border2)}
 .top-select{background:var(--surface2);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:13px;font-weight:600;padding:7px 13px;border-radius:8px;outline:none;cursor:pointer}
+.date-select{min-width:142px;color-scheme:dark}.light-mode .date-select{color-scheme:light}
 .content{flex:1;overflow-y:auto;padding:24px 28px;display:flex;flex-direction:column;gap:20px}
 .metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .metric-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;position:relative;overflow:hidden;transition:border-color .2s,background .3s}
@@ -134,9 +135,12 @@ tbody tr:last-child td{border-bottom:none}tbody tr:hover td{background:var(--acc
       <p id="dashboard-subtitle">All HVAC Cities &mdash; Last Updated: Just now</p>
     </div>
     <div class="topbar-right">
-      <div class="seg-ctrl">
-        <button>24h</button><button class="active">14d</button><button>30d</button><button>All</button>
+      <div class="seg-ctrl" id="time-filter">
+        <button class="active" data-range="24h">24h</button>
+        <button data-range="48h">48h</button>
+        <button data-range="all">All Time</button>
       </div>
+      <input class="top-select date-select" type="date" id="date-filter" aria-label="Show opportunities from exact date">
       <select class="top-select" id="city-select">
         <option value="">All HVAC Cities</option>
         <option value="murrieta">Murrieta</option>
@@ -282,14 +286,46 @@ function updateChart(light){
 }
 let allDashboardLeads=[];
 
+function leadDate(lead){
+  const raw=lead.timeStamp || lead.created_at || '';
+  const date=raw ? new Date(raw) : null;
+  return date && !Number.isNaN(date.getTime()) ? date : null;
+}
+
+function localDateKey(date){
+  return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+}
+
+function selectedRange(){
+  const active=document.querySelector('#time-filter button.active');
+  return active ? active.dataset.range : '24h';
+}
+
+function selectedExactDate(){
+  const input=document.getElementById('date-filter');
+  return input ? input.value : '';
+}
+
+function selectedTimeLabel(){
+  const exact=selectedExactDate();
+  if(exact){
+    const [year,month,day]=exact.split('-').map(Number);
+    const date=new Date(year,month-1,day);
+    return date.toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'});
+  }
+  const range=selectedRange();
+  if(range==='48h') return 'Last 48 Hours';
+  if(range==='all') return 'All Time';
+  return 'Last 24 Hours';
+}
+
 function updateDailyChart(leads){
   const days=lastSevenDayBuckets();
   const byKey=Object.fromEntries(days.map(day=>[day.key,day]));
   leads.forEach(lead=>{
-    const raw=lead.timeStamp || lead.created_at || '';
-    const date=raw ? new Date(raw) : null;
-    if(!date || Number.isNaN(date.getTime())) return;
-    const key=`${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+    const date=leadDate(lead);
+    if(!date) return;
+    const key=localDateKey(date);
     if(byKey[key]) byKey[key].count++;
   });
   chart.data.labels=days.map(day=>day.label);
@@ -305,13 +341,28 @@ function selectedCity(){
 
 function filteredDashboardLeads(){
   const city=selectedCity();
-  return city ? allDashboardLeads.filter(lead=>lead.region===city.slug) : allDashboardLeads.slice();
+  let leads=city ? allDashboardLeads.filter(lead=>lead.region===city.slug) : allDashboardLeads.slice();
+  const exact=selectedExactDate();
+  if(exact){
+    return leads.filter(lead=>{
+      const date=leadDate(lead);
+      return date && localDateKey(date)===exact;
+    });
+  }
+  const range=selectedRange();
+  if(range==='all') return leads;
+  const hours=range==='48h' ? 48 : 24;
+  const cutoff=Date.now()-(hours*60*60*1000);
+  return leads.filter(lead=>{
+    const date=leadDate(lead);
+    return date && date.getTime()>=cutoff;
+  });
 }
 
 function updateDashboardSubtitle(city){
   const subtitle=document.getElementById('dashboard-subtitle');
   if(!subtitle) return;
-  subtitle.textContent=`${city ? city.label : 'All HVAC Cities'} - Last Updated: Just now`;
+  subtitle.textContent=`${city ? city.label : 'All HVAC Cities'} - ${selectedTimeLabel()} - Last Updated: Just now`;
 }
 
 function renderTopZones(leads, city){
@@ -352,7 +403,7 @@ function renderDashboardFromLeads(leads){
   const city=selectedCity();
   updateDashboardSubtitle(city);
   if(!leads.length){
-    showDashboardMessage(city ? `No live opportunities found for ${city.label}.` : 'No live opportunities found yet.');
+    showEmptyDashboard(city ? `No opportunities found for ${city.label} in ${selectedTimeLabel()}.` : `No opportunities found in ${selectedTimeLabel()}.`);
     return;
   }
   const total=document.getElementById('metric-total'),avg=document.getElementById('metric-avg-score'),today=document.getElementById('metric-new-today');
@@ -372,6 +423,21 @@ function renderDashboardFromLeads(leads){
   if(leadsBody){
     leadsBody.innerHTML=leads.slice(0,5).map(lead=>`<tr><td><strong class="contact-link">${lead.name}</strong></td><td><span class="contact-phone">${lead.phone}</span></td><td>${lead.city}</td><td><span class="address-txt">${lead.zip}</span></td><td class="val-txt">${lead.score}</td></tr>`).join('');
   }
+}
+function showEmptyDashboard(message){
+  const total=document.getElementById('metric-total'),avg=document.getElementById('metric-avg-score'),today=document.getElementById('metric-new-today');
+  const totalNote=document.getElementById('metric-total-note'),scoreNote=document.getElementById('metric-score-note'),todayNote=document.getElementById('metric-today-note');
+  if(total) total.innerHTML='0 <span>active</span>';
+  if(avg) avg.innerHTML='-- <span>/ 100</span>';
+  if(today) today.innerHTML='0 <span>opportunities</span>';
+  if(totalNote) totalNote.textContent='Live';
+  if(scoreNote) scoreNote.textContent='No opportunities in this view';
+  if(todayNote) todayNote.textContent='Current refresh';
+  const top=document.getElementById('top-city-tbody');
+  const leadsBody=document.getElementById('dashboard-leads-tbody');
+  if(top) top.innerHTML=`<tr><td colspan="3" class="address-txt">${message}</td></tr>`;
+  if(leadsBody) leadsBody.innerHTML=`<tr><td colspan="5" class="address-txt">${message}</td></tr>`;
+  updateDailyChart([]);
 }
 function showDashboardMessage(message){
   const total=document.getElementById('metric-total'),avg=document.getElementById('metric-avg-score'),today=document.getElementById('metric-new-today');
@@ -406,6 +472,15 @@ async function loadLiveDashboard(){
     showDashboardMessage('Live opportunity data request failed.');
   }
 }
+document.querySelectorAll('#time-filter button').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const dateInput=document.getElementById('date-filter');
+    if(dateInput) dateInput.value='';
+    renderDashboardFromLeads(filteredDashboardLeads());
+  });
+});
+const dateFilter=document.getElementById('date-filter');
+if(dateFilter) dateFilter.addEventListener('change',()=>renderDashboardFromLeads(filteredDashboardLeads()));
 document.getElementById('city-select').addEventListener('change',()=>renderDashboardFromLeads(filteredDashboardLeads()));
 loadLiveDashboard();
 setInterval(loadLiveDashboard,60000);
