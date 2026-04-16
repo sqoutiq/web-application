@@ -8,6 +8,8 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.heat/0.2.0/leaflet-heat.js"></script>
+<script src="supabase-config.js"></script>
+<script src="leads.js"></script>
 <script>try{if(localStorage.getItem('sqoutiq-theme')==='light')document.documentElement.classList.add('light-mode')}catch(e){}</script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -124,7 +126,7 @@ main{flex:1;display:flex;flex-direction:column;overflow:hidden}
     <a class="nav-item" href="settings.html"><svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="8" r="2.5"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.42 1.42M11.53 11.53l1.42 1.42M3.05 12.95l1.42-1.42M11.53 4.47l1.42-1.42"/></svg>Preferences</a>
   </nav>
   <div class="sidebar-profile">
-    <button class="profile-btn" id="profile-btn"><div class="profile-avatar">JD</div><div class="profile-info"><div class="profile-name">Jordan Davis</div><div class="profile-role">Admin · LA Metro</div></div><svg class="profile-caret" id="profile-caret" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 6 8 10 12 6"/></svg></button>
+    <button class="profile-btn" id="profile-btn"><div class="profile-avatar">JD</div><div class="profile-info"><div class="profile-name">Jordan Davis</div><div class="profile-role">Admin · HVAC Territory</div></div><svg class="profile-caret" id="profile-caret" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 6 8 10 12 6"/></svg></button>
     <div class="profile-dropdown" id="profile-dropdown">
       <a class="pd-item" href="settings.html"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="5" r="3"/><path d="M1.5 14c0-3.5 3-5 6.5-5s6.5 1.5 6.5 5"/></svg>My Profile</a>
       <div class="theme-row" id="theme-toggle"><div class="theme-row-left"><svg id="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><span id="theme-text">Dark Mode</span></div><div class="pill on" id="theme-pill"><div class="knob"></div></div></div>
@@ -138,7 +140,7 @@ main{flex:1;display:flex;flex-direction:column;overflow:hidden}
   <div class="topbar">
     <div class="topbar-left">
       <h1>Map Insights</h1>
-      <p>Live signal heatmap — Los Angeles Metro Area</p>
+      <p>Live signal heatmap — Southwest Riverside & North County HVAC cities</p>
     </div>
     <div class="topbar-right">
       <div class="seg-ctrl">
@@ -147,10 +149,16 @@ main{flex:1;display:flex;flex-direction:column;overflow:hidden}
         <button onclick="setLayer('both')">Both</button>
       </div>
       <select class="top-select" id="region-select" onchange="jumpToRegion(this.value)">
-        <option value="la">Los Angeles Metro</option>
-        <option value="sf">San Francisco Bay Area</option>
-        <option value="sd">San Diego Metro</option>
-        <option value="sac">Sacramento Metro</option>
+        <option value="all">All HVAC Cities</option>
+        <option value="murrieta">Murrieta</option>
+        <option value="temecula">Temecula</option>
+        <option value="menifee">Menifee</option>
+        <option value="perris">Perris</option>
+        <option value="riverside">Riverside</option>
+        <option value="oceanside">Oceanside</option>
+        <option value="corona">Corona</option>
+        <option value="lake_elsinore">Lake Elsinore</option>
+        <option value="moreno_valley">Moreno Valley</option>
       </select>
     </div>
   </div>
@@ -164,7 +172,7 @@ main{flex:1;display:flex;flex-direction:column;overflow:hidden}
         <button class="mc-btn" onclick="map.zoomIn()" title="Zoom in">+</button>
         <button class="mc-btn" onclick="map.zoomOut()" title="Zoom out">−</button>
       </div>
-      <button class="mc-btn mc-group" onclick="map.setView([34.052,−118.243],11)" title="Reset view" style="width:auto;padding:0 10px;font-size:11px">⌖ Reset</button>
+      <button class="mc-btn mc-group" onclick="map.setView([33.79,-117.18],10)" title="Reset view" style="width:auto;padding:0 10px;font-size:11px">Reset</button>
     </div>
 
     <!-- Floating right panel -->
@@ -172,15 +180,16 @@ main{flex:1;display:flex;flex-direction:column;overflow:hidden}
       <!-- Stats -->
       <div class="panel-card">
         <div class="panel-head">
-          <div><div class="panel-title">Zone Stats</div><div class="panel-sub">LA Metro · Real-time</div></div>
+          <div><div class="panel-title">Zone Stats</div><div class="panel-sub">HVAC cities · Real-time</div></div>
           <div style="width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px rgba(16,185,129,0.2);animation:pulse 2s infinite"></div>
         </div>
         <div class="panel-body" style="padding-top:8px;padding-bottom:8px">
-          <div class="stat-row"><span class="stat-label">Active ZIP zones</span><span class="stat-val">42</span></div>
-          <div class="stat-row"><span class="stat-label">Total signals</span><span class="stat-val">4,850</span></div>
-          <div class="stat-row"><span class="stat-label">Avg. per ZIP</span><span class="stat-val">115.5</span></div>
-          <div class="stat-row"><span class="stat-label">Highest score</span><span class="stat-val" style="color:var(--accent)">195</span></div>
-          <div class="stat-row"><span class="stat-label">Coverage radius</span><span class="stat-val">38 mi</span></div>
+          <div class="stat-row"><span class="stat-label">City tables</span><span class="stat-val">9</span></div>
+          <div class="stat-row"><span class="stat-label">Active ZIP zones</span><span class="stat-val" id="map-zone-count">64</span></div>
+          <div class="stat-row"><span class="stat-label">Total signals</span><span class="stat-val" id="map-total-signals">--</span></div>
+          <div class="stat-row"><span class="stat-label">Avg. per city</span><span class="stat-val" id="map-avg-city">--</span></div>
+          <div class="stat-row"><span class="stat-label">Highest score</span><span class="stat-val" id="map-high-score" style="color:var(--accent)">100</span></div>
+          <div class="stat-row"><span class="stat-label">Coverage area</span><span class="stat-val">64 ZIPs</span></div>
           <div class="stat-row"><span class="stat-label">Peak hour</span><span class="stat-val">10–11 AM</span></div>
         </div>
       </div>
@@ -190,14 +199,9 @@ main{flex:1;display:flex;flex-direction:column;overflow:hidden}
         <div class="panel-head"><div class="panel-title">Top Heat Zones</div></div>
         <div class="panel-body" style="padding-top:6px;padding-bottom:6px">
           <table class="ptable">
-            <thead><tr><th>ZIP</th><th>Area</th><th>Score</th><th>Trend</th></tr></thead>
-            <tbody>
-              <tr><td style="font-family:var(--mono);font-size:12px;font-weight:700">90210</td><td style="font-size:11.5px;color:var(--muted)">Beverly Hills</td><td><span class="score-pill sh">195</span></td><td><span class="trend-up">↑ +12%</span></td></tr>
-              <tr><td style="font-family:var(--mono);font-size:12px;font-weight:700">90001</td><td style="font-size:11.5px;color:var(--muted)">South LA</td><td><span class="score-pill sh">190</span></td><td><span class="trend-nu">→ 0%</span></td></tr>
-              <tr><td style="font-family:var(--mono);font-size:12px;font-weight:700">90401</td><td style="font-size:11.5px;color:var(--muted)">Santa Monica</td><td><span class="score-pill sh">188</span></td><td><span class="trend-up">↑ +8%</span></td></tr>
-              <tr><td style="font-family:var(--mono);font-size:12px;font-weight:700">90028</td><td style="font-size:11.5px;color:var(--muted)">Hollywood</td><td><span class="score-pill sh">182</span></td><td><span class="trend-up">↑ +5%</span></td></tr>
-              <tr><td style="font-family:var(--mono);font-size:12px;font-weight:700">90272</td><td style="font-size:11.5px;color:var(--muted)">Pac. Palisades</td><td><span class="score-pill sh">177</span></td><td><span class="trend-up">↑ +9%</span></td></tr>
-              <tr><td style="font-family:var(--mono);font-size:12px;font-weight:700">91403</td><td style="font-size:11.5px;color:var(--muted)">Sherman Oaks</td><td><span class="score-pill sm">168</span></td><td><span class="trend-dn">↓ −3%</span></td></tr>
+            <thead><tr><th>ZIP</th><th>City</th><th>Score</th><th>Trend</th></tr></thead>
+            <tbody id="map-top-zones">
+              <tr><td colspan="4" style="font-size:11.5px;color:var(--muted)">Add Supabase URL and anon key in supabase-config.js.</td></tr>
             </tbody>
           </table>
         </div>
@@ -214,9 +218,9 @@ main{flex:1;display:flex;flex-direction:column;overflow:hidden}
         </div>
       </div>
       <div class="legend-types" style="margin-top:12px">
-        <div class="lt-row"><div class="lt-dot" style="background:#9b51e0"></div>ZIP Zone (score ≥ 160)</div>
-        <div class="lt-row"><div class="lt-dot" style="background:#f59e0b"></div>ZIP Zone (score 120–159)</div>
-        <div class="lt-row"><div class="lt-dot" style="background:#6b7280;opacity:.7"></div>ZIP Zone (score &lt; 120)</div>
+        <div class="lt-row"><div class="lt-dot" style="background:#9b51e0"></div>ZIP Zone (score 90-100)</div>
+        <div class="lt-row"><div class="lt-dot" style="background:#f59e0b"></div>ZIP Zone (score 80-89)</div>
+        <div class="lt-row"><div class="lt-dot" style="background:#6b7280;opacity:.7"></div>ZIP Zone (score 75-79)</div>
         <div class="lt-row" style="margin-top:4px"><div class="lt-dot" style="background:#00a8cc;border:2px solid #fff"></div>Lead Pin (high value)</div>
       </div>
     </div>
@@ -243,57 +247,25 @@ function applyTheme(light,persist=true){
 document.getElementById('theme-toggle').addEventListener('click',()=>applyTheme(!isLight));
 
 // ── ZIP Zone Data (real LA Metro coordinates) ─────────────────────────────
-const zipZones=[
-  {zip:'90210',name:'Beverly Hills',lat:34.0901,lng:-118.4065,score:195,signals:84,trend:'+12%',value:'$24.5K avg'},
-  {zip:'90001',name:'South Los Angeles',lat:33.9731,lng:-118.2479,score:190,signals:62,trend:'0%',value:'$18.2K avg'},
-  {zip:'90401',name:'Santa Monica',lat:34.0195,lng:-118.4912,score:188,signals:71,trend:'+8%',value:'$31.0K avg'},
-  {zip:'90028',name:'Hollywood',lat:34.1016,lng:-118.3267,score:182,signals:68,trend:'+5%',value:'$22.4K avg'},
-  {zip:'90272',name:'Pacific Palisades',lat:34.0458,lng:-118.5260,score:177,signals:51,trend:'+9%',value:'$28.8K avg'},
-  {zip:'90048',name:'West Hollywood',lat:34.0836,lng:-118.3668,score:179,signals:48,trend:'+6%',value:'$19.7K avg'},
-  {zip:'91403',name:'Sherman Oaks',lat:34.1564,lng:-118.4493,score:168,signals:54,trend:'-3%',value:'$14.2K avg'},
-  {zip:'90049',name:'Brentwood',lat:34.0600,lng:-118.4741,score:164,signals:44,trend:'+2%',value:'$38.1K avg'},
-  {zip:'90291',name:'Venice',lat:33.9887,lng:-118.4724,score:161,signals:42,trend:'+4%',value:'$17.9K avg'},
-  {zip:'90046',name:'West Hollywood Hills',lat:34.1063,lng:-118.3695,score:158,signals:39,trend:'+1%',value:'$21.3K avg'},
-  {zip:'90038',name:'East Hollywood',lat:34.0916,lng:-118.3286,score:155,signals:36,trend:'+2%',value:'$11.8K avg'},
-  {zip:'90012',name:'Downtown LA',lat:34.0573,lng:-118.2379,score:162,signals:58,trend:'+7%',value:'$42.0K avg'},
-  {zip:'90066',name:'Mar Vista',lat:33.9999,lng:-118.4298,score:148,signals:33,trend:'0%',value:'$15.5K avg'},
-  {zip:'91604',name:'Studio City',lat:34.1481,lng:-118.3905,score:155,signals:37,trend:'+3%',value:'$17.1K avg'},
-  {zip:'91602',name:'North Hollywood',lat:34.1723,lng:-118.3768,score:134,signals:28,trend:'-1%',value:'$9.8K avg'},
-  {zip:'90230',name:'Culver City',lat:34.0211,lng:-118.3965,score:141,signals:31,trend:'0%',value:'$12.3K avg'},
-  {zip:'91201',name:'Glendale',lat:34.1425,lng:-118.2551,score:145,signals:34,trend:'+4%',value:'$13.7K avg'},
-  {zip:'91107',name:'Pasadena East',lat:34.1478,lng:-118.0703,score:138,signals:29,trend:'+2%',value:'$11.2K avg'},
-  {zip:'91103',name:'Pasadena',lat:34.1478,lng:-118.1445,score:132,signals:26,trend:'-2%',value:'$10.4K avg'},
-  {zip:'90302',name:'Inglewood',lat:33.9617,lng:-118.3531,score:128,signals:24,trend:'+1%',value:'$8.9K avg'},
-  {zip:'90501',name:'Torrance',lat:33.8358,lng:-118.3406,score:118,signals:21,trend:'0%',value:'$7.6K avg'},
-  {zip:'90805',name:'Long Beach North',lat:33.8469,lng:-118.1537,score:122,signals:23,trend:'+3%',value:'$8.1K avg'},
-  {zip:'90250',name:'Hawthorne',lat:33.9164,lng:-118.3526,score:115,signals:19,trend:'-1%',value:'$6.8K avg'},
-  {zip:'90045',name:'Westchester',lat:33.9597,lng:-118.3961,score:156,signals:40,trend:'+5%',value:'$16.4K avg'},
-  {zip:'90034',name:'Palms',lat:34.0267,lng:-118.3997,score:139,signals:30,trend:'0%',value:'$11.9K avg'},
-  {zip:'90016',name:'West Adams',lat:34.0224,lng:-118.3441,score:144,signals:32,trend:'+2%',value:'$12.8K avg'},
-  {zip:'90019',name:'Mid-City',lat:34.0517,lng:-118.3410,score:147,signals:35,trend:'+3%',value:'$13.2K avg'},
-  {zip:'90036',name:'Fairfax',lat:34.0742,lng:-118.3534,score:159,signals:43,trend:'+6%',value:'$18.6K avg'},
-  {zip:'90026',name:'Silver Lake',lat:34.0900,lng:-118.2698,score:153,signals:38,trend:'+4%',value:'$15.9K avg'},
-  {zip:'90027',name:'Los Feliz',lat:34.1091,lng:-118.2918,score:150,signals:36,trend:'+3%',value:'$16.8K avg'},
-];
+const zipZones=SqoutiqData.CITY_TABLES.flatMap(city=>city.zips.map((zip,index)=>({
+  zip,
+  name:city.label,
+  lat:city.center[0]+((index%3)-1)*0.012,
+  lng:city.center[1]+(Math.floor(index/3)-1)*0.012,
+  score:75+((index*7+city.slug.length)%26),
+  signals:12+((index*5+city.slug.length)%38),
+  trend:index%4===0?'-3%':`+${(index%5)+2}%`,
+  value:'HVAC lead zone'
+})));
 
-// High-value lead pins
-const leadPins=[
-  {name:'Michael Chen',addr:'1422 Wilshire Blvd, Santa Monica',lat:34.0239,lng:-118.4967,value:'$24,500',type:'AC Repair',score:94},
-  {name:'Sarah Jenkins',addr:'435 S Grand Ave, Los Angeles',lat:34.0485,lng:-118.2581,value:'$185,000',type:'Installation',score:88},
-  {name:'Linda Perez',addr:'9900 Wilshire Blvd, Beverly Hills',lat:34.0647,lng:-118.4100,value:'$42,000',type:'Installation',score:91},
-  {name:'Megan Hall',addr:'180 N Fair Oaks Ave, Pasadena',lat:34.1478,lng:-118.1445,value:'$17,400',type:'AC Repair',score:86},
-  {name:'Derek Kim',addr:'8291 Sunset Blvd, Hollywood',lat:34.0982,lng:-118.3640,value:'$58,000',type:'Installation',score:92},
-  {name:'Ryan Foster',addr:'820 Ocean Ave, Santa Monica',lat:34.0181,lng:-118.4991,value:'$12,800',type:'AC Repair',score:83},
-  {name:'Chris Mendez',addr:'302 E Ocean Blvd, Long Beach',lat:33.7699,lng:-118.1937,value:'$9,100',type:'Heating',score:79},
-  {name:'Sofia Reyes',addr:'2000 Avenue of Stars, LA',lat:34.0579,lng:-118.4163,value:'$31,000',type:'Maintenance',score:89},
-];
+const leadPins=[];
 
 // ── Build Heatmap Points ────────────────────────────────────────────────────
 // Each ZIP gets a central point plus cluster spread for realistic heat blobs
 function buildHeatPoints(){
   const pts=[];
   zipZones.forEach(z=>{
-    const intensity=z.score/200; // normalize 0–1
+    const intensity=z.score/100;
     // Central point — high weight
     pts.push([z.lat,z.lng,intensity]);
     // Spray surrounding points for blob realism
@@ -311,7 +283,7 @@ function buildHeatPoints(){
 const darkTile=L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',subdomains:'abcd',maxZoom:19});
 const lightTile=L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',subdomains:'abcd',maxZoom:19});
 
-const map=L.map('map',{center:[34.052,-118.290],zoom:11,zoomControl:false,attributionControl:true});
+const map=L.map('map',{center:[33.79,-117.18],zoom:10,zoomControl:false,attributionControl:true});
 darkTile.addTo(map);
 
 // Style attribution
@@ -330,8 +302,8 @@ heatLayer.addTo(map);
 // ── ZIP Zone Circle Markers ───────────────────────────────────────────────
 const zipMarkers=[];
 zipZones.forEach(z=>{
-  const col=z.score>=160?'#9b51e0':z.score>=130?'#f59e0b':'#6b7280';
-  const size=z.score>=160?14:z.score>=130?10:8;
+  const col=z.score>=90?'#9b51e0':z.score>=80?'#f59e0b':'#6b7280';
+  const size=z.score>=90?14:z.score>=80?10:8;
   const m=L.circleMarker([z.lat,z.lng],{
     radius:size,
     fillColor:col,
@@ -356,7 +328,7 @@ zipZones.forEach(z=>{
     <div class="pop-row"><span class="pop-label">Signal Score</span><span class="pop-val" style="color:${col}">${z.score}</span></div>
     <div class="pop-row"><span class="pop-label">Active Signals</span><span class="pop-val">${z.signals}</span></div>
     <div class="pop-row"><span class="pop-label">Trend</span><span class="pop-val" style="color:${z.trend.startsWith('+')?'#10b981':z.trend==='0%'?'#9ca3af':'#ef4444'}">${z.trend}</span></div>
-    <div class="pop-row"><span class="pop-label">Avg Job Value</span><span class="pop-val">${z.value}</span></div>
+    <div class="pop-row"><span class="pop-label">City Table</span><span class="pop-val">${z.name.toLowerCase().replaceAll(' ','_')}_hvac</span></div>
   </div>`;
 
   m.bindPopup(popContent,{maxWidth:240,className:''});
@@ -384,7 +356,6 @@ leadPins.forEach(l=>{
     <div class="lead-name">${l.name}</div>
     <div class="lead-addr">${l.addr}</div>
     <div class="lead-badge">${l.type}</div>
-    <div class="lead-val">${l.value}</div>
     <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
       <span style="font-size:11px;color:var(--muted)">Score</span>
       <span style="font-family:'DM Mono',monospace;font-size:14px;font-weight:700;color:${scColor}">${l.score}</span>
@@ -400,6 +371,63 @@ zipMarkers.forEach(({m,label})=>{zipCircleGroup.addLayer(m);zipLabelGroup.addLay
 zipCircleGroup.addTo(map);
 zipLabelGroup.addTo(map);
 leadMarkerGroup.addTo(map);
+
+function addLeadMarker(lead){
+  const city=SqoutiqData.CITY_TABLES.find(c=>c.slug===lead.region) || SqoutiqData.CITY_TABLES[0];
+  const seed=(lead.phone || lead.name || '').split('').reduce((sum,ch)=>sum+ch.charCodeAt(0),0);
+  const lat=city.center[0]+((seed%7)-3)*0.004;
+  const lng=city.center[1]+(((seed>>3)%7)-3)*0.004;
+  const icon=L.divIcon({
+    className:'',
+    html:`<div style="width:30px;height:30px;background:#00a8cc;border:2.5px solid #fff;border-radius:50% 50% 50% 0;transform:rotate(-45deg);box-shadow:0 3px 12px rgba(0,168,204,0.5)"><div style="transform:rotate(45deg);width:100%;height:100%;display:flex;align-items:center;justify-content:center"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="2.5"><path d="M8 1C5.24 1 3 3.24 3 6c0 3.75 5 9 5 9s5-5.25 5-9c0-2.76-2.24-5-5-5z"/><circle cx="8" cy="6" r="1.5" fill="#fff" stroke="none"/></svg></div></div>`,
+    iconSize:[30,30],iconAnchor:[15,30],popupAnchor:[0,-32]
+  });
+  const scColor=lead.score>=90?'#9b51e0':lead.score>=80?'#f59e0b':'#9ca3af';
+  const m=L.marker([lat,lng],{icon});
+  m.bindPopup(`<div class="lead-pop"><div class="lead-name">${lead.name}</div><div class="lead-addr">${lead.city}, CA ${lead.zip}</div><div class="lead-badge">HVAC Lead</div><div style="display:flex;align-items:center;gap:8px;margin-top:8px"><span style="font-size:11px;color:var(--muted)">Score</span><span style="font-family:'DM Mono',monospace;font-size:14px;font-weight:700;color:${scColor}">${lead.score}</span></div></div>`,{maxWidth:240});
+  leadMarkerGroup.addLayer(m);
+}
+
+function renderMapSummary(leads){
+  const total=document.getElementById('map-total-signals');
+  const avg=document.getElementById('map-avg-city');
+  const high=document.getElementById('map-high-score');
+  if(!leads.length){
+    if(total) total.textContent='0';
+    if(avg) avg.textContent='--';
+    const top=document.getElementById('map-top-zones');
+    if(top) top.innerHTML='<tr><td colspan="4" style="font-size:11.5px;color:var(--muted)">No live Supabase rows found yet.</td></tr>';
+    return;
+  }
+  if(total) total.textContent=leads.length.toLocaleString();
+  if(high) high.textContent=Math.max(...leads.map(l=>l.score));
+  const byCity={};
+  leads.forEach(lead=>{byCity[lead.region]??={city:lead.city,zips:new Set(),count:0,totalScore:0};byCity[lead.region].count++;byCity[lead.region].totalScore+=lead.score;if(lead.zip)byCity[lead.region].zips.add(lead.zip);});
+  const cities=Object.values(byCity).map(city=>({...city,score:Math.round(city.totalScore/city.count)})).sort((a,b)=>b.score-a.score);
+  if(avg) avg.textContent=(leads.length/cities.length).toFixed(1);
+  const top=document.getElementById('map-top-zones');
+  if(top) top.innerHTML=cities.slice(0,6).map(city=>`<tr><td style="font-family:var(--mono);font-size:12px;font-weight:700">${[...city.zips][0]||''}</td><td style="font-size:11.5px;color:var(--muted)">${city.city}</td><td><span class="score-pill ${city.score>=90?'sh':'sm'}">${city.score}</span></td><td><span class="trend-up">live</span></td></tr>`).join('');
+}
+
+async function loadLiveMap(){
+  const top=document.getElementById('map-top-zones');
+  if(!window.SqoutiqData || !SqoutiqData.isConfigured()){
+    if(top) top.innerHTML='<tr><td colspan="4" style="font-size:11.5px;color:var(--muted)">Add Supabase URL and anon key in supabase-config.js.</td></tr>';
+    return;
+  }
+  try{
+    const liveLeads=await SqoutiqData.fetchLeads();
+    leadMarkerGroup.clearLayers();
+    liveLeads.slice(0,250).forEach(addLeadMarker);
+    renderMapSummary(liveLeads);
+  }
+  catch(error){
+    console.warn('Supabase map load failed',error);
+    if(top) top.innerHTML='<tr><td colspan="4" style="font-size:11.5px;color:var(--muted)">Supabase request failed. Check anon key, URL, and table permissions.</td></tr>';
+  }
+}
+loadLiveMap();
+setInterval(loadLiveMap,60000);
 
 // ── Layer toggling ─────────────────────────────────────────────────────────
 function setLayer(mode){
@@ -421,8 +449,8 @@ function setLayer(mode){
 }
 
 // ── Region jump ─────────────────────────────────────────────────────────────
-const regions={la:[34.052,-118.290,11],sf:[37.773,-122.431,11],sd:[32.715,-117.158,11],sac:[38.575,-121.478,11]};
-function jumpToRegion(r){const [lat,lng,z]=regions[r]||regions.la;map.setView([lat,lng],z);}
+const regions={all:[33.79,-117.18,10],murrieta:[33.5539,-117.2139,12],temecula:[33.4936,-117.1484,12],menifee:[33.6971,-117.1853,12],perris:[33.7825,-117.2286,12],riverside:[33.9806,-117.3755,11],oceanside:[33.1959,-117.3795,12],corona:[33.8753,-117.5664,12],lake_elsinore:[33.6681,-117.3273,12],moreno_valley:[33.9425,-117.2297,12]};
+function jumpToRegion(r){const [lat,lng,z]=regions[r]||regions.all;map.setView([lat,lng],z);}
 
 // ── Labels only show above zoom 12 ─────────────────────────────────────────
 map.on('zoomend',()=>{
