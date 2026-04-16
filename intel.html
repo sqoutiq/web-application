@@ -151,7 +151,7 @@ tbody tr:last-child td{border-bottom:none}tbody tr:hover td{background:var(--acc
         <table>
           <thead>
             <tr>
-              <th>Contact</th><th>Email</th><th>Phone</th><th>Property Address</th><th>City</th><th>ZIP</th><th>Income</th><th>Score</th>
+              <th>Contact</th><th>Email</th><th>Phone</th><th>Property Address</th><th>City</th><th>ZIP</th><th>Score</th>
             </tr>
           </thead>
           <tbody id="intel-tbody"></tbody>
@@ -206,7 +206,6 @@ function render(data){
     <td>${r.address ? `<a class="address-link" href="${mapHref(r)}" target="_blank" rel="noopener">${escapeHtml(r.address)}</a>` : '<span class="address-txt">--</span>'}</td>
     <td>${escapeHtml(r.city)}</td>
     <td style="font-family:var(--mono);font-size:12.5px">${escapeHtml(r.zip)}</td>
-    <td><span class="address-txt">${escapeHtml(r.incomeRange || '--')}</span></td>
     <td><div class="score-wrap"><span class="score-num ${scClass(r.score)}">${r.score}</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:${r.score}%;background:${barColor(r.score)}"></div></div></div></td>
   </tr>`).join('');
 }
@@ -233,7 +232,7 @@ function filterLeads(){
     }
   }
   filtered=filtered.filter(r=>{
-    const ms=!q||r.name.toLowerCase().includes(q)||r.address.toLowerCase().includes(q)||r.city.toLowerCase().includes(q)||r.zip.includes(q)||(r.email||'').toLowerCase().includes(q)||r.phone.includes(q)||(r.incomeRange||'').toLowerCase().includes(q);
+    const ms=!q||r.name.toLowerCase().includes(q)||r.address.toLowerCase().includes(q)||r.city.toLowerCase().includes(q)||r.zip.includes(q)||(r.email||'').toLowerCase().includes(q)||r.phone.includes(q);
     const mscore=!sc||(sc==='h'&&r.score>=90)||(sc==='m'&&r.score>=80&&r.score<90)||(sc==='l'&&r.score>=75&&r.score<80);
     const mreg=!rg||r.region===rg;
     return ms&&mscore&&mreg;
@@ -256,8 +255,8 @@ document.querySelectorAll('#intel-time-filter button').forEach(btn=>{
 });
 document.getElementById('intel-date-filter').addEventListener('change',filterLeads);
 document.getElementById('export-csv').addEventListener('click',()=>{
-  const headers=['Contact','Email','Phone','Property Address','City','ZIP','Income','Net Worth','Score'];
-  const rows=activeLeads.map(row=>[row.name,row.email,row.phone,row.address,row.city,row.zip,row.incomeRange,row.netWorth,row.score]);
+  const headers=['Contact','Email','Phone','Property Address','City','ZIP','Score'];
+  const rows=activeLeads.map(row=>[row.name,row.email,row.phone,row.address,row.city,row.zip,row.score]);
   const csv=[headers,...rows].map(row=>row.map(value=>`"${String(value??'').replace(/"/g,'""')}"`).join(',')).join('\n');
   const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
   const url=URL.createObjectURL(blob);
