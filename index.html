@@ -315,13 +315,13 @@ function showDashboardMessage(message){
 }
 async function loadLiveDashboard(){
   if(!window.SqoutiqData || !SqoutiqData.isConfigured()){
-    showDashboardMessage('Add Supabase URL and anon key in supabase-config.js.');
+    showDashboardMessage('Waiting for GitHub leads-data.json.');
     return;
   }
   try{renderDashboardFromLeads(await SqoutiqData.fetchLeads());}
   catch(error){
     console.warn('Supabase dashboard load failed',error);
-    showDashboardMessage('Supabase request failed. Check anon key, URL, and table permissions.');
+    showDashboardMessage('Live data request failed. Check leads-data.json or Supabase permissions.');
   }
 }
 loadLiveDashboard();

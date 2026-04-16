@@ -1,6 +1,7 @@
 (function(){
   const TABLE_SUFFIX = "hvac";
   const MAX_ROWS_PER_CITY = 1000;
+  const STATIC_DATA_URL = "leads-data.json";
 
   const CITY_TABLES = [
     { slug:"murrieta", label:"Murrieta", table:`murrieta_${TABLE_SUFFIX}`, center:[33.5539,-117.2139], zips:["92562","92563","92564","92595"] },
@@ -19,6 +20,10 @@
   }
 
   function isConfigured(){
+    return true;
+  }
+
+  function hasDirectSupabaseConfig(){
     const cfg = config();
     return Boolean(
       cfg.url &&
@@ -114,13 +119,22 @@
   }
 
   async function fetchLeads(){
-    if(!isConfigured()) return [];
+    if(!hasDirectSupabaseConfig()) return fetchStaticLeads();
     const results = await Promise.allSettled(CITY_TABLES.map(fetchCityTable));
     const failures = results.filter(result => result.status === "rejected");
     if(failures.length){
       console.warn("Some Supabase city tables did not load", failures.map(failure => failure.reason));
     }
     return results.flatMap(result => result.status === "fulfilled" ? result.value : []);
+  }
+
+  async function fetchStaticLeads(){
+    const response = await fetch(`${STATIC_DATA_URL}?v=${Date.now()}`, { cache: "no-store" });
+    if(!response.ok){
+      throw new Error(`Static leads data failed: ${response.status} ${await response.text()}`);
+    }
+    const payload = await response.json();
+    return Array.isArray(payload) ? payload : (payload.leads || []);
   }
 
   function cityOptions(){
@@ -134,6 +148,7 @@
   window.SqoutiqData = {
     CITY_TABLES,
     isConfigured,
+    hasDirectSupabaseConfig,
     fetchLeads,
     fetchCityTable,
     leadScore,

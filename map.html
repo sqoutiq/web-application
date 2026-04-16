@@ -201,7 +201,7 @@ main{flex:1;display:flex;flex-direction:column;overflow:hidden}
           <table class="ptable">
             <thead><tr><th>ZIP</th><th>City</th><th>Score</th><th>Trend</th></tr></thead>
             <tbody id="map-top-zones">
-              <tr><td colspan="4" style="font-size:11.5px;color:var(--muted)">Add Supabase URL and anon key in supabase-config.js.</td></tr>
+              <tr><td colspan="4" style="font-size:11.5px;color:var(--muted)">Waiting for GitHub leads-data.json.</td></tr>
             </tbody>
           </table>
         </div>
@@ -412,7 +412,7 @@ function renderMapSummary(leads){
 async function loadLiveMap(){
   const top=document.getElementById('map-top-zones');
   if(!window.SqoutiqData || !SqoutiqData.isConfigured()){
-    if(top) top.innerHTML='<tr><td colspan="4" style="font-size:11.5px;color:var(--muted)">Add Supabase URL and anon key in supabase-config.js.</td></tr>';
+    if(top) top.innerHTML='<tr><td colspan="4" style="font-size:11.5px;color:var(--muted)">Waiting for GitHub leads-data.json.</td></tr>';
     return;
   }
   try{
@@ -423,7 +423,7 @@ async function loadLiveMap(){
   }
   catch(error){
     console.warn('Supabase map load failed',error);
-    if(top) top.innerHTML='<tr><td colspan="4" style="font-size:11.5px;color:var(--muted)">Supabase request failed. Check anon key, URL, and table permissions.</td></tr>';
+    if(top) top.innerHTML='<tr><td colspan="4" style="font-size:11.5px;color:var(--muted)">Live data request failed. Check leads-data.json or Supabase permissions.</td></tr>';
   }
 }
 loadLiveMap();

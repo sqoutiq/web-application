@@ -241,7 +241,7 @@ function showIntelMessage(message){
 }
 async function loadLiveIntel(){
   if(!window.SqoutiqData || !SqoutiqData.isConfigured()){
-    showIntelMessage('Add Supabase URL and anon key in supabase-config.js.');
+    showIntelMessage('Waiting for GitHub leads-data.json.');
     return;
   }
   try{
@@ -252,7 +252,7 @@ async function loadLiveIntel(){
     filterLeads();
   }catch(error){
     console.warn('Supabase intel load failed',error);
-    showIntelMessage('Supabase request failed. Check anon key, URL, and table permissions.');
+    showIntelMessage('Live data request failed. Check leads-data.json or Supabase permissions.');
   }
 }
 
