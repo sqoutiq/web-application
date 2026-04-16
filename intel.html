@@ -42,7 +42,7 @@ nav{flex:1;padding:18px 0;overflow-y:auto}
 main{flex:1;display:flex;flex-direction:column;overflow:hidden}
 .topbar{display:flex;align-items:center;justify-content:space-between;padding:18px 28px;border-bottom:1px solid var(--border);background:var(--surface);flex-shrink:0;transition:background .3s,border-color .3s}
 .topbar-left h1{font-size:18px;font-weight:600;letter-spacing:-.015em;display:flex;align-items:center;gap:9px}.topbar-left p{font-size:12.5px;color:var(--muted);margin-top:2px}
-.topbar-right{display:flex;align-items:center;gap:9px}
+.topbar-right{display:flex;align-items:center;gap:9px;flex-wrap:wrap;justify-content:flex-end}
 .top-btn{display:flex;align-items:center;gap:6px;padding:7px 14px;border:none;border-radius:8px;font-family:var(--font);font-size:13px;font-weight:600;cursor:pointer;transition:all .15s}
 .top-btn.ghost{background:var(--surface2);border:1px solid var(--border);color:var(--text)}.top-btn.ghost:hover{border-color:var(--border2)}
 .top-btn.primary{background:var(--accent);color:#fff}.top-btn.primary:hover{opacity:.88}
@@ -50,6 +50,9 @@ main{flex:1;display:flex;flex-direction:column;overflow:hidden}
 .seg-ctrl{display:flex;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:3px;gap:3px}
 .seg-ctrl button{padding:5px 13px;border:none;background:none;color:var(--muted);font-family:var(--font);font-size:13px;font-weight:600;border-radius:6px;cursor:pointer;transition:all .15s}
 .seg-ctrl button.active{background:var(--surface);color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.12);border:1px solid var(--border2)}
+.top-select{background:var(--surface2);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:13px;font-weight:600;padding:7px 12px;border-radius:8px;outline:none;cursor:pointer}
+.top-select:hover{border-color:var(--border2)}
+.date-select{min-width:142px;color-scheme:dark}.light-mode .date-select{color-scheme:light}
 .content{flex:1;overflow-y:auto;padding:24px 28px;display:flex;flex-direction:column;gap:20px}
 .metrics-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 .metric-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;position:relative;overflow:hidden;transition:border-color .2s,background .3s}
@@ -59,7 +62,7 @@ main{flex:1;display:flex;flex-direction:column;overflow:hidden}
 .metric-value{font-size:32px;font-weight:400;letter-spacing:-.03em;line-height:1;color:var(--text)}.metric-value span{font-size:13px;color:var(--muted);font-weight:400;margin-left:3px}
 .metric-delta{margin-top:10px;font-size:12.5px;display:flex;align-items:center;gap:6px;font-weight:500}
 .delta-dot{width:6px;height:6px;border-radius:50%}.d-up{color:var(--green)}.d-ac{color:var(--accent)}.d-am{color:var(--amber)}.d-bl{color:var(--blue)}.d-nu{color:var(--muted)}
-.row-half{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.analytics-grid{display:grid;grid-template-columns:1fr;gap:16px}
 .card{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:background .3s,border-color .3s}
 .card-head{display:flex;align-items:flex-start;justify-content:space-between;padding:18px 20px 14px;border-bottom:1px solid var(--border)}
 .card-title{font-size:16px;font-weight:600;color:var(--text)}.card-sub{font-size:12.5px;color:var(--muted);margin-top:2px}.card-body{padding:18px 20px}
@@ -73,16 +76,13 @@ main{flex:1;display:flex;flex-direction:column;overflow:hidden}
 table{width:100%;border-collapse:collapse}
 thead th{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2);font-weight:700;padding:12px 14px;text-align:left;border-bottom:1px solid var(--border);background:var(--surface2)}
 tbody td{padding:12px 14px;font-size:13.5px;color:var(--text);border-bottom:1px solid var(--border);vertical-align:middle}
-tbody tr:last-child td{border-bottom:none}tbody tr:hover td{background:var(--accent-dim2);cursor:pointer}
-.contact-link{color:var(--blue);font-weight:600}.contact-phone{font-family:var(--mono);font-size:12.5px;color:var(--muted)}.address-txt{font-size:12.5px;color:var(--muted)}.val-txt{font-family:var(--mono);font-size:13.5px;font-weight:700;text-align:right}
+tbody tr:last-child td{border-bottom:none}tbody tr:hover td{background:var(--accent-dim2)}
+.contact-link{color:var(--blue);font-weight:600}.contact-phone{font-family:var(--mono);font-size:12.5px;color:var(--blue);text-decoration:none}.contact-phone:hover,.address-link:hover,.email-link:hover{text-decoration:underline}.address-txt{font-size:12.5px;color:var(--muted)}.address-link,.email-link{font-size:12.5px;color:var(--blue);text-decoration:none}.val-txt{font-family:var(--mono);font-size:13.5px;font-weight:700;text-align:right}
 .badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:700}
 .b-blue{background:var(--blue-dim);color:var(--blue)}.b-accent{background:var(--accent-dim);color:var(--accent)}.b-green{background:var(--green-dim);color:var(--green)}.b-amber{background:var(--amber-dim);color:var(--amber)}
 .score-wrap{display:flex;align-items:center;gap:8px}
 .score-num{font-family:var(--mono);font-size:14px;font-weight:700;min-width:28px}.sh{color:var(--accent)}.sm{color:var(--amber)}.sl{color:var(--muted)}
 .score-bar-bg{width:60px;height:4px;background:var(--surface2);border-radius:2px;flex-shrink:0}.score-bar-fill{height:100%;border-radius:2px}
-.signal-meter{display:flex;gap:2px;align-items:flex-end}
-.sig-bar{width:4px;border-radius:2px;background:var(--surface2)}.sig-bar.on{background:var(--green)}
-.sig-bar:nth-child(1){height:5px}.sig-bar:nth-child(2){height:9px}.sig-bar:nth-child(3){height:13px}.sig-bar:nth-child(4){height:17px}
 .content>*{animation:fadeUp .25s ease both}.content>*:nth-child(1){animation-delay:.04s}.content>*:nth-child(2){animation-delay:.08s}.content>*:nth-child(3){animation-delay:.12s}
 @keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 </style>
@@ -118,14 +118,18 @@ tbody tr:last-child td{border-bottom:none}tbody tr:hover td{background:var(--acc
   <div class="topbar">
     <div class="topbar-left">
       <h1>Opportunity Intel</h1>
-      <p>Qualified opportunity pipeline &mdash; Real-time intent signals</p>
+      <p>Qualified opportunity pipeline &mdash; Real-time opportunity data</p>
     </div>
     <div class="topbar-right">
-      <div class="seg-ctrl"><button class="active">All Opportunities</button><button>Qualified</button><button>Contacted</button></div>
-      <button class="top-btn ghost">
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4h12M4 8h8M6 12h4"/></svg>Filter
-      </button>
-      <button class="top-btn primary">
+      <div class="seg-ctrl" id="intel-time-filter">
+        <button class="active" data-range="24h">24h</button>
+        <button data-range="48h">48h</button>
+        <button data-range="all">All Time</button>
+      </div>
+      <input class="top-select date-select" type="date" id="intel-date-filter" aria-label="Show opportunities from exact date">
+      <select class="top-select" id="sf-score"><option value="">All Scores</option><option value="h">High (90-100)</option><option value="m">Qualified (80-89)</option><option value="l">Review (75-79)</option></select>
+      <select class="top-select" id="sf-region"><option value="">All Cities</option><option value="murrieta">Murrieta</option><option value="temecula">Temecula</option><option value="menifee">Menifee</option><option value="perris">Perris</option><option value="riverside">Riverside</option><option value="oceanside">Oceanside</option><option value="corona">Corona</option><option value="lake_elsinore">Lake Elsinore</option><option value="moreno_valley">Moreno Valley</option></select>
+      <button class="top-btn primary" id="export-csv">
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 1v10M4 7l4 4 4-4M2 14h12"/></svg>Export CSV
       </button>
     </div>
@@ -139,14 +143,10 @@ tbody tr:last-child td{border-bottom:none}tbody tr:hover td{background:var(--acc
       <div class="metric-card sapphire"><div class="metric-label">Active City Data</div><div class="metric-value">9 <span>cities</span></div><div class="metric-delta"><span class="delta-dot" style="background:var(--blue)"></span><span class="d-bl">HVAC coverage</span></div></div>
     </div>
 
-    <div class="row-half">
+    <div class="analytics-grid">
       <div class="card">
         <div class="card-head"><div><div class="card-title">Score Distribution</div><div class="card-sub">Opportunity quality breakdown by score band</div></div></div>
         <div class="card-body" style="padding-bottom:12px"><div style="position:relative;width:100%;height:200px"><canvas id="scoreChart"></canvas></div></div>
-      </div>
-      <div class="card">
-        <div class="card-head"><div><div class="card-title">Opportunity Types</div><div class="card-sub">Signal classification by service need</div></div></div>
-        <div class="card-body" style="padding-bottom:12px"><div style="position:relative;width:100%;height:200px"><canvas id="typeChart"></canvas></div></div>
       </div>
     </div>
 
@@ -156,15 +156,12 @@ tbody tr:last-child td{border-bottom:none}tbody tr:hover td{background:var(--acc
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="7" cy="7" r="5"/><line x1="11" y1="11" x2="15" y2="15"/></svg>
           <input class="search-input" type="text" placeholder="Search by name, address or ZIP…" id="srch">
         </div>
-        <select class="filter-select" id="sf-score"><option value="">All Scores</option><option value="h">High (90-100)</option><option value="m">Qualified (80-89)</option><option value="l">Review (75-79)</option></select>
-        <select class="filter-select" id="sf-type"><option value="">All Types</option><option value="AC">AC Repair</option><option value="Install">Installation</option><option value="Maintain">Maintenance</option><option value="Heating">Heating</option></select>
-        <select class="filter-select" id="sf-region"><option value="">All Cities</option><option value="murrieta">Murrieta</option><option value="temecula">Temecula</option><option value="menifee">Menifee</option><option value="perris">Perris</option><option value="riverside">Riverside</option><option value="oceanside">Oceanside</option><option value="corona">Corona</option><option value="lake_elsinore">Lake Elsinore</option><option value="moreno_valley">Moreno Valley</option></select>
       </div>
       <div style="overflow-x:auto">
         <table>
           <thead>
             <tr>
-              <th>Contact</th><th>Phone</th><th>Property Address</th><th>City</th><th>ZIP</th><th>Type</th><th>Score</th><th>Signal</th>
+              <th>Contact</th><th>Email</th><th>Phone</th><th>Property Address</th><th>City</th><th>ZIP</th><th>Score</th>
             </tr>
           </thead>
           <tbody id="intel-tbody"></tbody>
@@ -187,55 +184,109 @@ function applyTheme(light,persist=true){isLight=light;document.documentElement.c
 document.getElementById('theme-toggle').addEventListener('click',()=>applyTheme(!isLight));
 
 let activeLeads=[];
+let allIntelLeads=[];
 
 function scClass(s){return s>=90?'sh':s>=80?'sm':'sl'}
-function typeBadge(t){const m={AC:'b-blue',Install:'b-accent',Maintain:'b-green',Heating:'b-amber'};return`<span class="badge ${m[t]||'b-blue'}">${t}</span>`}
-function sigMeter(n){return`<div class="signal-meter">${[1,2,3,4].map(i=>`<div class="sig-bar${i<=n?' on':''}"></div>`).join('')}</div>`}
 function barColor(s){return s>=90?'var(--accent)':s>=80?'var(--amber)':'var(--muted)'}
+function escapeHtml(value){return String(value||'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]))}
+function phoneHref(phone){const digits=String(phone||'').replace(/\D/g,'');return digits ? `tel:${digits.length===10?'+1':''}${digits}` : '#'}
+function mapHref(row){return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(`${row.address || ''}, ${row.city || ''}, CA ${row.zip || ''}`)}`}
+function leadDate(lead){
+  const raw=lead.timeStamp || lead.created_at || '';
+  const date=raw ? new Date(raw) : null;
+  return date && !Number.isNaN(date.getTime()) ? date : null;
+}
+function localDateKey(date){return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`}
+function selectedRange(){
+  const active=document.querySelector('#intel-time-filter button.active');
+  return active ? active.dataset.range : '24h';
+}
+function selectedExactDate(){
+  const input=document.getElementById('intel-date-filter');
+  return input ? input.value : '';
+}
 
 function render(data){
   const tb=document.getElementById('intel-tbody'),es=document.getElementById('empty-state');
   if(!data.length){tb.innerHTML='';es.style.display='block';return;}es.style.display='none';
   tb.innerHTML=data.map(r=>`<tr>
-    <td><strong class="contact-link">${r.name}</strong></td>
-    <td><span class="contact-phone">${r.phone}</span></td>
-    <td><span class="address-txt">${r.address}</span></td>
-    <td>${r.city}</td>
-    <td style="font-family:var(--mono);font-size:12.5px">${r.zip}</td>
-    <td>${typeBadge(r.type)}</td>
+    <td><strong class="contact-link">${escapeHtml(r.name)}</strong></td>
+    <td>${r.email ? `<a class="email-link" href="mailto:${escapeHtml(r.email)}">${escapeHtml(r.email)}</a>` : '<span class="address-txt">--</span>'}</td>
+    <td>${r.phone ? `<a class="contact-phone" href="${phoneHref(r.phone)}">${escapeHtml(r.phone)}</a>` : '<span class="address-txt">--</span>'}</td>
+    <td>${r.address ? `<a class="address-link" href="${mapHref(r)}" target="_blank" rel="noopener">${escapeHtml(r.address)}</a>` : '<span class="address-txt">--</span>'}</td>
+    <td>${escapeHtml(r.city)}</td>
+    <td style="font-family:var(--mono);font-size:12.5px">${escapeHtml(r.zip)}</td>
     <td><div class="score-wrap"><span class="score-num ${scClass(r.score)}">${r.score}</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:${r.score}%;background:${barColor(r.score)}"></div></div></div></td>
-    <td>${sigMeter(r.sig)}</td>
   </tr>`).join('');
 }
 
 function filterLeads(){
   const q=document.getElementById('srch').value.toLowerCase();
   const sc=document.getElementById('sf-score').value;
-  const ty=document.getElementById('sf-type').value;
   const rg=document.getElementById('sf-region').value;
-  render(activeLeads.filter(r=>{
-    const ms=!q||r.name.toLowerCase().includes(q)||r.address.toLowerCase().includes(q)||r.city.toLowerCase().includes(q)||r.zip.includes(q);
+  let filtered=allIntelLeads.slice();
+  const exact=selectedExactDate();
+  if(exact){
+    filtered=filtered.filter(r=>{
+      const date=leadDate(r);
+      return date && localDateKey(date)===exact;
+    });
+  }else{
+    const range=selectedRange();
+    if(range!=='all'){
+      const cutoff=Date.now()-((range==='48h'?48:24)*60*60*1000);
+      filtered=filtered.filter(r=>{
+        const date=leadDate(r);
+        return date && date.getTime()>=cutoff;
+      });
+    }
+  }
+  filtered=filtered.filter(r=>{
+    const ms=!q||r.name.toLowerCase().includes(q)||r.address.toLowerCase().includes(q)||r.city.toLowerCase().includes(q)||r.zip.includes(q)||(r.email||'').toLowerCase().includes(q)||r.phone.includes(q);
     const mscore=!sc||(sc==='h'&&r.score>=90)||(sc==='m'&&r.score>=80&&r.score<90)||(sc==='l'&&r.score>=75&&r.score<80);
-    const mtype=!ty||r.type===ty;
     const mreg=!rg||r.region===rg;
-    return ms&&mscore&&mtype&&mreg;
-  }));
+    return ms&&mscore&&mreg;
+  });
+  activeLeads=filtered;
+  updateIntelMetrics(activeLeads);
+  updateIntelCharts(activeLeads);
+  render(activeLeads);
 }
 
 render([]);
-['srch','sf-score','sf-type','sf-region'].forEach(id=>document.getElementById(id).addEventListener('input',filterLeads));
+['srch','sf-score','sf-region'].forEach(id=>document.getElementById(id).addEventListener('input',filterLeads));
 document.getElementById('sf-score').addEventListener('change',filterLeads);
-document.getElementById('sf-type').addEventListener('change',filterLeads);
 document.getElementById('sf-region').addEventListener('change',filterLeads);
+document.querySelectorAll('#intel-time-filter button').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const dateInput=document.getElementById('intel-date-filter');
+    if(dateInput) dateInput.value='';
+    filterLeads();
+  });
+});
+document.getElementById('intel-date-filter').addEventListener('change',filterLeads);
+document.getElementById('export-csv').addEventListener('click',()=>{
+  const headers=['Contact','Email','Phone','Property Address','City','ZIP','Score'];
+  const rows=activeLeads.map(row=>[row.name,row.email,row.phone,row.address,row.city,row.zip,row.score]);
+  const csv=[headers,...rows].map(row=>row.map(value=>`"${String(value??'').replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const link=document.createElement('a');
+  link.href=url;
+  link.download='opportunities.csv';
+  link.click();
+  URL.revokeObjectURL(url);
+});
 
 function updateIntelMetrics(data){
   const total=document.getElementById('intel-total'),qualified=document.getElementById('intel-qualified'),avg=document.getElementById('intel-avg-score');
   const avgScore=data.length?Math.round(data.reduce((sum,lead)=>sum+lead.score,0)/data.length):0;
-  if(total) total.innerHTML=`${data.length.toLocaleString()} <span>signals</span>`;
+  if(total) total.innerHTML=`${data.length.toLocaleString()} <span>opportunities</span>`;
   if(qualified) qualified.innerHTML=`${data.filter(lead=>lead.score>=80).length.toLocaleString()} <span>opportunities</span>`;
   if(avg) avg.innerHTML=`${data.length?avgScore:'--'} <span>/ 100</span>`;
 }
 function showIntelMessage(message){
+  allIntelLeads=[];
   activeLeads=[];
   updateIntelMetrics([]);
   const es=document.getElementById('empty-state');
@@ -249,10 +300,7 @@ async function loadLiveIntel(){
     return;
   }
   try{
-    const liveLeads=await SqoutiqData.fetchLeads();
-    activeLeads=liveLeads;
-    updateIntelMetrics(activeLeads);
-    updateIntelCharts(activeLeads);
+    allIntelLeads=await SqoutiqData.fetchLeads();
     filterLeads();
   }catch(error){
     console.warn('Opportunity data load failed',error);
@@ -266,32 +314,22 @@ let scoreChart=new Chart(document.getElementById('scoreChart'),{type:'bar',data:
   labels:['75-79','80-84','85-89','90-94','95-100'],
   datasets:[{data:[0,0,0,0,0],backgroundColor:['#6b7280','#f59e0b','#00a8cc','#9b51e0','#10b981'],borderRadius:5,borderSkipped:false}]
 },options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{backgroundColor:'#1d1f2b',borderColor:'rgba(255,255,255,0.08)',borderWidth:1,bodyColor:'#f3f4f6',padding:8,cornerRadius:7}},scales:{y:{grid:{color:'rgba(255,255,255,0.04)'},border:{display:false},ticks:{color:'#6b7280',font:{family:'DM Mono',size:11}}},x:{grid:{display:false},border:{display:false},ticks:{color:'#6b7280',font:{family:'DM Sans',size:11}}}}}});
-let typeChart=new Chart(document.getElementById('typeChart'),{type:'doughnut',data:{
-  labels:SqoutiqData.cityOptions().map(city=>city.label),
-  datasets:[{data:SqoutiqData.cityOptions().map(()=>0),backgroundColor:['#9b51e0','#00a8cc','#10b981','#f59e0b','#ef4444','#64748b','#14b8a6','#84cc16','#f97316'],borderWidth:0,hoverOffset:6}]
-},options:{responsive:true,maintainAspectRatio:false,cutout:'68%',plugins:{legend:{position:'right',labels:{color:'#9ca3af',font:{family:'DM Sans',size:12},boxWidth:10,padding:12}},tooltip:{backgroundColor:'#1d1f2b',borderColor:'rgba(255,255,255,0.08)',borderWidth:1,bodyColor:'#f3f4f6',padding:8,cornerRadius:7}}}});
-
 function updateIntelCharts(data){
   const bins=[0,0,0,0,0];
-  const byCity=Object.fromEntries(SqoutiqData.cityOptions().map(city=>[city.slug,0]));
   data.forEach(lead=>{
     if(lead.score>=95) bins[4]++;
     else if(lead.score>=90) bins[3]++;
     else if(lead.score>=85) bins[2]++;
     else if(lead.score>=80) bins[1]++;
     else bins[0]++;
-    if(byCity[lead.region]!==undefined) byCity[lead.region]++;
   });
   scoreChart.data.datasets[0].data=bins;
-  typeChart.data.datasets[0].data=SqoutiqData.cityOptions().map(city=>byCity[city.slug]||0);
   scoreChart.update();
-  typeChart.update();
 }
 
 function updateCharts(light){
-  const g=light?'rgba(0,0,0,0.05)':'rgba(255,255,255,0.04)',t='#6b7280',tb=light?'#fff':'#1d1f2b',tc=light?'rgba(0,0,0,0.1)':'rgba(255,255,255,0.08)',tbody=light?'#111827':'#f3f4f6',lc=light?'#4b5563':'#9ca3af';
+  const g=light?'rgba(0,0,0,0.05)':'rgba(255,255,255,0.04)',t='#6b7280',tb=light?'#fff':'#1d1f2b',tc=light?'rgba(0,0,0,0.1)':'rgba(255,255,255,0.08)',tbody=light?'#111827':'#f3f4f6';
   scoreChart.options.scales.y.grid.color=g;scoreChart.options.scales.y.ticks.color=t;scoreChart.options.scales.x.ticks.color=t;scoreChart.options.plugins.tooltip.backgroundColor=tb;scoreChart.options.plugins.tooltip.borderColor=tc;scoreChart.options.plugins.tooltip.bodyColor=tbody;scoreChart.update();
-  typeChart.options.plugins.legend.labels.color=lc;typeChart.options.plugins.tooltip.backgroundColor=tb;typeChart.options.plugins.tooltip.borderColor=tc;typeChart.options.plugins.tooltip.bodyColor=tbody;typeChart.update();
 }
 try{applyTheme(localStorage.getItem(THEME_STORAGE_KEY)==='light',false)}catch(e){applyTheme(false,false)}
 loadLiveIntel();
