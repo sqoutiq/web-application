@@ -40,6 +40,7 @@ SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
 AUDIENCE_ID = "690932ed-86d3-4348-9851-fdec475a1db9"
 TYPE_SUFFIX = os.environ.get("TYPE_SUFFIX", "hvac")
 PAGE_SIZE = int(os.environ.get("AUDIENCE_PAGE_SIZE", "500"))
+GEOCODE_SLEEP_SECONDS = float(os.environ.get("GEOCODE_SLEEP_SECONDS", "0.15"))
 
 REGION_ZIPS = {
     "murrieta": ["92562", "92563", "92564", "92595"],
@@ -67,6 +68,7 @@ REGION_ZIPS = {
 }
 
 ZIP_TO_REGION = {zip_code: region for region, zips in REGION_ZIPS.items() for zip_code in zips}
+GEOCODE_CACHE: dict[str, tuple[float | None, float | None]] = {}
 
 ALLOWED_COLUMNS = [
     "FIRST_NAME",
@@ -121,6 +123,60 @@ def normalize_phone(value: Any) -> str:
     if len(digits) == 11 and digits.startswith("1"):
         digits = digits[1:]
     return digits if len(digits) == 10 else ""
+
+
+def normalize_coordinate(value: Any, *, kind: str) -> float | None:
+    if is_blank(value):
+        return None
+
+    try:
+        number = float(str(value).strip())
+    except ValueError:
+        return None
+
+    if kind == "lat" and 32 <= number <= 35:
+        return round(number, 7)
+    if kind == "lng" and -119 <= number <= -116:
+        return round(number, 7)
+    return None
+
+
+def geocode_address(address: str, city: str, state: str, zip_code: str) -> tuple[float | None, float | None]:
+    cache_key = f"{address}|{city}|{state}|{zip_code}".lower()
+    if cache_key in GEOCODE_CACHE:
+        return GEOCODE_CACHE[cache_key]
+
+    params = {
+        "street": address,
+        "city": city,
+        "state": state,
+        "zip": zip_code,
+        "benchmark": "Public_AR_Current",
+        "format": "json",
+    }
+
+    try:
+        response = requests.get("https://geocoding.geo.census.gov/geocoder/locations/address", params=params, timeout=20)
+        if response.status_code != 200:
+            print(f"Geocode failed for {address}, {city} {zip_code}: HTTP {response.status_code}")
+            GEOCODE_CACHE[cache_key] = (None, None)
+            return GEOCODE_CACHE[cache_key]
+
+        matches = response.json().get("result", {}).get("addressMatches", [])
+        if not matches:
+            GEOCODE_CACHE[cache_key] = (None, None)
+            return GEOCODE_CACHE[cache_key]
+
+        coordinates = matches[0].get("coordinates", {})
+        lat = normalize_coordinate(coordinates.get("y"), kind="lat")
+        lng = normalize_coordinate(coordinates.get("x"), kind="lng")
+        GEOCODE_CACHE[cache_key] = (lat, lng) if lat is not None and lng is not None else (None, None)
+        time.sleep(GEOCODE_SLEEP_SECONDS)
+        return GEOCODE_CACHE[cache_key]
+    except Exception as exc:
+        print(f"Geocode error for {address}, {city} {zip_code}: {exc}")
+        GEOCODE_CACHE[cache_key] = (None, None)
+        return GEOCODE_CACHE[cache_key]
 
 
 def get_safe_phone(row: dict[str, Any]) -> str:
@@ -188,6 +244,17 @@ def process_lead(row: dict[str, Any]) -> dict[str, Any] | None:
 
     email = first_present(row, "PERSONAL_VERIFIED_EMAILS", "PERSONAL_VERIFIED_EMAIL", "PERSONAL_EMAILS")
     timestamp = first_present(row, "time_stamp", "created_at", "updated_at") or datetime.now(timezone.utc).isoformat()
+    lat = normalize_coordinate(
+        first_present(row, "LATITUDE", "PROPERTY_LATITUDE", "PERSONAL_LATITUDE", "SKIPTRACE_LATITUDE", "lat"),
+        kind="lat",
+    )
+    lng = normalize_coordinate(
+        first_present(row, "LONGITUDE", "PROPERTY_LONGITUDE", "PROPERTY_LON", "PERSONAL_LONGITUDE", "SKIPTRACE_LONGITUDE", "lng", "lon"),
+        kind="lng",
+    )
+
+    if lat is None or lng is None:
+        lat, lng = geocode_address(address, city, state.upper(), zip_code)
 
     return {
         "FIRST_NAME": first_name,
@@ -196,8 +263,8 @@ def process_lead(row: dict[str, Any]) -> dict[str, Any] | None:
         "PERSONAL_CITY": city,
         "PERSONAL_STATE": state.upper(),
         "PERSONAL_ZIP": zip_code,
-        "LATITUDE": first_present(row, "LATITUDE", "PROPERTY_LATITUDE", "PERSONAL_LATITUDE", "SKIPTRACE_LATITUDE", "lat"),
-        "LONGITUDE": first_present(row, "LONGITUDE", "PROPERTY_LONGITUDE", "PROPERTY_LON", "PERSONAL_LONGITUDE", "SKIPTRACE_LONGITUDE", "lng", "lon"),
+        "LATITUDE": lat,
+        "LONGITUDE": lng,
         "SKIPTRACE_WIRELESS_NUMBERS": phone,
         "PERSONAL_VERIFIED_EMAIL": email,
         "NET_WORTH": first_present(row, "NET_WORTH"),
