@@ -9,15 +9,15 @@ Required environment variables:
   SUPABASE_KEY
 
 Optional environment variables:
-  TYPE_SUFFIX          Defaults to "roofing"
+  TYPE_SUFFIX          Defaults to "hvac"
   AUDIENCE_PAGE_SIZE   Defaults to 500
 
 The Supabase table name is built as:
   <region_slug>_<TYPE_SUFFIX>
 
 Example:
-  murrieta_roofing
-  temecula_roofing
+  murrieta_hvac
+  temecula_hvac
 """
 
 from __future__ import annotations
@@ -38,7 +38,7 @@ SUPABASE_URL = (os.environ.get("SUPABASE_URL") or "").rstrip("/")
 SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
 
 AUDIENCE_ID = "690932ed-86d3-4348-9851-fdec475a1db9"
-TYPE_SUFFIX = os.environ.get("TYPE_SUFFIX", "roofing")
+TYPE_SUFFIX = os.environ.get("TYPE_SUFFIX", "hvac")
 PAGE_SIZE = int(os.environ.get("AUDIENCE_PAGE_SIZE", "500"))
 
 REGION_ZIPS = {
