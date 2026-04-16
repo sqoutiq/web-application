@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-16T18:49:44.566281+00:00",
+  "generatedAt": "2026-04-16T22:29:54.847289+00:00",
   "type": "hvac",
   "cityTables": [
     {
@@ -60,10 +60,14 @@
       "table": "murrieta_hvac",
       "zip": "92562",
       "email": "lupejaime1@verizon.net",
-      "score": 80,
-      "sig": 2,
+      "lat": 33.5958651,
+      "lng": -117.1777153,
+      "incomeRange": "$60,000 to $74,999",
+      "netWorth": "$375,000 to $499,999",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.900078+00:00"
+      "timeStamp": "2026-04-16T22:24:12.435023+00:00"
     },
     {
       "name": "LISA GRUWELL",
@@ -74,10 +78,14 @@
       "table": "murrieta_hvac",
       "zip": "92562",
       "email": "lisagruwell@gmail.com, lsgruwell@gmail.com",
-      "score": 84,
-      "sig": 2,
+      "lat": 33.5983148,
+      "lng": -117.1909151,
+      "incomeRange": "$75,000 to $99,999",
+      "netWorth": "$1,000,000 or more",
+      "score": 94,
+      "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.899938+00:00"
+      "timeStamp": "2026-04-16T22:24:12.052868+00:00"
     },
     {
       "name": "THOMAS SORENSON",
@@ -88,10 +96,14 @@
       "table": "murrieta_hvac",
       "zip": "92562",
       "email": "sailortom80@yahoo.com",
-      "score": 96,
-      "sig": 4,
+      "lat": 33.5597452,
+      "lng": -117.2061434,
+      "incomeRange": "",
+      "netWorth": "$25,000 to $49,999",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.898103+00:00"
+      "timeStamp": "2026-04-16T22:24:09.274017+00:00"
     },
     {
       "name": "DEBORAH ESTER",
@@ -102,10 +114,14 @@
       "table": "murrieta_hvac",
       "zip": "92562",
       "email": "dpester@me.com",
+      "lat": 33.5865783,
+      "lng": -117.2254249,
+      "incomeRange": "$100,000 to $149,999",
+      "netWorth": "$150,000 to $249,999",
       "score": 94,
       "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.897428+00:00"
+      "timeStamp": "2026-04-16T22:24:06.669767+00:00"
     },
     {
       "name": "JONATHAN SYMMONDS",
@@ -116,10 +132,14 @@
       "table": "murrieta_hvac",
       "zip": "92563",
       "email": "jlsymmonds117@gmail.com, jlsymmonds@hotmail.com",
-      "score": 92,
+      "lat": 33.5446843,
+      "lng": -117.1569252,
+      "incomeRange": "$60,000 to $74,999",
+      "netWorth": "$2,500 to $24,999",
+      "score": 90,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.895587+00:00"
+      "timeStamp": "2026-04-16T22:24:02.970046+00:00"
     },
     {
       "name": "LUIS JAUREGUI",
@@ -130,10 +150,14 @@
       "table": "murrieta_hvac",
       "zip": "92563",
       "email": "jaymann36@msn.com",
-      "score": 96,
-      "sig": 4,
+      "lat": null,
+      "lng": null,
+      "incomeRange": "$20,000 to $44,999",
+      "netWorth": "",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.895251+00:00"
+      "timeStamp": "2026-04-16T22:24:02.707159+00:00"
     },
     {
       "name": "ERIC MOSSO",
@@ -144,10 +168,14 @@
       "table": "murrieta_hvac",
       "zip": "92562",
       "email": "em_mosso@yahoo.com",
-      "score": 90,
-      "sig": 3,
+      "lat": 33.5731974,
+      "lng": -117.2201216,
+      "incomeRange": "$100,000 to $149,999",
+      "netWorth": "$500,000 to $749,999",
+      "score": 95,
+      "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.895167+00:00"
+      "timeStamp": "2026-04-16T22:24:02.296721+00:00"
     },
     {
       "name": "JEFF DORLAQUE",
@@ -158,10 +186,14 @@
       "table": "murrieta_hvac",
       "zip": "92562",
       "email": "jeffdorlaque@gmail.com",
-      "score": 98,
-      "sig": 4,
+      "lat": 33.5873624,
+      "lng": -117.1989761,
+      "incomeRange": "$60,000 to $74,999",
+      "netWorth": "$375,000 to $499,999",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.886197+00:00"
+      "timeStamp": "2026-04-16T22:23:43.609412+00:00"
     },
     {
       "name": "DANIEL WILLIAMS",
@@ -172,10 +204,14 @@
       "table": "murrieta_hvac",
       "zip": "92562",
       "email": "daniel4williams@gmail.com, sirwil05@gmail.com, dewilliams1313@gmail.com",
-      "score": 80,
-      "sig": 2,
+      "lat": 33.5752853,
+      "lng": -117.1919155,
+      "incomeRange": "less than $20,000",
+      "netWorth": "$150,000 to $249,999",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.885885+00:00"
+      "timeStamp": "2026-04-16T22:23:42.801705+00:00"
     },
     {
       "name": "KATHERIN RENCH",
@@ -186,10 +222,14 @@
       "table": "murrieta_hvac",
       "zip": "92563",
       "email": "hotrenches@hotmail.com",
-      "score": 97,
-      "sig": 4,
+      "lat": 33.5492633,
+      "lng": -117.1600601,
+      "incomeRange": "$60,000 to $74,999",
+      "netWorth": "$375,000 to $499,999",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.884368+00:00"
+      "timeStamp": "2026-04-16T22:23:41.284692+00:00"
     },
     {
       "name": "KELLY MCKERAHAN",
@@ -200,10 +240,14 @@
       "table": "murrieta_hvac",
       "zip": "92562",
       "email": "kellymckerahan@verizon.net",
-      "score": 85,
-      "sig": 2,
+      "lat": 33.5538409,
+      "lng": -117.2025783,
+      "incomeRange": "$20,000 to $44,999",
+      "netWorth": "$375,000 to $499,999",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.884265+00:00"
+      "timeStamp": "2026-04-16T22:23:40.648564+00:00"
     },
     {
       "name": "CHERRON MCGRIFF",
@@ -214,10 +258,14 @@
       "table": "murrieta_hvac",
       "zip": "92562",
       "email": "cbmcgriff.1@gmail.com, cbmcgriff@gmail.com",
-      "score": 89,
+      "lat": 33.5802355,
+      "lng": -117.2366167,
+      "incomeRange": "$60,000 to $74,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 91,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.883868+00:00"
+      "timeStamp": "2026-04-16T22:23:39.854270+00:00"
     },
     {
       "name": "DORIS BATARSE",
@@ -228,10 +276,14 @@
       "table": "murrieta_hvac",
       "zip": "92563",
       "email": "dbatarse@gmail.com",
-      "score": 95,
-      "sig": 4,
+      "lat": 33.6256092,
+      "lng": -117.160537,
+      "incomeRange": "$45,000 to $59,999",
+      "netWorth": "$375,000 to $499,999",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.877169+00:00"
+      "timeStamp": "2026-04-16T22:23:28.418110+00:00"
     },
     {
       "name": "PETRIA BLACK",
@@ -242,10 +294,14 @@
       "table": "murrieta_hvac",
       "zip": "92563",
       "email": "petria.black@gmail.com, petriablack@gmail.com",
-      "score": 78,
-      "sig": 1,
+      "lat": 33.616741,
+      "lng": -117.1326017,
+      "incomeRange": "$45,000 to $59,999",
+      "netWorth": "-$20,000 to -$2,500",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.875786+00:00"
+      "timeStamp": "2026-04-16T22:23:26.147726+00:00"
     },
     {
       "name": "RACHAEL BRIONES",
@@ -256,10 +312,14 @@
       "table": "murrieta_hvac",
       "zip": "92562",
       "email": "rboo79@yahoo.com, rboo79@hotmail.com, rachaelbriones@gmail.com",
-      "score": 95,
+      "lat": 33.5774194,
+      "lng": -117.2563987,
+      "incomeRange": "$200,000 to $249,999",
+      "netWorth": "$375,000 to $499,999",
+      "score": 97,
       "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.873621+00:00"
+      "timeStamp": "2026-04-16T22:23:19.181556+00:00"
     },
     {
       "name": "SHAWN HALL",
@@ -270,10 +330,14 @@
       "table": "murrieta_hvac",
       "zip": "92563",
       "email": "shawn.hall73@gmail.com, laofuzi20@hotmail.com, shawnedelhall@hotmail.com, shawnhall73@gmail.com",
-      "score": 97,
-      "sig": 4,
+      "lat": 33.5510396,
+      "lng": -117.1637463,
+      "incomeRange": "$75,000 to $99,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 93,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.872518+00:00"
+      "timeStamp": "2026-04-16T22:23:17.302657+00:00"
     },
     {
       "name": "MARIA CEREZO",
@@ -284,10 +348,14 @@
       "table": "murrieta_hvac",
       "zip": "92562",
       "email": "4cerezos@verizon.net",
-      "score": 95,
+      "lat": 33.5952333,
+      "lng": -117.1931352,
+      "incomeRange": "$100,000 to $149,999",
+      "netWorth": "$250,000 to $374,999",
+      "score": 94,
       "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.871322+00:00"
+      "timeStamp": "2026-04-16T22:23:14.677105+00:00"
     },
     {
       "name": "CALEB GREESON",
@@ -298,10 +366,14 @@
       "table": "murrieta_hvac",
       "zip": "92595",
       "email": "mark.greeson@gmail.com, cmgreeson@gmail.com, markgreeson@gmail.com",
-      "score": 86,
+      "lat": 33.6327752,
+      "lng": -117.2319895,
+      "incomeRange": "$75,000 to $99,999",
+      "netWorth": "$150,000 to $249,999",
+      "score": 92,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.870629+00:00"
+      "timeStamp": "2026-04-16T22:23:13.422008+00:00"
     },
     {
       "name": "DAVID SANTILENA",
@@ -312,10 +384,14 @@
       "table": "murrieta_hvac",
       "zip": "92563",
       "email": "dcskjs2@yahoo.com, dcskjs4@yahoo.com",
-      "score": 86,
+      "lat": 33.5585266,
+      "lng": -117.1232741,
+      "incomeRange": "$20,000 to $44,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 91,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.869944+00:00"
+      "timeStamp": "2026-04-16T22:23:12.675038+00:00"
     },
     {
       "name": "JOLEEN HELMLINGER",
@@ -326,10 +402,14 @@
       "table": "murrieta_hvac",
       "zip": "92563",
       "email": "jlhelmlinger@gmail.com, glammajulie@gmail.com, jeffreylmason@gmail.com",
-      "score": 95,
+      "lat": 33.6305911,
+      "lng": -117.1536032,
+      "incomeRange": "$100,000 to $149,999",
+      "netWorth": "$150,000 to $249,999",
+      "score": 94,
       "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.868740+00:00"
+      "timeStamp": "2026-04-16T22:23:09.888719+00:00"
     },
     {
       "name": "WILLIAM ATWOOD",
@@ -340,10 +420,14 @@
       "table": "murrieta_hvac",
       "zip": "92563",
       "email": "atwoodb@yahoo.com, 4batwood@gmail.com, atwoodb@live.com, atwoodb@msn.com",
-      "score": 89,
+      "lat": 33.6025059,
+      "lng": -117.1207794,
+      "incomeRange": "$75,000 to $99,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 93,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.868285+00:00"
+      "timeStamp": "2026-04-16T22:23:08.674795+00:00"
     },
     {
       "name": "ANDREW GONZALES",
@@ -354,10 +438,14 @@
       "table": "murrieta_hvac",
       "zip": "92563",
       "email": "sheluvandy@aol.com, andrewdued@gmail.com",
-      "score": 84,
-      "sig": 2,
+      "lat": 33.5586378,
+      "lng": -117.1742293,
+      "incomeRange": "$45,000 to $59,999",
+      "netWorth": "$250,000 to $374,999",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.867584+00:00"
+      "timeStamp": "2026-04-16T22:23:07.467167+00:00"
     },
     {
       "name": "ANH DANG",
@@ -368,10 +456,14 @@
       "table": "murrieta_hvac",
       "zip": "92563",
       "email": "tuanh.dang@yahoo.com",
-      "score": 90,
+      "lat": 33.5608396,
+      "lng": -117.1424741,
+      "incomeRange": "less than $20,000",
+      "netWorth": "$750,000 to $999,999",
+      "score": 91,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.866579+00:00"
+      "timeStamp": "2026-04-16T22:23:05.880962+00:00"
     },
     {
       "name": "LATANYA TRIGG",
@@ -382,10 +474,14 @@
       "table": "murrieta_hvac",
       "zip": "92563",
       "email": "triggtonya@yahoo.com",
-      "score": 89,
+      "lat": null,
+      "lng": null,
+      "incomeRange": "$20,000 to $44,999",
+      "netWorth": "-$2,499 to $2,499",
+      "score": 90,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.866325+00:00"
+      "timeStamp": "2026-04-16T22:23:04.406091+00:00"
     },
     {
       "name": "ESTHER EVERS",
@@ -396,10 +492,14 @@
       "table": "murrieta_hvac",
       "zip": "92563",
       "email": "esther.evers@aol.com",
-      "score": 88,
+      "lat": 33.5620539,
+      "lng": -117.1593605,
+      "incomeRange": "$20,000 to $44,999",
+      "netWorth": "$375,000 to $499,999",
+      "score": 90,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.866209+00:00"
+      "timeStamp": "2026-04-16T22:23:04.036359+00:00"
     },
     {
       "name": "SHAWNEE PETERSEN",
@@ -410,10 +510,14 @@
       "table": "murrieta_hvac",
       "zip": "92562",
       "email": "shawneepetersen@hotmail.com, lafrancis13@hotmail.com",
-      "score": 91,
-      "sig": 3,
+      "lat": 33.5951299,
+      "lng": -117.2055318,
+      "incomeRange": "$100,000 to $149,999",
+      "netWorth": "",
+      "score": 94,
+      "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.866092+00:00"
+      "timeStamp": "2026-04-16T22:23:03.293431+00:00"
     },
     {
       "name": "CANDYCE JULIAN",
@@ -424,10 +528,14 @@
       "table": "murrieta_hvac",
       "zip": "92563",
       "email": "ca5julian@hotmail.com, brejulian@yahoo.com",
-      "score": 88,
-      "sig": 3,
+      "lat": 33.6329663,
+      "lng": -117.1663787,
+      "incomeRange": "$100,000 to $149,999",
+      "netWorth": "$375,000 to $499,999",
+      "score": 94,
+      "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.861318+00:00"
+      "timeStamp": "2026-04-16T22:22:53.980173+00:00"
     },
     {
       "name": "JOSEPHINE CLENISTA",
@@ -438,10 +546,14 @@
       "table": "murrieta_hvac",
       "zip": "92562",
       "email": "jclenista@address.com, josephineclenista@yahoo.com",
-      "score": 93,
+      "lat": 33.5894174,
+      "lng": -117.2028613,
+      "incomeRange": "$45,000 to $59,999",
+      "netWorth": "$250,000 to $374,999",
+      "score": 90,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.858410+00:00"
+      "timeStamp": "2026-04-16T22:22:49.024822+00:00"
     },
     {
       "name": "STEVEN BURICK",
@@ -452,10 +564,14 @@
       "table": "murrieta_hvac",
       "zip": "92563",
       "email": "stevenburick@gmail.com, sburick@gmail.com",
-      "score": 96,
+      "lat": 33.6027788,
+      "lng": -117.1337031,
+      "incomeRange": "$150,000 to $199,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 97,
       "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.857092+00:00"
+      "timeStamp": "2026-04-16T22:22:45.596672+00:00"
     },
     {
       "name": "DANIELLE GARCIA",
@@ -466,10 +582,14 @@
       "table": "murrieta_hvac",
       "zip": "92563",
       "email": "danielle.garcia95@gmail.com, daniellegarcia95@gmail.com, daniellegarcia22@gmail.com, graciegarcia490@gmail.com",
-      "score": 89,
-      "sig": 3,
+      "lat": 33.5717462,
+      "lng": -117.1080912,
+      "incomeRange": "$150,000 to $199,999",
+      "netWorth": "-$20,000 to -$2,500",
+      "score": 96,
+      "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.854048+00:00"
+      "timeStamp": "2026-04-16T22:22:41.325957+00:00"
     },
     {
       "name": "RYAN RUSSELL",
@@ -480,10 +600,14 @@
       "table": "murrieta_hvac",
       "zip": "92563",
       "email": "hogiyogi23@gmail.com",
-      "score": 95,
-      "sig": 4,
+      "lat": 33.609789,
+      "lng": -117.1240614,
+      "incomeRange": "$75,000 to $99,999",
+      "netWorth": "$375,000 to $499,999",
+      "score": 92,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.853643+00:00"
+      "timeStamp": "2026-04-16T22:22:40.138185+00:00"
     },
     {
       "name": "EARL COLEMAN",
@@ -494,10 +618,14 @@
       "table": "temecula_hvac",
       "zip": "92590",
       "email": "earlcoleman64@gmail.com, l.coleman@verizon.net, earlcoleman288@msn.com",
-      "score": 84,
-      "sig": 2,
+      "lat": 33.4819158,
+      "lng": -117.2004114,
+      "incomeRange": "$150,000 to $199,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 97,
+      "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.899294+00:00"
+      "timeStamp": "2026-04-16T22:24:11.266684+00:00"
     },
     {
       "name": "DENNIS HUNT",
@@ -508,10 +636,14 @@
       "table": "temecula_hvac",
       "zip": "92592",
       "email": "dghunt16@hotmail.com",
-      "score": 97,
+      "lat": 33.4962532,
+      "lng": -117.0872047,
+      "incomeRange": "$100,000 to $149,999",
+      "netWorth": "$375,000 to $499,999",
+      "score": 94,
       "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.896353+00:00"
+      "timeStamp": "2026-04-16T22:24:04.762585+00:00"
     },
     {
       "name": "JASON REILE",
@@ -522,10 +654,14 @@
       "table": "temecula_hvac",
       "zip": "92592",
       "email": "",
-      "score": 91,
+      "lat": 33.4573784,
+      "lng": -117.1031771,
+      "incomeRange": "",
+      "netWorth": "$375,000 to $499,999",
+      "score": 87,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.892573+00:00"
+      "timeStamp": "2026-04-16T22:23:57.589030+00:00"
     },
     {
       "name": "CHRISTINE RASHOTT",
@@ -536,10 +672,14 @@
       "table": "temecula_hvac",
       "zip": "92591",
       "email": "ffnormal@yahoo.com, christine_rashott@yahoo.com",
-      "score": 98,
-      "sig": 4,
+      "lat": 33.5420085,
+      "lng": -117.1486358,
+      "incomeRange": "$60,000 to $74,999",
+      "netWorth": "$150,000 to $249,999",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.892365+00:00"
+      "timeStamp": "2026-04-16T22:23:57.222494+00:00"
     },
     {
       "name": "VINCENT BERARDI",
@@ -550,10 +690,14 @@
       "table": "temecula_hvac",
       "zip": "92028",
       "email": "vinnieberardi@gmail.com, milkman2324@gmail.com",
-      "score": 75,
-      "sig": 1,
+      "lat": 33.3827985,
+      "lng": -117.2371113,
+      "incomeRange": "",
+      "netWorth": "",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.890365+00:00"
+      "timeStamp": "2026-04-16T22:23:51.933245+00:00"
     },
     {
       "name": "RUBEN MONTANEZ",
@@ -564,10 +708,14 @@
       "table": "temecula_hvac",
       "zip": "92028",
       "email": "jayne_montanez@yahoo.com",
-      "score": 100,
-      "sig": 4,
+      "lat": 33.3221542,
+      "lng": -117.1541592,
+      "incomeRange": "$75,000 to $99,999",
+      "netWorth": "$250,000 to $374,999",
+      "score": 92,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.889413+00:00"
+      "timeStamp": "2026-04-16T22:23:49.959461+00:00"
     },
     {
       "name": "GEORGE GUEBELY",
@@ -578,10 +726,14 @@
       "table": "temecula_hvac",
       "zip": "92028",
       "email": "guebelliinteractive@gmail.com, oniceinc2012@gmail.com",
-      "score": 81,
-      "sig": 2,
+      "lat": 33.3893164,
+      "lng": -117.2372733,
+      "incomeRange": "$45,000 to $59,999",
+      "netWorth": "$375,000 to $499,999",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.888527+00:00"
+      "timeStamp": "2026-04-16T22:23:49.138650+00:00"
     },
     {
       "name": "CHRISTOPHER BOWERS",
@@ -592,10 +744,14 @@
       "table": "temecula_hvac",
       "zip": "92591",
       "email": "bowersboys3@gmail.com",
-      "score": 91,
-      "sig": 3,
+      "lat": 33.5352173,
+      "lng": -117.112313,
+      "incomeRange": "$100,000 to $149,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 95,
+      "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.883770+00:00"
+      "timeStamp": "2026-04-16T22:23:39.447301+00:00"
     },
     {
       "name": "CHRISTINA CARRASCO",
@@ -606,10 +762,14 @@
       "table": "temecula_hvac",
       "zip": "92591",
       "email": "chris.carrasco92592@hotmail.com",
-      "score": 92,
-      "sig": 3,
+      "lat": 33.529636,
+      "lng": -117.1446814,
+      "incomeRange": "$100,000 to $149,999",
+      "netWorth": "$100,000 to $149,999",
+      "score": 94,
+      "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.881227+00:00"
+      "timeStamp": "2026-04-16T22:23:33.646178+00:00"
     },
     {
       "name": "STEVE HARTSFIELD",
@@ -620,10 +780,14 @@
       "table": "temecula_hvac",
       "zip": "92592",
       "email": "blakehartsfield59@yahoo.com, ssbh819@gmail.com",
-      "score": 95,
-      "sig": 4,
+      "lat": 33.4621803,
+      "lng": -117.1128754,
+      "incomeRange": "$75,000 to $99,999",
+      "netWorth": "$375,000 to $499,999",
+      "score": 92,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.876892+00:00"
+      "timeStamp": "2026-04-16T22:23:27.790422+00:00"
     },
     {
       "name": "JOSIAH TOLOPILO",
@@ -634,10 +798,14 @@
       "table": "temecula_hvac",
       "zip": "92592",
       "email": "harpsichord5@yahoo.com",
+      "lat": 33.4955778,
+      "lng": -117.0792631,
+      "incomeRange": "",
+      "netWorth": "$750,000 to $999,999",
       "score": 91,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.876820+00:00"
+      "timeStamp": "2026-04-16T22:23:27.379302+00:00"
     },
     {
       "name": "CATHLEEN DANIELS",
@@ -648,10 +816,14 @@
       "table": "temecula_hvac",
       "zip": "92591",
       "email": "carlsmoml@yahoo.com, cdan021@yahoo.com",
-      "score": 93,
+      "lat": 33.5396747,
+      "lng": -117.1569298,
+      "incomeRange": "$75,000 to $99,999",
+      "netWorth": "$75,000 to $99,999",
+      "score": 92,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.876153+00:00"
+      "timeStamp": "2026-04-16T22:23:26.555781+00:00"
     },
     {
       "name": "SCOTT BOWEN",
@@ -662,10 +834,14 @@
       "table": "temecula_hvac",
       "zip": "92592",
       "email": "scottbowen86@gmail.com, rivr4fun@yahoo.com",
-      "score": 80,
-      "sig": 2,
+      "lat": 33.5075945,
+      "lng": -117.0826685,
+      "incomeRange": "$250,000+",
+      "netWorth": "$750,000 to $999,999",
+      "score": 99,
+      "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.875261+00:00"
+      "timeStamp": "2026-04-16T22:23:23.551979+00:00"
     },
     {
       "name": "KIM MCCHESNEY",
@@ -676,10 +852,14 @@
       "table": "temecula_hvac",
       "zip": "92592",
       "email": "kimpo1@hotmail.com, nherber@yahoo.com, kimpo76@hotmail.com",
-      "score": 92,
+      "lat": 33.4874159,
+      "lng": -117.0855009,
+      "incomeRange": "$45,000 to $59,999",
+      "netWorth": "$25,000 to $49,999",
+      "score": 90,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.873936+00:00"
+      "timeStamp": "2026-04-16T22:23:19.976522+00:00"
     },
     {
       "name": "ARIEL MARQUEZ",
@@ -690,10 +870,14 @@
       "table": "temecula_hvac",
       "zip": "92592",
       "email": "lemarq512@gmail.com",
-      "score": 98,
+      "lat": null,
+      "lng": null,
+      "incomeRange": "$100,000 to $149,999",
+      "netWorth": "$500,000 to $749,999",
+      "score": 95,
       "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.873524+00:00"
+      "timeStamp": "2026-04-16T22:23:18.934853+00:00"
     },
     {
       "name": "NORMA HAMEL",
@@ -704,10 +888,14 @@
       "table": "temecula_hvac",
       "zip": "92596",
       "email": "nhamel368@gmail.com",
+      "lat": null,
+      "lng": null,
+      "incomeRange": "$20,000 to $44,999",
+      "netWorth": "$1,000,000 or more",
       "score": 92,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.872174+00:00"
+      "timeStamp": "2026-04-16T22:23:16.275135+00:00"
     },
     {
       "name": "MARY BEIHL",
@@ -718,10 +906,14 @@
       "table": "temecula_hvac",
       "zip": "92590",
       "email": "marybeihl@hotmail.com",
-      "score": 78,
-      "sig": 1,
+      "lat": 33.4882603,
+      "lng": -117.1795308,
+      "incomeRange": "$100,000 to $149,999",
+      "netWorth": "$500,000 to $749,999",
+      "score": 95,
+      "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.866364+00:00"
+      "timeStamp": "2026-04-16T22:23:05.084440+00:00"
     },
     {
       "name": "MAYRA LOZANO",
@@ -732,10 +924,14 @@
       "table": "temecula_hvac",
       "zip": "92028",
       "email": "vanminh240@gmail.com, aalyahgamino@gmail.com",
-      "score": 80,
-      "sig": 2,
+      "lat": 33.3864963,
+      "lng": -117.2510183,
+      "incomeRange": "$20,000 to $44,999",
+      "netWorth": "",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.865838+00:00"
+      "timeStamp": "2026-04-16T22:23:02.860582+00:00"
     },
     {
       "name": "JANICE DENEAU",
@@ -746,10 +942,14 @@
       "table": "temecula_hvac",
       "zip": "92028",
       "email": "deneauj@aol.com",
-      "score": 97,
+      "lat": 33.3661775,
+      "lng": -117.2541624,
+      "incomeRange": "$250,000+",
+      "netWorth": "$750,000 to $999,999",
+      "score": 99,
       "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.865246+00:00"
+      "timeStamp": "2026-04-16T22:23:01.503401+00:00"
     },
     {
       "name": "CODY WHEELER",
@@ -760,10 +960,14 @@
       "table": "temecula_hvac",
       "zip": "92591",
       "email": "icmike69@gmail.com",
-      "score": 89,
+      "lat": 33.5201888,
+      "lng": -117.1068073,
+      "incomeRange": "$75,000 to $99,999",
+      "netWorth": "$250,000 to $374,999",
+      "score": 92,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.864630+00:00"
+      "timeStamp": "2026-04-16T22:22:59.861991+00:00"
     },
     {
       "name": "STEPHANIE LOWELL",
@@ -774,10 +978,14 @@
       "table": "temecula_hvac",
       "zip": "92028",
       "email": "lowellstephanie@gmail.com, stephanie.lowell@pacbell.net, lowell.stephanie@gmail.com",
-      "score": 87,
+      "lat": 33.3373762,
+      "lng": -117.1773019,
+      "incomeRange": "$60,000 to $74,999",
+      "netWorth": "$150,000 to $249,999",
+      "score": 90,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.860067+00:00"
+      "timeStamp": "2026-04-16T22:22:51.613023+00:00"
     },
     {
       "name": "MICHAEL IMES",
@@ -788,10 +996,14 @@
       "table": "temecula_hvac",
       "zip": "92536",
       "email": "redriderhd@msn.com",
-      "score": 85,
-      "sig": 2,
+      "lat": 33.5302304,
+      "lng": -116.7939856,
+      "incomeRange": "",
+      "netWorth": "$75,000 to $99,999",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.857794+00:00"
+      "timeStamp": "2026-04-16T22:22:48.210059+00:00"
     },
     {
       "name": "SCOTT SARGENT",
@@ -802,10 +1014,14 @@
       "table": "temecula_hvac",
       "zip": "92592",
       "email": "",
-      "score": 83,
-      "sig": 2,
+      "lat": 33.4669058,
+      "lng": -117.0847111,
+      "incomeRange": "$75,000 to $99,999",
+      "netWorth": "",
+      "score": 89,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.855391+00:00"
+      "timeStamp": "2026-04-16T22:22:43.281716+00:00"
     },
     {
       "name": "KAREN O GARA",
@@ -816,10 +1032,14 @@
       "table": "temecula_hvac",
       "zip": "92591",
       "email": "owenogiii@yahoo.com, kogara4@yahoo.com, patrickallen71@yahoo.com, amt92201@yahoo.com",
-      "score": 78,
-      "sig": 1,
+      "lat": 33.5167386,
+      "lng": -117.1064635,
+      "incomeRange": "$60,000 to $74,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 91,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.855325+00:00"
+      "timeStamp": "2026-04-16T22:22:42.874814+00:00"
     },
     {
       "name": "STEPHEN KADELLA",
@@ -830,10 +1050,14 @@
       "table": "menifee_hvac",
       "zip": "92587",
       "email": "bsskadella@yahoo.com",
-      "score": 84,
-      "sig": 2,
+      "lat": 33.6960793,
+      "lng": -117.2638743,
+      "incomeRange": "$45,000 to $59,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 91,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.900355+00:00"
+      "timeStamp": "2026-04-16T22:24:13.091019+00:00"
     },
     {
       "name": "LUKE HOWARD",
@@ -844,10 +1068,14 @@
       "table": "menifee_hvac",
       "zip": "92585",
       "email": "lrhoward3223@gmail.com",
-      "score": 93,
+      "lat": 33.735202,
+      "lng": -117.2001288,
+      "incomeRange": "less than $20,000",
+      "netWorth": "",
+      "score": 90,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.892075+00:00"
+      "timeStamp": "2026-04-16T22:23:55.031288+00:00"
     },
     {
       "name": "ALEX BARENO",
@@ -858,10 +1086,14 @@
       "table": "menifee_hvac",
       "zip": "92584",
       "email": "alexbareno@ymail.com",
-      "score": 87,
+      "lat": 33.6803731,
+      "lng": -117.1933648,
+      "incomeRange": "$60,000 to $74,999",
+      "netWorth": "$250,000 to $374,999",
+      "score": 90,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.891852+00:00"
+      "timeStamp": "2026-04-16T22:23:54.650560+00:00"
     },
     {
       "name": "LINDA KIRSCHNER",
@@ -872,10 +1104,14 @@
       "table": "menifee_hvac",
       "zip": "92548",
       "email": "rlstockfarm@yahoo.com",
-      "score": 85,
-      "sig": 2,
+      "lat": 33.7696227,
+      "lng": -117.0989825,
+      "incomeRange": "less than $20,000",
+      "netWorth": "-$2,499 to $2,499",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.889521+00:00"
+      "timeStamp": "2026-04-16T22:23:50.716793+00:00"
     },
     {
       "name": "TERESA CHADWICK",
@@ -886,10 +1122,14 @@
       "table": "menifee_hvac",
       "zip": "92586",
       "email": "grannysnow@easy.com, jordansmemo@gmail.com, grannysnow@gmail.com, dollysanwich@yahoo.com",
-      "score": 100,
-      "sig": 4,
+      "lat": 33.693814,
+      "lng": -117.1922068,
+      "incomeRange": "$60,000 to $74,999",
+      "netWorth": "$375,000 to $499,999",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.882955+00:00"
+      "timeStamp": "2026-04-16T22:23:35.574050+00:00"
     },
     {
       "name": "MICHELLE REEVES",
@@ -900,10 +1140,14 @@
       "table": "menifee_hvac",
       "zip": "92587",
       "email": "rebekahritchey@outlook.com",
-      "score": 78,
-      "sig": 1,
+      "lat": 33.6839628,
+      "lng": -117.2570677,
+      "incomeRange": "$45,000 to $59,999",
+      "netWorth": "$75,000 to $99,999",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.882663+00:00"
+      "timeStamp": "2026-04-16T22:23:35.155574+00:00"
     },
     {
       "name": "JEREMY WOODDELL",
@@ -914,10 +1158,14 @@
       "table": "menifee_hvac",
       "zip": "92586",
       "email": "jeremywooddell@gmail.com, 1234lovemejustalilmore@gmail.com",
-      "score": 92,
+      "lat": 33.7259319,
+      "lng": -117.1970203,
+      "incomeRange": "$45,000 to $59,999",
+      "netWorth": "$150,000 to $249,999",
+      "score": 90,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.874708+00:00"
+      "timeStamp": "2026-04-16T22:23:21.572509+00:00"
     },
     {
       "name": "RISA GETTLER",
@@ -928,10 +1176,14 @@
       "table": "menifee_hvac",
       "zip": "92586",
       "email": "godoctorc@gmail.com",
-      "score": 89,
+      "lat": 33.7093238,
+      "lng": -117.2118161,
+      "incomeRange": "",
+      "netWorth": "$1,000,000 or more",
+      "score": 92,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.868033+00:00"
+      "timeStamp": "2026-04-16T22:23:08.246940+00:00"
     },
     {
       "name": "TAMMY JOHNSON",
@@ -942,10 +1194,14 @@
       "table": "menifee_hvac",
       "zip": "92586",
       "email": "tleppelman@hotmail.com, tjtnt69@gmail.com, tjtnt69@yahoo.com, tamejo24@gmail.com",
-      "score": 76,
-      "sig": 1,
+      "lat": 33.6979349,
+      "lng": -117.18227,
+      "incomeRange": "$45,000 to $59,999",
+      "netWorth": "$150,000 to $249,999",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.864082+00:00"
+      "timeStamp": "2026-04-16T22:22:58.670068+00:00"
     },
     {
       "name": "JAMES SIRAK",
@@ -956,10 +1212,14 @@
       "table": "menifee_hvac",
       "zip": "92585",
       "email": "jim_e78@hotmail.com, stagre@aol.com",
-      "score": 80,
-      "sig": 2,
+      "lat": 33.7733213,
+      "lng": -117.1456785,
+      "incomeRange": "less than $20,000",
+      "netWorth": "$250,000 to $374,999",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.863819+00:00"
+      "timeStamp": "2026-04-16T22:22:57.909146+00:00"
     },
     {
       "name": "CARLOS GUZMAN",
@@ -970,10 +1230,14 @@
       "table": "menifee_hvac",
       "zip": "92587",
       "email": "carlosmora232507@hotmail.com, brycecakes@yahoo.com, carlosmora232507@gmail.com",
-      "score": 88,
-      "sig": 3,
+      "lat": 33.7061688,
+      "lng": -117.2437756,
+      "incomeRange": "$250,000+",
+      "netWorth": "-$2,499 to $2,499",
+      "score": 98,
+      "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.860490+00:00"
+      "timeStamp": "2026-04-16T22:22:52.745807+00:00"
     },
     {
       "name": "IRIS ORTEGA",
@@ -984,10 +1248,14 @@
       "table": "menifee_hvac",
       "zip": "92586",
       "email": "iriso420@msn.com",
-      "score": 99,
-      "sig": 4,
+      "lat": 33.7039637,
+      "lng": -117.2178416,
+      "incomeRange": "$45,000 to $59,999",
+      "netWorth": "$375,000 to $499,999",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.856465+00:00"
+      "timeStamp": "2026-04-16T22:22:44.439149+00:00"
     },
     {
       "name": "JOSE ORREAGA",
@@ -998,10 +1266,14 @@
       "table": "perris_hvac",
       "zip": "92571",
       "email": "joseorreaga@hotmail.com, joseorreaga@gmail.com",
-      "score": 97,
-      "sig": 4,
+      "lat": 33.8144564,
+      "lng": -117.216693,
+      "incomeRange": "",
+      "netWorth": "$100,000 to $149,999",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.892164+00:00"
+      "timeStamp": "2026-04-16T22:23:55.442881+00:00"
     },
     {
       "name": "PAMELA DETTMAN",
@@ -1012,10 +1284,14 @@
       "table": "perris_hvac",
       "zip": "92570",
       "email": "drdettman@yahoo.com, adeline.dettman@gmail.com",
-      "score": 86,
-      "sig": 3,
+      "lat": 33.8484099,
+      "lng": -117.3296878,
+      "incomeRange": "$250,000+",
+      "netWorth": "$375,000 to $499,999",
+      "score": 98,
+      "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.884041+00:00"
+      "timeStamp": "2026-04-16T22:23:40.262338+00:00"
     },
     {
       "name": "DENISE GIAMBOI",
@@ -1026,10 +1302,14 @@
       "table": "perris_hvac",
       "zip": "92571",
       "email": "bobjam56@yahoo.com",
-      "score": 97,
-      "sig": 4,
+      "lat": 33.7952681,
+      "lng": -117.2138074,
+      "incomeRange": "$75,000 to $99,999",
+      "netWorth": "$150,000 to $249,999",
+      "score": 92,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.878401+00:00"
+      "timeStamp": "2026-04-16T22:23:29.619092+00:00"
     },
     {
       "name": "CHRISTIAN MARTINEZ",
@@ -1040,10 +1320,14 @@
       "table": "perris_hvac",
       "zip": "92571",
       "email": "christian350znismo@icloud.com, christian_m1996@icloud.com",
-      "score": 82,
-      "sig": 2,
+      "lat": 33.8420124,
+      "lng": -117.1962214,
+      "incomeRange": "$45,000 to $59,999",
+      "netWorth": "$75,000 to $99,999",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.866343+00:00"
+      "timeStamp": "2026-04-16T22:23:04.668503+00:00"
     },
     {
       "name": "JULIAN RIOS",
@@ -1054,10 +1338,14 @@
       "table": "perris_hvac",
       "zip": "92571",
       "email": "justmyfakeemail@yahoo.com",
-      "score": 93,
+      "lat": 33.826327,
+      "lng": -117.2206534,
+      "incomeRange": "$20,000 to $44,999",
+      "netWorth": "$375,000 to $499,999",
+      "score": 90,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.852810+00:00"
+      "timeStamp": "2026-04-16T22:22:37.683766+00:00"
     },
     {
       "name": "STEVEN ODGERS",
@@ -1068,10 +1356,14 @@
       "table": "riverside_hvac",
       "zip": "92508",
       "email": "sodgers@msn.com, steve.odgers@outlook.com",
-      "score": 84,
-      "sig": 2,
+      "lat": 33.898353,
+      "lng": -117.2980126,
+      "incomeRange": "less than $20,000",
+      "netWorth": "$250,000 to $374,999",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.899540+00:00"
+      "timeStamp": "2026-04-16T22:24:11.681632+00:00"
     },
     {
       "name": "TOMAS FLETCHER",
@@ -1082,10 +1374,14 @@
       "table": "riverside_hvac",
       "zip": "92504",
       "email": "tomasfletcher@yahoo.com, tomas_f_2001@yahoo.com",
-      "score": 79,
-      "sig": 1,
+      "lat": 33.9322394,
+      "lng": -117.4184108,
+      "incomeRange": "$45,000 to $59,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 91,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.898215+00:00"
+      "timeStamp": "2026-04-16T22:24:10.096537+00:00"
     },
     {
       "name": "SAUL TORRES",
@@ -1096,10 +1392,14 @@
       "table": "riverside_hvac",
       "zip": "92503",
       "email": "storres202@gmail.com, storres202@yahoo.com",
-      "score": 92,
+      "lat": 33.9552993,
+      "lng": -117.4781212,
+      "incomeRange": "$60,000 to $74,999",
+      "netWorth": "$150,000 to $249,999",
+      "score": 90,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.897204+00:00"
+      "timeStamp": "2026-04-16T22:24:06.307243+00:00"
     },
     {
       "name": "TODD REEVES",
@@ -1110,10 +1410,14 @@
       "table": "riverside_hvac",
       "zip": "92506",
       "email": "emmadad@gmail.com",
-      "score": 88,
+      "lat": 33.9179787,
+      "lng": -117.3300815,
+      "incomeRange": "$20,000 to $44,999",
+      "netWorth": "-$2,499 to $2,499",
+      "score": 90,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.896700+00:00"
+      "timeStamp": "2026-04-16T22:24:05.888043+00:00"
     },
     {
       "name": "PENNY SPEARS",
@@ -1124,10 +1428,14 @@
       "table": "riverside_hvac",
       "zip": "92508",
       "email": "monicajackson73@hotmail.com",
-      "score": 93,
+      "lat": 33.8986935,
+      "lng": -117.3486665,
+      "incomeRange": "",
+      "netWorth": "",
+      "score": 90,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.896538+00:00"
+      "timeStamp": "2026-04-16T22:24:05.518731+00:00"
     },
     {
       "name": "PAULETTE DENSON",
@@ -1138,10 +1446,14 @@
       "table": "riverside_hvac",
       "zip": "92506",
       "email": "paulettedenson@gmail.com",
-      "score": 94,
-      "sig": 4,
+      "lat": 33.9523479,
+      "lng": -117.3745386,
+      "incomeRange": "$75,000 to $99,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 93,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.896438+00:00"
+      "timeStamp": "2026-04-16T22:24:05.130832+00:00"
     },
     {
       "name": "CONNIE SAGARA",
@@ -1152,10 +1464,14 @@
       "table": "riverside_hvac",
       "zip": "92507",
       "email": "gramacony@yahoo.com, conniesagara@yahoo.com",
-      "score": 100,
-      "sig": 4,
+      "lat": 33.9554849,
+      "lng": -117.3083017,
+      "incomeRange": "$75,000 to $99,999",
+      "netWorth": "$375,000 to $499,999",
+      "score": 92,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.894616+00:00"
+      "timeStamp": "2026-04-16T22:24:01.056387+00:00"
     },
     {
       "name": "JUAN PEREZ",
@@ -1166,10 +1482,14 @@
       "table": "riverside_hvac",
       "zip": "92508",
       "email": "jmgc80@hotmail.com",
-      "score": 88,
+      "lat": 33.8908595,
+      "lng": -117.321601,
+      "incomeRange": "$75,000 to $99,999",
+      "netWorth": "$500,000 to $749,999",
+      "score": 93,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.894555+00:00"
+      "timeStamp": "2026-04-16T22:24:00.678997+00:00"
     },
     {
       "name": "SARA HOLGUIN",
@@ -1180,10 +1500,14 @@
       "table": "riverside_hvac",
       "zip": "92503",
       "email": "saraholguin@att.net",
-      "score": 83,
-      "sig": 2,
+      "lat": 33.8828834,
+      "lng": -117.4684432,
+      "incomeRange": "",
+      "netWorth": "$500,000 to $749,999",
+      "score": 91,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.894280+00:00"
+      "timeStamp": "2026-04-16T22:23:59.891391+00:00"
     },
     {
       "name": "ALEJANDRO FELIX",
@@ -1194,10 +1518,14 @@
       "table": "riverside_hvac",
       "zip": "92506",
       "email": "alejandrofelix00@gmail.com",
-      "score": 96,
-      "sig": 4,
+      "lat": 33.9488513,
+      "lng": -117.3772035,
+      "incomeRange": "$20,000 to $44,999",
+      "netWorth": "",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.891165+00:00"
+      "timeStamp": "2026-04-16T22:23:53.869030+00:00"
     },
     {
       "name": "ANA TRUJILLO",
@@ -1208,10 +1536,14 @@
       "table": "riverside_hvac",
       "zip": "92506",
       "email": "anatrujillo1130@gmail.com",
-      "score": 95,
-      "sig": 4,
+      "lat": 33.8959806,
+      "lng": -117.3665249,
+      "incomeRange": "$75,000 to $99,999",
+      "netWorth": "$375,000 to $499,999",
+      "score": 92,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.890622+00:00"
+      "timeStamp": "2026-04-16T22:23:52.306968+00:00"
     },
     {
       "name": "LILIANA VILLALOBOS",
@@ -1222,10 +1554,14 @@
       "table": "riverside_hvac",
       "zip": "92506",
       "email": "lillievillalobos87@gmail.com",
-      "score": 91,
+      "lat": 33.9604239,
+      "lng": -117.3896105,
+      "incomeRange": "$60,000 to $74,999",
+      "netWorth": "",
+      "score": 90,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.889742+00:00"
+      "timeStamp": "2026-04-16T22:23:51.133556+00:00"
     },
     {
       "name": "LINDA CUELLAR",
@@ -1236,10 +1572,14 @@
       "table": "riverside_hvac",
       "zip": "92506",
       "email": "lcue85@aol.com",
-      "score": 91,
+      "lat": 33.9525689,
+      "lng": -117.3530407,
+      "incomeRange": "",
+      "netWorth": "",
+      "score": 90,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.888365+00:00"
+      "timeStamp": "2026-04-16T22:23:47.980739+00:00"
     },
     {
       "name": "GRANT MARKOS",
@@ -1250,10 +1590,14 @@
       "table": "riverside_hvac",
       "zip": "92508",
       "email": "gtmarkos5@yahoo.com, tmarkos5@yahoo.com, markosdarlene@yahoo.com",
-      "score": 95,
+      "lat": 33.8962214,
+      "lng": -117.2946367,
+      "incomeRange": "$100,000 to $149,999",
+      "netWorth": "$375,000 to $499,999",
+      "score": 94,
       "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.888082+00:00"
+      "timeStamp": "2026-04-16T22:23:47.549565+00:00"
     },
     {
       "name": "THERESA VARA",
@@ -1264,10 +1608,14 @@
       "table": "riverside_hvac",
       "zip": "92324",
       "email": "theresavara@yahoo.com",
-      "score": 80,
-      "sig": 2,
+      "lat": 34.0281557,
+      "lng": -117.3394912,
+      "incomeRange": "$45,000 to $59,999",
+      "netWorth": "$100,000 to $149,999",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.888015+00:00"
+      "timeStamp": "2026-04-16T22:23:47.165654+00:00"
     },
     {
       "name": "MARIA CALDERILLA",
@@ -1278,10 +1626,14 @@
       "table": "riverside_hvac",
       "zip": "92324",
       "email": "nslzr1970@gmail.com, calderilla@hotmail.com, mcalderilla@hotmail.com",
-      "score": 87,
+      "lat": 34.0623285,
+      "lng": -117.3284318,
+      "incomeRange": "$20,000 to $44,999",
+      "netWorth": "$25,000 to $49,999",
+      "score": 90,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.886842+00:00"
+      "timeStamp": "2026-04-16T22:23:45.037988+00:00"
     },
     {
       "name": "CLEOFE URSUA",
@@ -1292,10 +1644,14 @@
       "table": "riverside_hvac",
       "zip": "92503",
       "email": "josephursua1963@gmail.com, c_ursua@yahoo.com",
+      "lat": 33.8820976,
+      "lng": -117.5089267,
+      "incomeRange": "less than $20,000",
+      "netWorth": "$150,000 to $249,999",
       "score": 90,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.886464+00:00"
+      "timeStamp": "2026-04-16T22:23:44.349463+00:00"
     },
     {
       "name": "DANIEL HERRON",
@@ -1306,10 +1662,14 @@
       "table": "riverside_hvac",
       "zip": "92503",
       "email": "danielherron951@gmail.com",
-      "score": 99,
-      "sig": 4,
+      "lat": 33.8890148,
+      "lng": -117.477871,
+      "incomeRange": "$45,000 to $59,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 91,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.885817+00:00"
+      "timeStamp": "2026-04-16T22:23:42.439511+00:00"
     },
     {
       "name": "JOHN BACHOR",
@@ -1320,10 +1680,14 @@
       "table": "riverside_hvac",
       "zip": "92508",
       "email": "bubline@aol.com",
-      "score": 99,
-      "sig": 4,
+      "lat": 33.8593992,
+      "lng": -117.3293196,
+      "incomeRange": "",
+      "netWorth": "$150,000 to $249,999",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.884559+00:00"
+      "timeStamp": "2026-04-16T22:23:42.060085+00:00"
     },
     {
       "name": "DEBORAH CRUZE",
@@ -1334,10 +1698,14 @@
       "table": "riverside_hvac",
       "zip": "92505",
       "email": "deborah.cruze@gmail.com",
-      "score": 76,
-      "sig": 1,
+      "lat": 33.9358706,
+      "lng": -117.4932373,
+      "incomeRange": "$100,000 to $149,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 95,
+      "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.883178+00:00"
+      "timeStamp": "2026-04-16T22:23:36.767971+00:00"
     },
     {
       "name": "JUAN RODAS",
@@ -1348,10 +1716,14 @@
       "table": "riverside_hvac",
       "zip": "92505",
       "email": "salmo23esmipastor@yahoo.com, badassmexican13@hotmail.com",
-      "score": 93,
+      "lat": 33.9167241,
+      "lng": -117.4684709,
+      "incomeRange": "$45,000 to $59,999",
+      "netWorth": "$150,000 to $249,999",
+      "score": 90,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.882980+00:00"
+      "timeStamp": "2026-04-16T22:23:35.983611+00:00"
     },
     {
       "name": "JESSICA FRIAS",
@@ -1362,10 +1734,14 @@
       "table": "riverside_hvac",
       "zip": "92505",
       "email": "jfrabbit85@gmail.com",
-      "score": 82,
-      "sig": 2,
+      "lat": 33.9095251,
+      "lng": -117.4657276,
+      "incomeRange": "$20,000 to $44,999",
+      "netWorth": "-$2,499 to $2,499",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.881609+00:00"
+      "timeStamp": "2026-04-16T22:23:34.056398+00:00"
     },
     {
       "name": "PAUL NOLAN",
@@ -1376,10 +1752,14 @@
       "table": "riverside_hvac",
       "zip": "92860",
       "email": "pkam1437@gmail.com, pnolan3@hotmail.com, pnolan3@gmail.com",
-      "score": 90,
-      "sig": 3,
+      "lat": 33.9371201,
+      "lng": -117.5528656,
+      "incomeRange": "$100,000 to $149,999",
+      "netWorth": "$375,000 to $499,999",
+      "score": 94,
+      "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.876288+00:00"
+      "timeStamp": "2026-04-16T22:23:26.966377+00:00"
     },
     {
       "name": "JOSE SEVALLOS",
@@ -1390,10 +1770,14 @@
       "table": "riverside_hvac",
       "zip": "92504",
       "email": "josephsevallos@aol.com",
-      "score": 99,
-      "sig": 4,
+      "lat": 33.9296838,
+      "lng": -117.3967007,
+      "incomeRange": "$20,000 to $44,999",
+      "netWorth": "$75,000 to $99,999",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.874071+00:00"
+      "timeStamp": "2026-04-16T22:23:20.388158+00:00"
     },
     {
       "name": "RODNEY HOOPAI",
@@ -1404,10 +1788,14 @@
       "table": "riverside_hvac",
       "zip": "92506",
       "email": "rhoopai@gmail.com",
+      "lat": 33.9337051,
+      "lng": -117.351544,
+      "incomeRange": "$250,000+",
+      "netWorth": "-$2,499 to $2,499",
       "score": 98,
       "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.873781+00:00"
+      "timeStamp": "2026-04-16T22:23:19.565781+00:00"
     },
     {
       "name": "TIMOTHY CLOSE",
@@ -1418,10 +1806,14 @@
       "table": "riverside_hvac",
       "zip": "92507",
       "email": "tssbclose@compuserve.com",
-      "score": 82,
-      "sig": 2,
+      "lat": 33.9591462,
+      "lng": -117.3415364,
+      "incomeRange": "$100,000 to $149,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 95,
+      "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.873162+00:00"
+      "timeStamp": "2026-04-16T22:23:18.126060+00:00"
     },
     {
       "name": "MARIA RESTREPO",
@@ -1432,10 +1824,14 @@
       "table": "riverside_hvac",
       "zip": "92504",
       "email": "mariantonia815@hotmail.com, chava225@hotmail.com",
-      "score": 99,
-      "sig": 4,
+      "lat": 33.9392233,
+      "lng": -117.4292254,
+      "incomeRange": "$20,000 to $44,999",
+      "netWorth": "$250,000 to $374,999",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.869812+00:00"
+      "timeStamp": "2026-04-16T22:23:11.874524+00:00"
     },
     {
       "name": "CRYSTAL MAY",
@@ -1446,10 +1842,14 @@
       "table": "riverside_hvac",
       "zip": "92504",
       "email": "crystaldawn512@yahoo.com, ammazzonn@hotmail.com, spidercrys2010@gmail.com, crystalmay21@hotmail.com, haymay01@yahoo.com, kenleighwas771@gmail.com",
-      "score": 92,
+      "lat": 33.9517334,
+      "lng": -117.41358,
+      "incomeRange": "less than $20,000",
+      "netWorth": "",
+      "score": 90,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.869542+00:00"
+      "timeStamp": "2026-04-16T22:23:11.054184+00:00"
     },
     {
       "name": "JOCELYN CONTRERAS",
@@ -1460,10 +1860,14 @@
       "table": "riverside_hvac",
       "zip": "92504",
       "email": "jocelynlaitza@gmail.com",
-      "score": 99,
-      "sig": 4,
+      "lat": 33.9683325,
+      "lng": -117.404066,
+      "incomeRange": "$75,000 to $99,999",
+      "netWorth": "$375,000 to $499,999",
+      "score": 92,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.868566+00:00"
+      "timeStamp": "2026-04-16T22:23:09.473025+00:00"
     },
     {
       "name": "SHARIF AHMAD",
@@ -1474,10 +1878,14 @@
       "table": "riverside_hvac",
       "zip": "92504",
       "email": "sharifislam2020@gmail.com, sharif258@gmail.com",
-      "score": 84,
-      "sig": 2,
+      "lat": 33.9130274,
+      "lng": -117.4191741,
+      "incomeRange": "$20,000 to $44,999",
+      "netWorth": "$2,500 to $24,999",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.867080+00:00"
+      "timeStamp": "2026-04-16T22:23:07.088848+00:00"
     },
     {
       "name": "KATIE ALLISON",
@@ -1488,10 +1896,14 @@
       "table": "riverside_hvac",
       "zip": "92505",
       "email": "kallison85@aol.com",
-      "score": 92,
-      "sig": 3,
+      "lat": 33.9141304,
+      "lng": -117.4883301,
+      "incomeRange": "$200,000 to $249,999",
+      "netWorth": "$500,000 to $749,999",
+      "score": 98,
+      "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.866724+00:00"
+      "timeStamp": "2026-04-16T22:23:06.244709+00:00"
     },
     {
       "name": "GAIL CASLAVKA",
@@ -1502,10 +1914,14 @@
       "table": "riverside_hvac",
       "zip": "92506",
       "email": "gbcaslavka@yahoo.com",
-      "score": 80,
-      "sig": 2,
+      "lat": 33.905815,
+      "lng": -117.3734423,
+      "incomeRange": "$100,000 to $149,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 95,
+      "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.865591+00:00"
+      "timeStamp": "2026-04-16T22:23:02.329071+00:00"
     },
     {
       "name": "JENNIFER PAULSON",
@@ -1516,10 +1932,14 @@
       "table": "riverside_hvac",
       "zip": "92860",
       "email": "jspaulson@hotmail.com",
-      "score": 86,
+      "lat": 33.9504601,
+      "lng": -117.5399009,
+      "incomeRange": "$45,000 to $59,999",
+      "netWorth": "",
+      "score": 90,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.864783+00:00"
+      "timeStamp": "2026-04-16T22:23:00.708331+00:00"
     },
     {
       "name": "ANDREA MATHEWS",
@@ -1530,10 +1950,14 @@
       "table": "riverside_hvac",
       "zip": "92504",
       "email": "andrealisamathews@gmail.com, jaydawg6528@gmail.com",
-      "score": 80,
-      "sig": 2,
+      "lat": 33.8799764,
+      "lng": -117.355019,
+      "incomeRange": "$75,000 to $99,999",
+      "netWorth": "$250,000 to $374,999",
+      "score": 92,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.864746+00:00"
+      "timeStamp": "2026-04-16T22:23:00.296695+00:00"
     },
     {
       "name": "JULENA STEWART",
@@ -1544,10 +1968,14 @@
       "table": "riverside_hvac",
       "zip": "92507",
       "email": "julenastewart@gmail.com",
-      "score": 99,
-      "sig": 4,
+      "lat": 33.9828954,
+      "lng": -117.3176396,
+      "incomeRange": "less than $20,000",
+      "netWorth": "$750,000 to $999,999",
+      "score": 91,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.864464+00:00"
+      "timeStamp": "2026-04-16T22:22:59.441763+00:00"
     },
     {
       "name": "LYNNEE TIERI",
@@ -1558,10 +1986,14 @@
       "table": "riverside_hvac",
       "zip": "92508",
       "email": "ltieri@gmail.com, elsieson_2002@yahoo.com, slushy3692@aol.com",
-      "score": 75,
-      "sig": 1,
+      "lat": 33.8923912,
+      "lng": -117.3086927,
+      "incomeRange": "$200,000 to $249,999",
+      "netWorth": "$500,000 to $749,999",
+      "score": 98,
+      "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.862850+00:00"
+      "timeStamp": "2026-04-16T22:22:57.493085+00:00"
     },
     {
       "name": "SHARON HICKS",
@@ -1572,10 +2004,14 @@
       "table": "riverside_hvac",
       "zip": "92506",
       "email": "sh23jk@gmail.com, wmlhicks2@gmail.com, leann1069@gmail.com",
-      "score": 99,
-      "sig": 4,
+      "lat": 33.9524554,
+      "lng": -117.4011357,
+      "incomeRange": "$75,000 to $99,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 93,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.861495+00:00"
+      "timeStamp": "2026-04-16T22:22:54.804776+00:00"
     },
     {
       "name": "SYLVIA GOMEZ",
@@ -1586,10 +2022,14 @@
       "table": "riverside_hvac",
       "zip": "92507",
       "email": "sylviag951@gmail.com",
-      "score": 78,
-      "sig": 1,
+      "lat": 34.0169131,
+      "lng": -117.323998,
+      "incomeRange": "$100,000 to $149,999",
+      "netWorth": "$375,000 to $499,999",
+      "score": 94,
+      "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.861428+00:00"
+      "timeStamp": "2026-04-16T22:22:54.394168+00:00"
     },
     {
       "name": "DAVID CAZARES",
@@ -1600,10 +2040,14 @@
       "table": "riverside_hvac",
       "zip": "92505",
       "email": "davidcazares34@gmail.com, davidcaz26@yahoo.com",
-      "score": 77,
-      "sig": 1,
+      "lat": 33.9409035,
+      "lng": -117.4797502,
+      "incomeRange": "$45,000 to $59,999",
+      "netWorth": "$1,000,000 or more",
+      "score": 92,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.860714+00:00"
+      "timeStamp": "2026-04-16T22:22:53.569451+00:00"
     },
     {
       "name": "MARGARET VARGAS",
@@ -1614,10 +2058,14 @@
       "table": "riverside_hvac",
       "zip": "92508",
       "email": "the4vargas@aol.com, margaretvargas60@gmail.com, margaret.vargas@hotmail.com",
-      "score": 77,
-      "sig": 1,
+      "lat": 33.8863245,
+      "lng": -117.3291586,
+      "incomeRange": "$60,000 to $74,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 91,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.859870+00:00"
+      "timeStamp": "2026-04-16T22:22:51.227961+00:00"
     },
     {
       "name": "NICOLE WATTS",
@@ -1628,10 +2076,14 @@
       "table": "riverside_hvac",
       "zip": "92506",
       "email": "wattsup74@yahoo.com",
-      "score": 85,
-      "sig": 2,
+      "lat": 33.9238186,
+      "lng": -117.3257874,
+      "incomeRange": "$75,000 to $99,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 93,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.856859+00:00"
+      "timeStamp": "2026-04-16T22:22:45.226443+00:00"
     },
     {
       "name": "MELISSA SMITH",
@@ -1642,10 +2094,14 @@
       "table": "riverside_hvac",
       "zip": "92508",
       "email": "lbs8@msn.com, mewcat16@yahoo.com, teddyballgameway@gmail.com",
-      "score": 88,
+      "lat": 33.8671594,
+      "lng": -117.3385989,
+      "incomeRange": "$20,000 to $44,999",
+      "netWorth": "-$2,499 to $2,499",
+      "score": 90,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.854682+00:00"
+      "timeStamp": "2026-04-16T22:22:42.080267+00:00"
     },
     {
       "name": "JOSE VENTURA",
@@ -1656,10 +2112,14 @@
       "table": "riverside_hvac",
       "zip": "92504",
       "email": "venturajm81@hotmail.com",
-      "score": 87,
+      "lat": 33.9555494,
+      "lng": -117.4255995,
+      "incomeRange": "$60,000 to $74,999",
+      "netWorth": "",
+      "score": 90,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.853053+00:00"
+      "timeStamp": "2026-04-16T22:22:39.302255+00:00"
     },
     {
       "name": "SHEILA KREBS",
@@ -1670,10 +2130,14 @@
       "table": "riverside_hvac",
       "zip": "92508",
       "email": "sheilakrebs@gmail.com, sheilakrebs1@gmail.com",
-      "score": 95,
+      "lat": 33.8880293,
+      "lng": -117.2981017,
+      "incomeRange": "$75,000 to $99,999",
+      "netWorth": "$1,000,000 or more",
+      "score": 94,
       "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.852894+00:00"
+      "timeStamp": "2026-04-16T22:22:38.071430+00:00"
     },
     {
       "name": "BRIAN ANDERSON",
@@ -1684,10 +2148,14 @@
       "table": "oceanside_hvac",
       "zip": "92084",
       "email": "andbl@aol.com, kathmarob@aol.com",
-      "score": 100,
-      "sig": 4,
+      "lat": 33.2060796,
+      "lng": -117.2309758,
+      "incomeRange": "$75,000 to $99,999",
+      "netWorth": "$75,000 to $99,999",
+      "score": 92,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.900442+00:00"
+      "timeStamp": "2026-04-16T22:24:13.468976+00:00"
     },
     {
       "name": "STACY YOUN",
@@ -1698,10 +2166,14 @@
       "table": "oceanside_hvac",
       "zip": "92057",
       "email": "eunkim37@yahoo.com",
-      "score": 78,
-      "sig": 1,
+      "lat": 33.234097,
+      "lng": -117.311099,
+      "incomeRange": "$20,000 to $44,999",
+      "netWorth": "",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.898977+00:00"
+      "timeStamp": "2026-04-16T22:24:10.510794+00:00"
     },
     {
       "name": "SUMMER SHANNON",
@@ -1712,10 +2184,14 @@
       "table": "oceanside_hvac",
       "zip": "92084",
       "email": "summershannon34@yahoo.com",
-      "score": 80,
-      "sig": 2,
+      "lat": 33.1975778,
+      "lng": -117.2254718,
+      "incomeRange": "$60,000 to $74,999",
+      "netWorth": "",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.897619+00:00"
+      "timeStamp": "2026-04-16T22:24:07.045161+00:00"
     },
     {
       "name": "CHRISTOPHER RODRIGUEZ",
@@ -1726,10 +2202,14 @@
       "table": "oceanside_hvac",
       "zip": "92084",
       "email": "cmrod1313@gmail.com, rodriguez76022@gmail.com",
-      "score": 77,
-      "sig": 1,
+      "lat": 33.2290548,
+      "lng": -117.2408223,
+      "incomeRange": "$75,000 to $99,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 93,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.896186+00:00"
+      "timeStamp": "2026-04-16T22:24:04.388061+00:00"
     },
     {
       "name": "AMY BRIONES",
@@ -1740,10 +2220,14 @@
       "table": "oceanside_hvac",
       "zip": "92010",
       "email": "abriones31@yahoo.com, amybriones31@gmail.com",
-      "score": 80,
-      "sig": 2,
+      "lat": 33.1570708,
+      "lng": -117.3006947,
+      "incomeRange": "$250,000+",
+      "netWorth": "$750,000 to $999,999",
+      "score": 99,
+      "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.894507+00:00"
+      "timeStamp": "2026-04-16T22:24:00.312238+00:00"
     },
     {
       "name": "ELIZABETH PEIFER",
@@ -1754,10 +2238,14 @@
       "table": "oceanside_hvac",
       "zip": "92054",
       "email": "ssn212004@gmail.com",
+      "lat": 33.1897614,
+      "lng": -117.3732363,
+      "incomeRange": "$200,000 to $249,999",
+      "netWorth": "",
       "score": 97,
       "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.893348+00:00"
+      "timeStamp": "2026-04-16T22:23:58.745102+00:00"
     },
     {
       "name": "ALIS TROYA",
@@ -1768,10 +2256,14 @@
       "table": "oceanside_hvac",
       "zip": "92010",
       "email": "alis.troya@gmail.com",
-      "score": 85,
-      "sig": 2,
+      "lat": 33.1676007,
+      "lng": -117.3139013,
+      "incomeRange": "$75,000 to $99,999",
+      "netWorth": "$1,000,000 or more",
+      "score": 94,
+      "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.893049+00:00"
+      "timeStamp": "2026-04-16T22:23:58.374466+00:00"
     },
     {
       "name": "MELANIE HALLEY",
@@ -1782,10 +2274,14 @@
       "table": "oceanside_hvac",
       "zip": "92057",
       "email": "halleyml@netscape.net",
-      "score": 92,
-      "sig": 3,
+      "lat": 33.2466001,
+      "lng": -117.3146682,
+      "incomeRange": "$100,000 to $149,999",
+      "netWorth": "",
+      "score": 94,
+      "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.892219+00:00"
+      "timeStamp": "2026-04-16T22:23:55.807164+00:00"
     },
     {
       "name": "MICHAEL ARMSTRONG",
@@ -1796,10 +2292,14 @@
       "table": "oceanside_hvac",
       "zip": "92056",
       "email": "armstrongcdp@gmail.com",
-      "score": 92,
-      "sig": 3,
+      "lat": 33.1936261,
+      "lng": -117.3073104,
+      "incomeRange": "$100,000 to $149,999",
+      "netWorth": "$1,000,000 or more",
+      "score": 96,
+      "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.891323+00:00"
+      "timeStamp": "2026-04-16T22:23:54.284670+00:00"
     },
     {
       "name": "MARIO CAZARES",
@@ -1810,10 +2310,14 @@
       "table": "oceanside_hvac",
       "zip": "92056",
       "email": "marioacazares@hotmail.com",
-      "score": 95,
+      "lat": 33.2192765,
+      "lng": -117.2951979,
+      "incomeRange": "$150,000 to $199,999",
+      "netWorth": "$1,000,000 or more",
+      "score": 98,
       "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.891002+00:00"
+      "timeStamp": "2026-04-16T22:23:53.484271+00:00"
     },
     {
       "name": "JESSICA KING",
@@ -1824,10 +2328,14 @@
       "table": "oceanside_hvac",
       "zip": "92008",
       "email": "jelcita@hotmail.com",
-      "score": 75,
-      "sig": 1,
+      "lat": 33.1653282,
+      "lng": -117.3411204,
+      "incomeRange": "$75,000 to $99,999",
+      "netWorth": "$375,000 to $499,999",
+      "score": 92,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.890134+00:00"
+      "timeStamp": "2026-04-16T22:23:51.562691+00:00"
     },
     {
       "name": "JOHN SLATTEBO",
@@ -1838,10 +2346,14 @@
       "table": "oceanside_hvac",
       "zip": "92056",
       "email": "pibbya@yahoo.com, peterslattebo@gmail.com, slatts116@gmail.com",
-      "score": 83,
-      "sig": 2,
+      "lat": 33.2410425,
+      "lng": -117.2688491,
+      "incomeRange": "$45,000 to $59,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 91,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.888443+00:00"
+      "timeStamp": "2026-04-16T22:23:48.720858+00:00"
     },
     {
       "name": "CECILIA ROPER",
@@ -1852,10 +2364,14 @@
       "table": "oceanside_hvac",
       "zip": "92081",
       "email": "cmroper1944@gmail.com, ceciliaroper@gmail.com",
-      "score": 86,
+      "lat": 33.1580967,
+      "lng": -117.2513491,
+      "incomeRange": "$60,000 to $74,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 91,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.887666+00:00"
+      "timeStamp": "2026-04-16T22:23:46.783002+00:00"
     },
     {
       "name": "JUAN DELEON",
@@ -1866,10 +2382,14 @@
       "table": "oceanside_hvac",
       "zip": "92054",
       "email": "jmd3407@yahoo.com, crystal_n_loz@hotmail.com, jcdeleon420@yahoo.com, elpirruris@yahoo.com",
+      "lat": 33.1841445,
+      "lng": -117.3678223,
+      "incomeRange": "$60,000 to $74,999",
+      "netWorth": "$150,000 to $249,999",
       "score": 90,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.887059+00:00"
+      "timeStamp": "2026-04-16T22:23:45.468532+00:00"
     },
     {
       "name": "STEPHANIE HARRISON",
@@ -1880,10 +2400,14 @@
       "table": "oceanside_hvac",
       "zip": "92057",
       "email": "smkh123@yahoo.com",
-      "score": 86,
+      "lat": 33.2199926,
+      "lng": -117.306922,
+      "incomeRange": "$75,000 to $99,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 93,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.881806+00:00"
+      "timeStamp": "2026-04-16T22:23:34.429111+00:00"
     },
     {
       "name": "MELISSA GENEWICH",
@@ -1894,10 +2418,14 @@
       "table": "oceanside_hvac",
       "zip": "92008",
       "email": "melissagenewich@yahoo.com",
-      "score": 79,
-      "sig": 1,
+      "lat": 33.1635811,
+      "lng": -117.3343824,
+      "incomeRange": "$250,000+",
+      "netWorth": "$750,000 to $999,999",
+      "score": 99,
+      "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.879657+00:00"
+      "timeStamp": "2026-04-16T22:23:32.516118+00:00"
     },
     {
       "name": "FREDDY GONZALEZ",
@@ -1908,10 +2436,14 @@
       "table": "oceanside_hvac",
       "zip": "92083",
       "email": "blueonyx7@gmail.com, xlrk@yahoo.com, ms3turboftw@gmail.com",
-      "score": 89,
-      "sig": 3,
+      "lat": 33.1890565,
+      "lng": -117.2318657,
+      "incomeRange": "$100,000 to $149,999",
+      "netWorth": "$150,000 to $249,999",
+      "score": 94,
+      "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.879538+00:00"
+      "timeStamp": "2026-04-16T22:23:32.028581+00:00"
     },
     {
       "name": "YVETTE HERNANDEZ",
@@ -1922,10 +2454,14 @@
       "table": "oceanside_hvac",
       "zip": "92056",
       "email": "fedorathefedora@gmail.com, mr.kibbles1231@gmail.com, timetoast1231@gmail.com, yvettebooboo62@gmail.com",
-      "score": 79,
-      "sig": 1,
+      "lat": 33.1971187,
+      "lng": -117.2879486,
+      "incomeRange": "$45,000 to $59,999",
+      "netWorth": "$150,000 to $249,999",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.879059+00:00"
+      "timeStamp": "2026-04-16T22:23:31.236880+00:00"
     },
     {
       "name": "VERNON DARISO",
@@ -1936,10 +2472,14 @@
       "table": "oceanside_hvac",
       "zip": "92057",
       "email": "vdariso@yahoo.com, vld6502@hotmail.com",
-      "score": 88,
-      "sig": 3,
+      "lat": 33.2503657,
+      "lng": -117.2499337,
+      "incomeRange": "$150,000 to $199,999",
+      "netWorth": "$500,000 to $749,999",
+      "score": 97,
+      "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.878075+00:00"
+      "timeStamp": "2026-04-16T22:23:29.231983+00:00"
     },
     {
       "name": "THOMAS CLARK",
@@ -1950,10 +2490,14 @@
       "table": "oceanside_hvac",
       "zip": "92084",
       "email": "tomclarkdc@aol.com",
-      "score": 78,
-      "sig": 1,
+      "lat": 33.218415,
+      "lng": -117.1982296,
+      "incomeRange": "$20,000 to $44,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 91,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.875330+00:00"
+      "timeStamp": "2026-04-16T22:23:24.364620+00:00"
     },
     {
       "name": "JENNIFER DAMICO",
@@ -1964,10 +2508,14 @@
       "table": "oceanside_hvac",
       "zip": "92057",
       "email": "jenmdamico@gmail.com",
-      "score": 91,
+      "lat": 33.2408704,
+      "lng": -117.2840726,
+      "incomeRange": "",
+      "netWorth": "-$2,499 to $2,499",
+      "score": 90,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.875155+00:00"
+      "timeStamp": "2026-04-16T22:23:22.780336+00:00"
     },
     {
       "name": "GAVEN SMITH",
@@ -1978,10 +2526,14 @@
       "table": "oceanside_hvac",
       "zip": "92057",
       "email": "gavensmith@gmail.com, hgavensmith@gmail.com",
-      "score": 94,
-      "sig": 4,
+      "lat": 33.2161475,
+      "lng": -117.3112314,
+      "incomeRange": "",
+      "netWorth": "$1,000,000 or more",
+      "score": 92,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.874936+00:00"
+      "timeStamp": "2026-04-16T22:23:22.407912+00:00"
     },
     {
       "name": "CYNTHIA ZDZIOR",
@@ -1992,10 +2544,14 @@
       "table": "oceanside_hvac",
       "zip": "92057",
       "email": "",
+      "lat": 33.2233388,
+      "lng": -117.3203578,
+      "incomeRange": "less than $20,000",
+      "netWorth": "$100,000 to $149,999",
       "score": 87,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.874341+00:00"
+      "timeStamp": "2026-04-16T22:23:20.799515+00:00"
     },
     {
       "name": "MARK WATKINS",
@@ -2006,10 +2562,14 @@
       "table": "oceanside_hvac",
       "zip": "92057",
       "email": "wwwatkins@gmail.com",
-      "score": 94,
-      "sig": 4,
+      "lat": 33.2508176,
+      "lng": -117.2935492,
+      "incomeRange": "$60,000 to $74,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 91,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.873286+00:00"
+      "timeStamp": "2026-04-16T22:23:18.517577+00:00"
     },
     {
       "name": "JENNIFER BANTLE",
@@ -2020,10 +2580,14 @@
       "table": "oceanside_hvac",
       "zip": "92008",
       "email": "jenbantle@mac.com, hbantle@me.com",
-      "score": 89,
+      "lat": 33.1469612,
+      "lng": -117.2988678,
+      "incomeRange": "",
+      "netWorth": "",
+      "score": 90,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.873004+00:00"
+      "timeStamp": "2026-04-16T22:23:17.709995+00:00"
     },
     {
       "name": "COREY JENKINS",
@@ -2034,10 +2598,14 @@
       "table": "oceanside_hvac",
       "zip": "92054",
       "email": "coreyljenkins@gmail.com",
-      "score": 99,
-      "sig": 4,
+      "lat": 33.1758213,
+      "lng": -117.3674957,
+      "incomeRange": "less than $20,000",
+      "netWorth": "",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.872238+00:00"
+      "timeStamp": "2026-04-16T22:23:16.529809+00:00"
     },
     {
       "name": "PATRICIA CHAVEZ",
@@ -2048,10 +2616,14 @@
       "table": "oceanside_hvac",
       "zip": "92083",
       "email": "raiderfans@cox.net, paradisesplash22@gmail.com, paty_310@yahoo.com",
-      "score": 97,
-      "sig": 4,
+      "lat": 33.1801936,
+      "lng": -117.2238985,
+      "incomeRange": "$75,000 to $99,999",
+      "netWorth": "$375,000 to $499,999",
+      "score": 92,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.871133+00:00"
+      "timeStamp": "2026-04-16T22:23:14.268245+00:00"
     },
     {
       "name": "IDA HILGESEN",
@@ -2062,10 +2634,14 @@
       "table": "oceanside_hvac",
       "zip": "92056",
       "email": "idie55@yahoo.com",
-      "score": 82,
-      "sig": 2,
+      "lat": 33.1657435,
+      "lng": -117.2553159,
+      "incomeRange": "$60,000 to $74,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 91,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.870385+00:00"
+      "timeStamp": "2026-04-16T22:23:13.044598+00:00"
     },
     {
       "name": "TAYLOR KAMPS",
@@ -2076,10 +2652,14 @@
       "table": "oceanside_hvac",
       "zip": "92083",
       "email": "taytay.kamps@yahoo.com",
-      "score": 90,
-      "sig": 3,
+      "lat": 33.2047965,
+      "lng": -117.2695345,
+      "incomeRange": "$100,000 to $149,999",
+      "netWorth": "$25,000 to $49,999",
+      "score": 94,
+      "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.869783+00:00"
+      "timeStamp": "2026-04-16T22:23:11.464138+00:00"
     },
     {
       "name": "MICHELLE MATKINS",
@@ -2090,10 +2670,14 @@
       "table": "oceanside_hvac",
       "zip": "92058",
       "email": "michelle92284@aol.com",
-      "score": 87,
+      "lat": 33.2087409,
+      "lng": -117.3685846,
+      "incomeRange": "less than $20,000",
+      "netWorth": "",
+      "score": 90,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.868501+00:00"
+      "timeStamp": "2026-04-16T22:23:09.087838+00:00"
     },
     {
       "name": "Nancy Reichenbach",
@@ -2104,10 +2688,14 @@
       "table": "oceanside_hvac",
       "zip": "92084",
       "email": "reichrace@hotmail.com, njreichenbach@gmail.com",
-      "score": 89,
-      "sig": 3,
+      "lat": 33.2009286,
+      "lng": -117.2401789,
+      "incomeRange": "$150,000 to $199,999",
+      "netWorth": "$25,000 to $49,999",
+      "score": 96,
+      "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.867723+00:00"
+      "timeStamp": "2026-04-16T22:23:07.835048+00:00"
     },
     {
       "name": "JOHN ARGUELLO",
@@ -2118,10 +2706,14 @@
       "table": "oceanside_hvac",
       "zip": "92084",
       "email": "",
-      "score": 80,
-      "sig": 2,
+      "lat": 33.2456203,
+      "lng": -117.2272792,
+      "incomeRange": "$100,000 to $149,999",
+      "netWorth": "$150,000 to $249,999",
+      "score": 91,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.861907+00:00"
+      "timeStamp": "2026-04-16T22:22:55.214477+00:00"
     },
     {
       "name": "MARILYNN GALLAGHER",
@@ -2132,10 +2724,14 @@
       "table": "oceanside_hvac",
       "zip": "92056",
       "email": "herbrep@yahoo.com",
-      "score": 76,
-      "sig": 1,
+      "lat": 33.1675887,
+      "lng": -117.2703092,
+      "incomeRange": "$250,000+",
+      "netWorth": "$500,000 to $749,999",
+      "score": 99,
+      "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.860116+00:00"
+      "timeStamp": "2026-04-16T22:22:52.010916+00:00"
     },
     {
       "name": "HENRI BERGMANS",
@@ -2146,10 +2742,14 @@
       "table": "oceanside_hvac",
       "zip": "92057",
       "email": "mayhenri@earthlink.net, mayhenri@sbcglobal.net",
-      "score": 93,
+      "lat": 33.2243814,
+      "lng": -117.2949172,
+      "incomeRange": "",
+      "netWorth": "",
+      "score": 90,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.859076+00:00"
+      "timeStamp": "2026-04-16T22:22:50.008853+00:00"
     },
     {
       "name": "ALICE GOOD",
@@ -2160,10 +2760,14 @@
       "table": "oceanside_hvac",
       "zip": "92010",
       "email": "bigchevydaddy2002@yahoo.com",
-      "score": 92,
+      "lat": null,
+      "lng": null,
+      "incomeRange": "",
+      "netWorth": "",
+      "score": 90,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.858860+00:00"
+      "timeStamp": "2026-04-16T22:22:49.781173+00:00"
     },
     {
       "name": "JULIE ZIMMERMAN",
@@ -2174,10 +2778,14 @@
       "table": "oceanside_hvac",
       "zip": "92054",
       "email": "",
-      "score": 97,
-      "sig": 4,
+      "lat": 33.1800464,
+      "lng": -117.3606722,
+      "incomeRange": "$75,000 to $99,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.858580+00:00"
+      "timeStamp": "2026-04-16T22:22:49.405993+00:00"
     },
     {
       "name": "ROBERT PEARMAN JR",
@@ -2188,10 +2796,14 @@
       "table": "oceanside_hvac",
       "zip": "92056",
       "email": "rpearman@gmail.com",
-      "score": 82,
-      "sig": 2,
+      "lat": 33.1866054,
+      "lng": -117.3228317,
+      "incomeRange": "$60,000 to $74,999",
+      "netWorth": "$1,000,000 or more",
+      "score": 92,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.856061+00:00"
+      "timeStamp": "2026-04-16T22:22:44.025605+00:00"
     },
     {
       "name": "ROBERT WOODS",
@@ -2202,10 +2814,14 @@
       "table": "oceanside_hvac",
       "zip": "92084",
       "email": "serenitywoods23@gmail.com, scbrobert@yahoo.com",
-      "score": 86,
+      "lat": 33.2245926,
+      "lng": -117.2422391,
+      "incomeRange": "$75,000 to $99,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 93,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.855851+00:00"
+      "timeStamp": "2026-04-16T22:22:43.652824+00:00"
     },
     {
       "name": "CAMERON CAPISTRAN",
@@ -2216,10 +2832,14 @@
       "table": "oceanside_hvac",
       "zip": "92084",
       "email": "snocam33@gmail.com, snocam33@yahoo.com, kaelira63@gmail.com",
-      "score": 95,
+      "lat": 33.1955405,
+      "lng": -117.2315537,
+      "incomeRange": "$150,000 to $199,999",
+      "netWorth": "$50,000 to $74,999",
+      "score": 96,
       "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.855134+00:00"
+      "timeStamp": "2026-04-16T22:22:42.465939+00:00"
     },
     {
       "name": "JOHN DAWSO",
@@ -2230,10 +2850,14 @@
       "table": "oceanside_hvac",
       "zip": "92010",
       "email": "jdawso1@gmail.com",
-      "score": 94,
-      "sig": 4,
+      "lat": 33.1669573,
+      "lng": -117.31275,
+      "incomeRange": "",
+      "netWorth": "",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.854457+00:00"
+      "timeStamp": "2026-04-16T22:22:41.704983+00:00"
     },
     {
       "name": "CAROL WILLIAMS",
@@ -2244,10 +2868,14 @@
       "table": "oceanside_hvac",
       "zip": "92057",
       "email": "carolann105@gmail.com",
-      "score": 86,
+      "lat": 33.2716241,
+      "lng": -117.2890866,
+      "incomeRange": "",
+      "netWorth": "$1,000,000 or more",
+      "score": 92,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.853836+00:00"
+      "timeStamp": "2026-04-16T22:22:40.914771+00:00"
     },
     {
       "name": "MELANIE BURKHOLDER",
@@ -2258,10 +2886,14 @@
       "table": "oceanside_hvac",
       "zip": "92008",
       "email": "barbaccessories@hotmail.com, dpburkholder@gmail.com, mburkholder06@gmail.com",
-      "score": 86,
+      "lat": 33.1551893,
+      "lng": -117.3218291,
+      "incomeRange": "",
+      "netWorth": "$750,000 to $999,999",
+      "score": 91,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.853570+00:00"
+      "timeStamp": "2026-04-16T22:22:39.716343+00:00"
     },
     {
       "name": "AIMEE SISSON",
@@ -2272,10 +2904,14 @@
       "table": "oceanside_hvac",
       "zip": "92056",
       "email": "aimeensisson@gmail.com, aimee.n.sisson@gmail.com",
-      "score": 85,
-      "sig": 2,
+      "lat": 33.1984065,
+      "lng": -117.2813533,
+      "incomeRange": "$20,000 to $44,999",
+      "netWorth": "$375,000 to $499,999",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.853007+00:00"
+      "timeStamp": "2026-04-16T22:22:38.893824+00:00"
     },
     {
       "name": "TIMOTHY LAVENUTA",
@@ -2286,10 +2922,14 @@
       "table": "oceanside_hvac",
       "zip": "92084",
       "email": "gloria.sattler@yahoo.com",
+      "lat": 33.1876115,
+      "lng": -117.1949779,
+      "incomeRange": "$75,000 to $99,999",
+      "netWorth": "$750,000 to $999,999",
       "score": 93,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.852961+00:00"
+      "timeStamp": "2026-04-16T22:22:38.468650+00:00"
     },
     {
       "name": "KAYLA JERNIGAN",
@@ -2300,10 +2940,14 @@
       "table": "corona_hvac",
       "zip": "92870",
       "email": "thejernigans@sbcglobal.net",
-      "score": 88,
-      "sig": 3,
+      "lat": 33.8722634,
+      "lng": -117.8398204,
+      "incomeRange": "$100,000 to $149,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 95,
+      "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.900562+00:00"
+      "timeStamp": "2026-04-16T22:24:13.883098+00:00"
     },
     {
       "name": "ANNIE VASQUEZ",
@@ -2314,10 +2958,14 @@
       "table": "corona_hvac",
       "zip": "92880",
       "email": "anniejennifervasquez@gmail.com, lasd222@yahoo.com, annie.vasquez@yahoo.com",
-      "score": 82,
-      "sig": 2,
+      "lat": 33.954312,
+      "lng": -117.5732476,
+      "incomeRange": "$150,000 to $199,999",
+      "netWorth": "$1,000,000 or more",
+      "score": 98,
+      "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.899248+00:00"
+      "timeStamp": "2026-04-16T22:24:10.890361+00:00"
     },
     {
       "name": "ABRAHAM BERG",
@@ -2328,10 +2976,14 @@
       "table": "corona_hvac",
       "zip": "92883",
       "email": "abeiceberg@gmail.com",
-      "score": 82,
-      "sig": 2,
+      "lat": 33.8197283,
+      "lng": -117.5046505,
+      "incomeRange": "$60,000 to $74,999",
+      "netWorth": "-$2,499 to $2,499",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.898127+00:00"
+      "timeStamp": "2026-04-16T22:24:09.679980+00:00"
     },
     {
       "name": "LUCY MILES",
@@ -2342,10 +2994,14 @@
       "table": "corona_hvac",
       "zip": "92883",
       "email": "bmilesuva@yahoo.com, skybird012044@gmail.com",
-      "score": 75,
-      "sig": 1,
+      "lat": 33.730701,
+      "lng": -117.4285069,
+      "incomeRange": "$20,000 to $44,999",
+      "netWorth": "$375,000 to $499,999",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.898064+00:00"
+      "timeStamp": "2026-04-16T22:24:08.869481+00:00"
     },
     {
       "name": "DUNG TRAN",
@@ -2356,10 +3012,14 @@
       "table": "corona_hvac",
       "zip": "92880",
       "email": "dungoanh@pacbell.net",
-      "score": 83,
-      "sig": 2,
+      "lat": 33.9476792,
+      "lng": -117.583869,
+      "incomeRange": "$60,000 to $74,999",
+      "netWorth": "$375,000 to $499,999",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.894672+00:00"
+      "timeStamp": "2026-04-16T22:24:01.869672+00:00"
     },
     {
       "name": "PATTI GEE",
@@ -2370,10 +3030,14 @@
       "table": "corona_hvac",
       "zip": "92879",
       "email": "okiepattimelt@yahoo.com",
-      "score": 89,
+      "lat": 33.8652408,
+      "lng": -117.5668646,
+      "incomeRange": "$60,000 to $74,999",
+      "netWorth": "-$2,499 to $2,499",
+      "score": 90,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.894649+00:00"
+      "timeStamp": "2026-04-16T22:24:01.436902+00:00"
     },
     {
       "name": "JOHN PADILLA",
@@ -2384,10 +3048,14 @@
       "table": "corona_hvac",
       "zip": "92870",
       "email": "johnpadilla@yahoo.com, thee_latin_lover@yahoo.com",
-      "score": 94,
+      "lat": 33.8813431,
+      "lng": -117.8503622,
+      "incomeRange": "$100,000 to $149,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 95,
       "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.893972+00:00"
+      "timeStamp": "2026-04-16T22:23:59.507327+00:00"
     },
     {
       "name": "GARY HYMAN",
@@ -2398,10 +3066,14 @@
       "table": "corona_hvac",
       "zip": "92882",
       "email": "garyrhyman@gmail.com",
-      "score": 100,
+      "lat": 33.868573,
+      "lng": -117.5874554,
+      "incomeRange": "$100,000 to $149,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 95,
       "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.892978+00:00"
+      "timeStamp": "2026-04-16T22:23:57.961473+00:00"
     },
     {
       "name": "BLANCA VAZQUEZ",
@@ -2412,10 +3084,14 @@
       "table": "corona_hvac",
       "zip": "92882",
       "email": "blanca_vazquez@hotmail.com, blancavazquez16@yahoo.com",
-      "score": 75,
-      "sig": 1,
+      "lat": 33.8750142,
+      "lng": -117.5962841,
+      "incomeRange": "$20,000 to $44,999",
+      "netWorth": "$150,000 to $249,999",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.890662+00:00"
+      "timeStamp": "2026-04-16T22:23:52.724251+00:00"
     },
     {
       "name": "MU AYE",
@@ -2426,10 +3102,14 @@
       "table": "corona_hvac",
       "zip": "92881",
       "email": "mu.aye@att.net",
-      "score": 92,
-      "sig": 3,
+      "lat": 33.8371338,
+      "lng": -117.5546388,
+      "incomeRange": "$250,000+",
+      "netWorth": "$750,000 to $999,999",
+      "score": 99,
+      "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.888383+00:00"
+      "timeStamp": "2026-04-16T22:23:48.343931+00:00"
     },
     {
       "name": "DEBORAH LINGENFELTER",
@@ -2440,10 +3120,14 @@
       "table": "corona_hvac",
       "zip": "92879",
       "email": "dtldll@aol.com, deborahlingenfelter@hotmail.com",
-      "score": 88,
+      "lat": 33.8644315,
+      "lng": -117.5580649,
+      "incomeRange": "$75,000 to $99,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 93,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.887144+00:00"
+      "timeStamp": "2026-04-16T22:23:45.848048+00:00"
     },
     {
       "name": "CAROLYN SHIRAI",
@@ -2454,10 +3138,14 @@
       "table": "corona_hvac",
       "zip": "92881",
       "email": "carolyn.shirai@yahoo.com",
-      "score": 96,
-      "sig": 4,
+      "lat": 33.8312768,
+      "lng": -117.5558497,
+      "incomeRange": "less than $20,000",
+      "netWorth": "$500,000 to $749,999",
+      "score": 91,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.883574+00:00"
+      "timeStamp": "2026-04-16T22:23:39.022531+00:00"
     },
     {
       "name": "MICHAEL JACOBSON",
@@ -2468,10 +3156,14 @@
       "table": "corona_hvac",
       "zip": "92880",
       "email": "michael_jacobson@sbcglobal.net",
-      "score": 95,
-      "sig": 4,
+      "lat": 33.9562628,
+      "lng": -117.5897261,
+      "incomeRange": "$45,000 to $59,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 91,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.883412+00:00"
+      "timeStamp": "2026-04-16T22:23:38.587990+00:00"
     },
     {
       "name": "CAROL SIMMONS",
@@ -2482,10 +3174,14 @@
       "table": "corona_hvac",
       "zip": "92870",
       "email": "shopmom5@sbcglobal.net",
-      "score": 94,
-      "sig": 4,
+      "lat": 33.8766568,
+      "lng": -117.8328256,
+      "incomeRange": "$60,000 to $74,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 91,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.883326+00:00"
+      "timeStamp": "2026-04-16T22:23:37.801857+00:00"
     },
     {
       "name": "TRUCTHU VIEP",
@@ -2496,10 +3192,14 @@
       "table": "corona_hvac",
       "zip": "92880",
       "email": "bamboocurtain61@hotmail.com",
-      "score": 75,
-      "sig": 1,
+      "lat": 33.9415882,
+      "lng": -117.5936903,
+      "incomeRange": "$75,000 to $99,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 93,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.883246+00:00"
+      "timeStamp": "2026-04-16T22:23:37.431819+00:00"
     },
     {
       "name": "JOHN CHIEN",
@@ -2510,10 +3210,14 @@
       "table": "corona_hvac",
       "zip": "92870",
       "email": "jchien1@hotmail.com",
-      "score": 86,
+      "lat": 33.8741202,
+      "lng": -117.8320171,
+      "incomeRange": "$60,000 to $74,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 91,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.883076+00:00"
+      "timeStamp": "2026-04-16T22:23:36.360945+00:00"
     },
     {
       "name": "JOHN KRONENFELD",
@@ -2524,10 +3228,14 @@
       "table": "corona_hvac",
       "zip": "92870",
       "email": "kronenfeld123@gmail.com",
-      "score": 84,
-      "sig": 2,
+      "lat": 33.8977268,
+      "lng": -117.8585925,
+      "incomeRange": "$100,000 to $149,999",
+      "netWorth": "$250,000 to $374,999",
+      "score": 94,
+      "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.878927+00:00"
+      "timeStamp": "2026-04-16T22:23:30.852491+00:00"
     },
     {
       "name": "JEANNINE BARRETT",
@@ -2538,10 +3246,14 @@
       "table": "corona_hvac",
       "zip": "92879",
       "email": "g9barrett@hotmail.com",
-      "score": 78,
-      "sig": 1,
+      "lat": 33.8543748,
+      "lng": -117.5526012,
+      "incomeRange": "$100,000 to $149,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 95,
+      "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.878882+00:00"
+      "timeStamp": "2026-04-16T22:23:30.444963+00:00"
     },
     {
       "name": "SUE CANADA",
@@ -2552,10 +3264,14 @@
       "table": "corona_hvac",
       "zip": "92879",
       "email": "suecanat444@gmail.com, suecan444@gmail.com",
-      "score": 88,
+      "lat": 33.8894836,
+      "lng": -117.5586134,
+      "incomeRange": "$60,000 to $74,999",
+      "netWorth": "$375,000 to $499,999",
+      "score": 90,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.875570+00:00"
+      "timeStamp": "2026-04-16T22:23:25.498028+00:00"
     },
     {
       "name": "JANICE MADDOX",
@@ -2566,10 +3282,14 @@
       "table": "corona_hvac",
       "zip": "92882",
       "email": "imadd1@yahoo.com",
+      "lat": 33.8570735,
+      "lng": -117.6087239,
+      "incomeRange": "$75,000 to $99,999",
+      "netWorth": "$500,000 to $749,999",
       "score": 93,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.875488+00:00"
+      "timeStamp": "2026-04-16T22:23:25.126083+00:00"
     },
     {
       "name": "JOANNA FLEMING",
@@ -2580,10 +3300,14 @@
       "table": "corona_hvac",
       "zip": "92883",
       "email": "sammdf@aol.com, jnafleming@gmail.com, jnafleming@hotmail.com",
-      "score": 88,
+      "lat": 33.8090785,
+      "lng": -117.5337342,
+      "incomeRange": "$20,000 to $44,999",
+      "netWorth": "$500,000 to $749,999",
+      "score": 91,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.875312+00:00"
+      "timeStamp": "2026-04-16T22:23:23.960688+00:00"
     },
     {
       "name": "DENISE ALLEC",
@@ -2594,10 +3318,14 @@
       "table": "corona_hvac",
       "zip": "92870",
       "email": "thehungrymind@mindspring.com, deniseallec@gmail.com",
-      "score": 87,
+      "lat": 33.8816605,
+      "lng": -117.842946,
+      "incomeRange": "$45,000 to $59,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 91,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.874731+00:00"
+      "timeStamp": "2026-04-16T22:23:22.001394+00:00"
     },
     {
       "name": "DONALD ELLIS",
@@ -2608,10 +3336,14 @@
       "table": "corona_hvac",
       "zip": "92879",
       "email": "donald.ellis151@gmail.com, donaldellis151@gmail.com",
-      "score": 81,
-      "sig": 2,
+      "lat": 33.8796382,
+      "lng": -117.5184975,
+      "incomeRange": "$100,000 to $149,999",
+      "netWorth": "$375,000 to $499,999",
+      "score": 94,
+      "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.874603+00:00"
+      "timeStamp": "2026-04-16T22:23:21.167764+00:00"
     },
     {
       "name": "EVELYN KIBANOFF",
@@ -2622,10 +3354,14 @@
       "table": "corona_hvac",
       "zip": "92870",
       "email": "mvkibanoff@yahoo.com",
-      "score": 80,
-      "sig": 2,
+      "lat": 33.8691747,
+      "lng": -117.8464054,
+      "incomeRange": "$60,000 to $74,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 91,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.872448+00:00"
+      "timeStamp": "2026-04-16T22:23:16.895862+00:00"
     },
     {
       "name": "LILIANA RODRIGUEZ",
@@ -2636,10 +3372,14 @@
       "table": "corona_hvac",
       "zip": "92880",
       "email": "limerogue@gmail.com, lilirodriguez_75@yahoo.com",
-      "score": 81,
-      "sig": 2,
+      "lat": 33.9723165,
+      "lng": -117.5861786,
+      "incomeRange": "$75,000 to $99,999",
+      "netWorth": "$500,000 to $749,999",
+      "score": 93,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.871672+00:00"
+      "timeStamp": "2026-04-16T22:23:15.862950+00:00"
     },
     {
       "name": "THOMAS BURCIAGA",
@@ -2650,10 +3390,14 @@
       "table": "corona_hvac",
       "zip": "92878",
       "email": "lildoc20002000@yahoo.com",
-      "score": 81,
-      "sig": 2,
+      "lat": 33.8824368,
+      "lng": -117.6635654,
+      "incomeRange": "$150,000 to $199,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 97,
+      "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.869871+00:00"
+      "timeStamp": "2026-04-16T22:23:12.259509+00:00"
     },
     {
       "name": "JAMES JANOSZ",
@@ -2664,10 +3408,14 @@
       "table": "corona_hvac",
       "zip": "92870",
       "email": "soccerjanosz@yahoo.com, janosz4j@aol.com",
-      "score": 77,
-      "sig": 1,
+      "lat": 33.8780753,
+      "lng": -117.8758734,
+      "incomeRange": "$60,000 to $74,999",
+      "netWorth": "-$2,499 to $2,499",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.869177+00:00"
+      "timeStamp": "2026-04-16T22:23:10.645353+00:00"
     },
     {
       "name": "ALEJANDRA FORTIS",
@@ -2678,10 +3426,14 @@
       "table": "corona_hvac",
       "zip": "92882",
       "email": "fortis.alejandra@yahoo.com",
-      "score": 95,
-      "sig": 4,
+      "lat": 33.8599654,
+      "lng": -117.6026837,
+      "incomeRange": "less than $20,000",
+      "netWorth": "$250,000 to $374,999",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.868758+00:00"
+      "timeStamp": "2026-04-16T22:23:10.270899+00:00"
     },
     {
       "name": "HOLLY FISCHER",
@@ -2692,10 +3444,14 @@
       "table": "corona_hvac",
       "zip": "92881",
       "email": "hbsb326@yahoo.com",
-      "score": 93,
-      "sig": 3,
+      "lat": 33.8312313,
+      "lng": -117.5646905,
+      "incomeRange": "$100,000 to $149,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 95,
+      "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.866197+00:00"
+      "timeStamp": "2026-04-16T22:23:03.654497+00:00"
     },
     {
       "name": "JACQUELINE RUDY",
@@ -2706,10 +3462,14 @@
       "table": "corona_hvac",
       "zip": "92870",
       "email": "jacqueline.rudy@hotmail.com, juliarudy52@gmail.com",
-      "score": 97,
+      "lat": 33.8816579,
+      "lng": -117.8652717,
+      "incomeRange": "$100,000 to $149,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 95,
       "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.865159+00:00"
+      "timeStamp": "2026-04-16T22:23:01.118036+00:00"
     },
     {
       "name": "JESSE COLLINS",
@@ -2720,10 +3480,14 @@
       "table": "corona_hvac",
       "zip": "92870",
       "email": "jessebearchubs@gmail.com",
-      "score": 88,
+      "lat": 33.8791744,
+      "lng": -117.8755548,
+      "incomeRange": "",
+      "netWorth": "$375,000 to $499,999",
+      "score": 90,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.862791+00:00"
+      "timeStamp": "2026-04-16T22:22:57.081018+00:00"
     },
     {
       "name": "JULIO JASTILLANA",
@@ -2734,10 +3498,14 @@
       "table": "corona_hvac",
       "zip": "92880",
       "email": "lucky7penny@gmail.com",
-      "score": 90,
+      "lat": 33.9703506,
+      "lng": -117.5815137,
+      "incomeRange": "$75,000 to $99,999",
+      "netWorth": "",
+      "score": 92,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.862624+00:00"
+      "timeStamp": "2026-04-16T22:22:56.653785+00:00"
     },
     {
       "name": "JOHN TEAL",
@@ -2748,10 +3516,14 @@
       "table": "corona_hvac",
       "zip": "92870",
       "email": "johnteal@att.net",
-      "score": 87,
-      "sig": 3,
+      "lat": 33.8983192,
+      "lng": -117.8665742,
+      "incomeRange": "$100,000 to $149,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 95,
+      "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.862410+00:00"
+      "timeStamp": "2026-04-16T22:22:56.028647+00:00"
     },
     {
       "name": "MICHAEL HINCKLEY",
@@ -2762,10 +3534,14 @@
       "table": "corona_hvac",
       "zip": "92883",
       "email": "mrhinckley@sbcglobal.net",
-      "score": 81,
-      "sig": 2,
+      "lat": 33.7571534,
+      "lng": -117.4709684,
+      "incomeRange": "$100,000 to $149,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 95,
+      "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.862324+00:00"
+      "timeStamp": "2026-04-16T22:22:55.636038+00:00"
     },
     {
       "name": "JESSIKA BOLANDER",
@@ -2776,10 +3552,14 @@
       "table": "corona_hvac",
       "zip": "92880",
       "email": "prncssjess@msn.com",
-      "score": 87,
+      "lat": 33.9532082,
+      "lng": -117.5814757,
+      "incomeRange": "",
+      "netWorth": "$375,000 to $499,999",
+      "score": 90,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.860624+00:00"
+      "timeStamp": "2026-04-16T22:22:53.151945+00:00"
     },
     {
       "name": "TIMOTHY CAMPBELL",
@@ -2790,10 +3570,14 @@
       "table": "corona_hvac",
       "zip": "92882",
       "email": "timnro@mac.com, tdccam@yahoo.com, tcampbell1903@gmail.com",
-      "score": 99,
+      "lat": 33.8370705,
+      "lng": -117.5860321,
+      "incomeRange": "$250,000+",
+      "netWorth": "$250,000 to $374,999",
+      "score": 98,
       "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.860243+00:00"
+      "timeStamp": "2026-04-16T22:22:52.379242+00:00"
     },
     {
       "name": "WILLIAM FRESQUEZ",
@@ -2804,10 +3588,14 @@
       "table": "corona_hvac",
       "zip": "92882",
       "email": "jbfrez@earthlink.net",
-      "score": 95,
-      "sig": 4,
+      "lat": 33.8478385,
+      "lng": -117.5858939,
+      "incomeRange": "",
+      "netWorth": "$750,000 to $999,999",
+      "score": 91,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.859142+00:00"
+      "timeStamp": "2026-04-16T22:22:50.393320+00:00"
     },
     {
       "name": "MICHELLE REYNOLDS",
@@ -2818,10 +3606,14 @@
       "table": "corona_hvac",
       "zip": "92882",
       "email": "tjkmickey1t57@bellsouth.net, slcsimmons@gmail.com",
-      "score": 85,
-      "sig": 2,
+      "lat": 33.8653449,
+      "lng": -117.6137415,
+      "incomeRange": "",
+      "netWorth": "$250,000 to $374,999",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.857205+00:00"
+      "timeStamp": "2026-04-16T22:22:46.002842+00:00"
     },
     {
       "name": "TONI IPPOLITO",
@@ -2832,10 +3624,14 @@
       "table": "corona_hvac",
       "zip": "92882",
       "email": "toniphi@yahoo.com, chumuoi06@yahoo.com",
-      "score": 76,
-      "sig": 1,
+      "lat": 33.8595281,
+      "lng": -117.6060376,
+      "incomeRange": "$75,000 to $99,999",
+      "netWorth": "$150,000 to $249,999",
+      "score": 92,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.856837+00:00"
+      "timeStamp": "2026-04-16T22:22:44.850335+00:00"
     },
     {
       "name": "ROXANN WELKER",
@@ -2846,10 +3642,14 @@
       "table": "lake_elsinore_hvac",
       "zip": "92530",
       "email": "bowler1958@yahoo.com, roxywelker@yahoo.com, dartahole@yahoo.com",
-      "score": 94,
-      "sig": 4,
+      "lat": 33.6645664,
+      "lng": -117.3866743,
+      "incomeRange": "$75,000 to $99,999",
+      "netWorth": "$150,000 to $249,999",
+      "score": 92,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.897816+00:00"
+      "timeStamp": "2026-04-16T22:24:07.454698+00:00"
     },
     {
       "name": "EVILENE CARDENAS",
@@ -2860,10 +3660,14 @@
       "table": "lake_elsinore_hvac",
       "zip": "92530",
       "email": "evil4dk@hotmail.com, spacepanda77@gmail.com, kellykelly19921992@gmail.com",
-      "score": 90,
+      "lat": 33.6854502,
+      "lng": -117.3402719,
+      "incomeRange": "$75,000 to $99,999",
+      "netWorth": "-$2,499 to $2,499",
+      "score": 92,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.893566+00:00"
+      "timeStamp": "2026-04-16T22:23:59.128163+00:00"
     },
     {
       "name": "SUSAN SIMS",
@@ -2874,10 +3678,14 @@
       "table": "lake_elsinore_hvac",
       "zip": "92532",
       "email": "nicojones2u@hotmail.com, fallski16@gmail.com, simssusie@gmail.com, susieesims@aol.com",
-      "score": 78,
-      "sig": 1,
+      "lat": 33.669934,
+      "lng": -117.2185555,
+      "incomeRange": "$75,000 to $99,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 93,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.887408+00:00"
+      "timeStamp": "2026-04-16T22:23:46.399273+00:00"
     },
     {
       "name": "EMERSON MORALES",
@@ -2888,10 +3696,14 @@
       "table": "lake_elsinore_hvac",
       "zip": "92530",
       "email": "emartinez_185@hotmail.com, defmetal20@gmail.com",
-      "score": 98,
-      "sig": 4,
+      "lat": 33.6838214,
+      "lng": -117.3706445,
+      "incomeRange": "$60,000 to $74,999",
+      "netWorth": "",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.881168+00:00"
+      "timeStamp": "2026-04-16T22:23:33.202991+00:00"
     },
     {
       "name": "FRANK LEMBO",
@@ -2902,10 +3714,14 @@
       "table": "lake_elsinore_hvac",
       "zip": "92530",
       "email": "flembo56@outlook.com, flembo56@hotmail.com",
-      "score": 91,
+      "lat": 33.6631996,
+      "lng": -117.3899277,
+      "incomeRange": "",
+      "netWorth": "$150,000 to $249,999",
+      "score": 90,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.875195+00:00"
+      "timeStamp": "2026-04-16T22:23:23.143896+00:00"
     },
     {
       "name": "REBECCA WILLINGHAM",
@@ -2916,10 +3732,14 @@
       "table": "lake_elsinore_hvac",
       "zip": "92530",
       "email": "beccamwill@hotmail.com",
-      "score": 77,
-      "sig": 1,
+      "lat": 33.7025257,
+      "lng": -117.3876039,
+      "incomeRange": "$75,000 to $99,999",
+      "netWorth": "$100,000 to $149,999",
+      "score": 92,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.858141+00:00"
+      "timeStamp": "2026-04-16T22:22:48.616257+00:00"
     },
     {
       "name": "LINDSAY KAUFMAN",
@@ -2930,10 +3750,14 @@
       "table": "lake_elsinore_hvac",
       "zip": "92530",
       "email": "evansmommy15@yahoo.com, lindsaykaufman@gmail.com",
-      "score": 98,
-      "sig": 4,
+      "lat": 33.6630926,
+      "lng": -117.3895205,
+      "incomeRange": "$60,000 to $74,999",
+      "netWorth": "$150,000 to $249,999",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.857551+00:00"
+      "timeStamp": "2026-04-16T22:22:46.406654+00:00"
     },
     {
       "name": "NANCY APLIN",
@@ -2944,10 +3768,14 @@
       "table": "moreno_valley_hvac",
       "zip": "92373",
       "email": "nancyaplin@aol.com",
-      "score": 76,
-      "sig": 1,
+      "lat": 34.0148401,
+      "lng": -117.1713797,
+      "incomeRange": "$100,000 to $149,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 95,
+      "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.890974+00:00"
+      "timeStamp": "2026-04-16T22:23:53.107244+00:00"
     },
     {
       "name": "MYRNA BENITEZ",
@@ -2958,10 +3786,14 @@
       "table": "moreno_valley_hvac",
       "zip": "92373",
       "email": "captorb@hotmail.com, myrnaben@yahoo.com",
-      "score": 77,
-      "sig": 1,
+      "lat": 34.0310516,
+      "lng": -117.1938151,
+      "incomeRange": "$250,000+",
+      "netWorth": "$750,000 to $999,999",
+      "score": 99,
+      "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.889443+00:00"
+      "timeStamp": "2026-04-16T22:23:50.342115+00:00"
     },
     {
       "name": "RICHARD CORNEZ",
@@ -2972,10 +3804,14 @@
       "table": "moreno_valley_hvac",
       "zip": "92373",
       "email": "rcredlands12@gmail.com",
-      "score": 97,
-      "sig": 4,
+      "lat": 34.0482069,
+      "lng": -117.1786411,
+      "incomeRange": "$45,000 to $59,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 91,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.888810+00:00"
+      "timeStamp": "2026-04-16T22:23:49.513650+00:00"
     },
     {
       "name": "PATRICIA LOPEZ",
@@ -2986,10 +3822,14 @@
       "table": "moreno_valley_hvac",
       "zip": "92555",
       "email": "sweet909ml@yahoo.com, teresaserangeli@gmail.com, lopezpatt@msn.com",
+      "lat": 33.9227146,
+      "lng": -117.1693831,
+      "incomeRange": "$150,000 to $199,999",
+      "netWorth": "$375,000 to $499,999",
       "score": 96,
       "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.886322+00:00"
+      "timeStamp": "2026-04-16T22:23:43.976441+00:00"
     },
     {
       "name": "ARNULFO GUTIERREZ",
@@ -3000,10 +3840,14 @@
       "table": "moreno_valley_hvac",
       "zip": "92223",
       "email": "nismor341@gmail.com, nomarstriker_2013@yahoo.com",
-      "score": 89,
+      "lat": 33.9768182,
+      "lng": -116.9812633,
+      "incomeRange": "$75,000 to $99,999",
+      "netWorth": "$375,000 to $499,999",
+      "score": 92,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.886047+00:00"
+      "timeStamp": "2026-04-16T22:23:43.188128+00:00"
     },
     {
       "name": "EDWARD KRINSKY",
@@ -3014,10 +3858,14 @@
       "table": "moreno_valley_hvac",
       "zip": "92223",
       "email": "ekrinsky72@gmail.com, ekrinsky@verizon.net, ekrinsky@prodigy.net",
-      "score": 81,
-      "sig": 2,
+      "lat": 33.9099843,
+      "lng": -116.9490476,
+      "incomeRange": "$100,000 to $149,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 95,
+      "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.884422+00:00"
+      "timeStamp": "2026-04-16T22:23:41.648952+00:00"
     },
     {
       "name": "LORETTA PARK",
@@ -3028,10 +3876,14 @@
       "table": "moreno_valley_hvac",
       "zip": "92373",
       "email": "lmiyasato1@yahoo.com",
-      "score": 95,
-      "sig": 4,
+      "lat": 34.0513727,
+      "lng": -117.2000631,
+      "incomeRange": "",
+      "netWorth": "$100,000 to $149,999",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.883366+00:00"
+      "timeStamp": "2026-04-16T22:23:38.209355+00:00"
     },
     {
       "name": "SALVADOR LUNA",
@@ -3042,10 +3894,14 @@
       "table": "moreno_valley_hvac",
       "zip": "92551",
       "email": "lunacali23@yahoo.com, salvadorluna465@gmail.com, sallunaisslowdeep@outlook.com, salvadorpleaselookup@outlook.com",
-      "score": 100,
-      "sig": 4,
+      "lat": 33.8789864,
+      "lng": -117.2159705,
+      "incomeRange": "$75,000 to $99,999",
+      "netWorth": "$375,000 to $499,999",
+      "score": 92,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.881979+00:00"
+      "timeStamp": "2026-04-16T22:23:34.796153+00:00"
     },
     {
       "name": "EVELIN GARCIA",
@@ -3056,10 +3912,14 @@
       "table": "moreno_valley_hvac",
       "zip": "92555",
       "email": "vlngarcia@yahoo.com",
-      "score": 89,
+      "lat": 33.9122455,
+      "lng": -117.1694688,
+      "incomeRange": "$75,000 to $99,999",
+      "netWorth": "$375,000 to $499,999",
+      "score": 92,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.879433+00:00"
+      "timeStamp": "2026-04-16T22:23:31.648615+00:00"
     },
     {
       "name": "SARA FALKENSTIEN",
@@ -3070,10 +3930,14 @@
       "table": "moreno_valley_hvac",
       "zip": "92373",
       "email": "sara_falkenstien@yahoo.com",
-      "score": 80,
-      "sig": 2,
+      "lat": 34.040585,
+      "lng": -117.1886924,
+      "incomeRange": "",
+      "netWorth": "",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.878497+00:00"
+      "timeStamp": "2026-04-16T22:23:30.032421+00:00"
     },
     {
       "name": "KIMBERLY TURNER",
@@ -3084,10 +3948,14 @@
       "table": "moreno_valley_hvac",
       "zip": "92557",
       "email": "kimmystarks32@gmail.com",
-      "score": 78,
-      "sig": 1,
+      "lat": 33.9766018,
+      "lng": -117.2647568,
+      "incomeRange": "$20,000 to $44,999",
+      "netWorth": "$75,000 to $99,999",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.877714+00:00"
+      "timeStamp": "2026-04-16T22:23:28.780278+00:00"
     },
     {
       "name": "KAREN JOHNSON",
@@ -3098,10 +3966,14 @@
       "table": "moreno_valley_hvac",
       "zip": "92223",
       "email": "karjohnson@live.com, lorraineaj@yahoo.com, bob1498@yahoo.com",
-      "score": 91,
-      "sig": 3,
+      "lat": 33.9166089,
+      "lng": -116.9513193,
+      "incomeRange": "$100,000 to $149,999",
+      "netWorth": "$250,000 to $374,999",
+      "score": 94,
+      "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.875347+00:00"
+      "timeStamp": "2026-04-16T22:23:24.755045+00:00"
     },
     {
       "name": "GIOVANNA MORENO",
@@ -3112,10 +3984,14 @@
       "table": "moreno_valley_hvac",
       "zip": "92555",
       "email": "gramcrackers28@hotmail.com",
-      "score": 91,
+      "lat": 33.8763175,
+      "lng": -117.206575,
+      "incomeRange": "$45,000 to $59,999",
+      "netWorth": "$100,000 to $149,999",
+      "score": 90,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.871500+00:00"
+      "timeStamp": "2026-04-16T22:23:15.421360+00:00"
     },
     {
       "name": "PATRICK GARCIA",
@@ -3126,10 +4002,14 @@
       "table": "moreno_valley_hvac",
       "zip": "92557",
       "email": "garciapatrick1984@gmail.com, bernardgarcia2006@hotmail.com",
-      "score": 84,
-      "sig": 2,
+      "lat": 33.9656635,
+      "lng": -117.2321256,
+      "incomeRange": "$75,000 to $99,999",
+      "netWorth": "",
+      "score": 92,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.871339+00:00"
+      "timeStamp": "2026-04-16T22:23:15.041595+00:00"
     },
     {
       "name": "ROBIN COPPAGE",
@@ -3140,10 +4020,14 @@
       "table": "moreno_valley_hvac",
       "zip": "92223",
       "email": "coppager@yahoo.com",
-      "score": 77,
-      "sig": 1,
+      "lat": 33.9576488,
+      "lng": -117.0008971,
+      "incomeRange": "$20,000 to $44,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 91,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.870712+00:00"
+      "timeStamp": "2026-04-16T22:23:13.847186+00:00"
     },
     {
       "name": "NICK WALKER",
@@ -3154,10 +4038,14 @@
       "table": "moreno_valley_hvac",
       "zip": "92373",
       "email": "walkernick3519@yahoo.com",
-      "score": 79,
-      "sig": 1,
+      "lat": 34.0352583,
+      "lng": -117.2030216,
+      "incomeRange": "$20,000 to $44,999",
+      "netWorth": "$750,000 to $999,999",
+      "score": 91,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.867007+00:00"
+      "timeStamp": "2026-04-16T22:23:06.677704+00:00"
     },
     {
       "name": "ZANA SHIRWAN",
@@ -3168,10 +4056,14 @@
       "table": "moreno_valley_hvac",
       "zip": "92223",
       "email": "zshirwan2020@gmail.com",
-      "score": 93,
+      "lat": 33.9555365,
+      "lng": -117.0413057,
+      "incomeRange": "",
+      "netWorth": "",
+      "score": 90,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.866500+00:00"
+      "timeStamp": "2026-04-16T22:23:05.496445+00:00"
     },
     {
       "name": "JOHN PASILLAS",
@@ -3182,10 +4074,14 @@
       "table": "moreno_valley_hvac",
       "zip": "92557",
       "email": "johnnypasillas@gmail.com, pasillas.john@yahoo.com, johnny.pasillas@gmail.com",
-      "score": 100,
-      "sig": 4,
+      "lat": 33.9433658,
+      "lng": -117.2335215,
+      "incomeRange": "$60,000 to $74,999",
+      "netWorth": "$25,000 to $49,999",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.865346+00:00"
+      "timeStamp": "2026-04-16T22:23:01.916135+00:00"
     },
     {
       "name": "STEFFANIE SWENSON",
@@ -3196,10 +4092,14 @@
       "table": "moreno_valley_hvac",
       "zip": "92223",
       "email": "akabigsis24@gmail.com, steffanieswensonot@gmail.com, jsmaswenson@verizon.net",
-      "score": 84,
-      "sig": 2,
+      "lat": 33.9484549,
+      "lng": -117.0000651,
+      "incomeRange": "$20,000 to $44,999",
+      "netWorth": "$250,000 to $374,999",
+      "score": 90,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.864371+00:00"
+      "timeStamp": "2026-04-16T22:22:59.078442+00:00"
     },
     {
       "name": "KEITH EPSTEIN",
@@ -3210,10 +4110,14 @@
       "table": "moreno_valley_hvac",
       "zip": "92553",
       "email": "noxqses67@yahoo.com",
-      "score": 95,
-      "sig": 4,
+      "lat": 33.9226822,
+      "lng": -117.2209861,
+      "incomeRange": "$75,000 to $99,999",
+      "netWorth": "$150,000 to $249,999",
+      "score": 92,
+      "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.863994+00:00"
+      "timeStamp": "2026-04-16T22:22:58.300075+00:00"
     },
     {
       "name": "Mike Fountain",
@@ -3224,10 +4128,14 @@
       "table": "moreno_valley_hvac",
       "zip": "92373",
       "email": "mcsmokeytwo@msn.com, mcsmokeytwo@yahoo.com",
-      "score": 93,
+      "lat": 33.9782913,
+      "lng": -117.1115713,
+      "incomeRange": "",
+      "netWorth": "",
+      "score": 90,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.859608+00:00"
+      "timeStamp": "2026-04-16T22:22:50.804223+00:00"
     },
     {
       "name": "STACEY SMITH",
@@ -3238,10 +4146,14 @@
       "table": "moreno_valley_hvac",
       "zip": "92373",
       "email": "stacey-lee-smith@hotmail.com, scecs@msn.com, sl_smith70@yahoo.com",
-      "score": 89,
+      "lat": 34.0504179,
+      "lng": -117.1813944,
+      "incomeRange": "less than $20,000",
+      "netWorth": "$100,000 to $149,999",
+      "score": 90,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.857665+00:00"
+      "timeStamp": "2026-04-16T22:22:47.827944+00:00"
     },
     {
       "name": "SYLVIA CRAMER",
@@ -3252,10 +4164,14 @@
       "table": "moreno_valley_hvac",
       "zip": "92373",
       "email": "scramer22@aol.com",
+      "lat": 34.0372712,
+      "lng": -117.1546867,
+      "incomeRange": "$250,000+",
+      "netWorth": "$250,000 to $374,999",
       "score": 98,
       "sig": 4,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.853792+00:00"
+      "timeStamp": "2026-04-16T22:22:40.506526+00:00"
     },
     {
       "name": "NUZHAT JAFFERY",
@@ -3266,10 +4182,14 @@
       "table": "moreno_valley_hvac",
       "zip": "92555",
       "email": "nuzhatfj@yahoo.com",
-      "score": 88,
+      "lat": 33.9071782,
+      "lng": -117.1897286,
+      "incomeRange": "$20,000 to $44,999",
+      "netWorth": "$150,000 to $249,999",
+      "score": 90,
       "sig": 3,
       "type": "HVAC",
-      "timeStamp": "2026-04-16T18:45:07.852641+00:00"
+      "timeStamp": "2026-04-16T22:22:37.244532+00:00"
     }
   ]
 }
