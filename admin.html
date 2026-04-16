@@ -91,7 +91,10 @@ document.getElementById('admin-form').addEventListener('submit',async event=>{
     event.target.reset();
     document.querySelectorAll('input[name="metros"]').forEach(input=>{input.disabled=false});
   }catch(error){
-    msg.className='msg err';msg.textContent=error.message || 'Account creation failed.';
+    msg.className='msg err';
+    msg.textContent=(error instanceof TypeError && String(error.message).includes('fetch'))
+      ? 'Account creation service is not deployed or is not reachable yet.'
+      : (error.message || 'Account creation failed.');
   }finally{
     btn.disabled=false;btn.textContent='Create Account';
   }
