@@ -123,7 +123,7 @@
     const results = await Promise.allSettled(CITY_TABLES.map(fetchCityTable));
     const failures = results.filter(result => result.status === "rejected");
     if(failures.length){
-      console.warn("Some Supabase city tables did not load", failures.map(failure => failure.reason));
+      console.warn("Some city data did not load", failures.map(failure => failure.reason));
     }
     return results.flatMap(result => result.status === "fulfilled" ? result.value : []);
   }

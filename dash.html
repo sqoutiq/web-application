@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>sqoutIQ — Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="supabase-config.js"></script>
+<script src="auth.js"></script>
+<script>SqoutiqAuth.requireAuth();</script>
+<script src="leads.js"></script>
+<script src="profile.js"></script>
+<script>try{if(localStorage.getItem('sqoutiq-theme')==='light')document.documentElement.classList.add('light-mode')}catch(e){}</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0b0c10;--surface:#161821;--surface2:#1d1f2b;--border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.15);--text:#f3f4f6;--muted:#9ca3af;--muted2:#6b7280;--accent:#9b51e0;--accent-dim:rgba(155,81,224,0.15);--accent-dim2:rgba(155,81,224,0.08);--blue:#00a8cc;--blue-dim:rgba(0,168,204,0.15);--amber:#f59e0b;--amber-dim:rgba(245,158,11,0.15);--green:#10b981;--green-dim:rgba(16,185,129,0.15);--red:#ef4444;--red-dim:rgba(239,68,68,0.15);--font:'DM Sans',sans-serif;--mono:'DM Mono',monospace}
+:root.light-mode{--bg:#f0f2f5;--surface:#ffffff;--surface2:#f8fafc;--border:#e2e8f0;--border2:#cbd5e1;--text:#0f172a;--muted:#64748b;--muted2:#94a3b8;--accent:#7c3aed;--accent-dim:rgba(124,58,237,0.10);--accent-dim2:rgba(124,58,237,0.05);--blue:#0284c7;--blue-dim:rgba(2,132,199,0.10);--amber:#b45309;--amber-dim:rgba(180,83,9,0.10);--green:#047857;--green-dim:rgba(4,120,87,0.10);--red:#b91c1c;--red-dim:rgba(185,28,28,0.10)}
+body{font-family:var(--font);background:var(--bg);color:var(--text);display:flex;height:100vh;overflow:hidden;font-size:15px;line-height:1.5;transition:background .3s,color .3s}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--muted2);border-radius:3px}
+aside{width:256px;flex-shrink:0;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;transition:background .3s,border-color .3s}
+.logo{padding:14px 24px 12px;border-bottom:1px solid var(--border)}.brand-logo{display:block;width:198px;height:98px;object-fit:cover;object-position:center}
+nav{flex:1;padding:18px 0;overflow-y:auto}
+.nav-section-label{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted2);padding:14px 24px 6px;font-weight:700}
+.nav-item{display:flex;align-items:center;gap:11px;padding:10px 24px;font-size:14px;font-weight:500;color:var(--muted);cursor:pointer;transition:color .2s,background .2s;position:relative;text-decoration:none;user-select:none}
+.nav-item:hover{color:var(--text);background:var(--accent-dim2)}.nav-item.active{color:var(--accent);background:var(--accent-dim2)}
+.nav-item.active::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent);border-radius:0 3px 3px 0}
+.nav-icon{width:16px;height:16px;opacity:.7;flex-shrink:0}.nav-item.active .nav-icon{opacity:1}
+.sidebar-profile{border-top:1px solid var(--border)}
+.profile-btn{display:flex;align-items:center;gap:11px;padding:14px 18px;cursor:pointer;transition:background .2s;width:100%;border:none;background:none;color:var(--text);font-family:var(--font)}.profile-btn:hover{background:var(--accent-dim2)}
+.profile-avatar{width:34px;height:34px;border-radius:9px;background:var(--accent-dim);border:1.5px solid var(--accent);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--accent);flex-shrink:0}
+.profile-info{flex:1;text-align:left}.profile-name{font-size:13px;font-weight:600;color:var(--text);line-height:1.2}.profile-role{font-size:11.5px;color:var(--muted);margin-top:1px}
+.profile-caret{width:14px;height:14px;color:var(--muted2);transition:transform .2s;flex-shrink:0}.profile-caret.open{transform:rotate(180deg)}
+.profile-dropdown{background:var(--surface2);border-top:1px solid var(--border);overflow:hidden;max-height:0;transition:max-height .3s ease}.profile-dropdown.open{max-height:260px}
+.pd-item{display:flex;align-items:center;gap:10px;padding:10px 18px;font-size:13.5px;color:var(--muted);cursor:pointer;transition:all .15s;text-decoration:none}.pd-item:hover{color:var(--text);background:var(--accent-dim2)}.pd-item svg{width:14px;height:14px;flex-shrink:0;opacity:.75}
+.theme-row{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;cursor:pointer;transition:background .2s}.theme-row:hover{background:var(--accent-dim2)}
+.theme-row-left{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--muted)}.theme-row-left svg{width:14px;height:14px;opacity:.75}
+.pill{width:34px;height:18px;border-radius:10px;background:var(--border2);position:relative;transition:background .3s;flex-shrink:0}.pill.on{background:var(--accent)}
+.knob{width:14px;height:14px;background:#fff;border-radius:50%;position:absolute;top:2px;left:2px;transition:transform .3s}.pill.on .knob{transform:translateX(16px)}
+.dd-divider{height:1px;background:var(--border);margin:3px 0}
+main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:18px 28px;border-bottom:1px solid var(--border);background:var(--surface);flex-shrink:0;transition:background .3s,border-color .3s}
+.topbar-left h1{font-size:18px;font-weight:600;letter-spacing:-.015em;display:flex;align-items:center;gap:9px}.topbar-left p{font-size:12.5px;color:var(--muted);margin-top:2px}
+.topbar-right{display:flex;align-items:center;gap:9px}
+.seg-ctrl{display:flex;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:3px;gap:3px}
+.seg-ctrl button{padding:5px 13px;border:none;background:none;color:var(--muted);font-family:var(--font);font-size:13px;font-weight:600;border-radius:6px;cursor:pointer;transition:all .15s}
+.seg-ctrl button.active{background:var(--surface);color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.12);border:1px solid var(--border2)}
+.top-select{background:var(--surface2);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:13px;font-weight:600;padding:7px 13px;border-radius:8px;outline:none;cursor:pointer}
+.content{flex:1;overflow-y:auto;padding:24px 28px;display:flex;flex-direction:column;gap:20px}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.metric-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;position:relative;overflow:hidden;transition:border-color .2s,background .3s}
+.metric-card:hover{border-color:var(--border2)}.metric-card::after{content:'';position:absolute;top:0;right:0;width:65px;height:65px;border-radius:0 12px 0 65px;opacity:.06}
+.metric-card.amethyst::after{background:var(--accent)}.metric-card.sapphire::after{background:var(--blue)}.metric-card.amber::after{background:var(--amber)}
+.metric-label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:9px}
+.metric-value{font-size:32px;font-weight:400;letter-spacing:-.03em;line-height:1;color:var(--text)}.metric-value span{font-size:13px;color:var(--muted);font-weight:400;margin-left:3px}
+.metric-delta{margin-top:10px;font-size:12.5px;display:flex;align-items:center;gap:6px;font-weight:500}
+.delta-dot{width:6px;height:6px;border-radius:50%}.d-up{color:var(--green)}.d-ac{color:var(--accent)}.d-am{color:var(--amber)}.d-nu{color:var(--muted)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:background .3s,border-color .3s}
+.card-head{display:flex;align-items:flex-start;justify-content:space-between;padding:18px 20px 14px;border-bottom:1px solid var(--border)}
+.card-title{font-size:16px;font-weight:600;color:var(--text)}.card-sub{font-size:12.5px;color:var(--muted);margin-top:2px}
+.card-body{padding:18px 20px}
+.chart-legend{display:flex;gap:13px;align-items:center}.legend-item{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted);font-weight:600}
+.legend-sw{width:16px;height:3px;border-radius:2px;flex-shrink:0}.legend-sw.dashed{background:repeating-linear-gradient(90deg,var(--blue) 0,var(--blue) 4px,transparent 4px,transparent 8px)}
+.row2{display:grid;grid-template-columns:1fr;gap:16px}
+.row3{display:grid;grid-template-columns:300px 1fr;gap:16px;padding-bottom:4px}
+table{width:100%;border-collapse:collapse}
+thead th{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2);font-weight:700;padding:0 0 12px;text-align:left;border-bottom:1px solid var(--border)}
+tbody td{padding:13px 0;font-size:13.5px;color:var(--text);border-bottom:1px solid var(--border);vertical-align:middle}
+.spaced-t th,.spaced-t td{padding-right:16px}
+tbody tr:last-child td{border-bottom:none}tbody tr:hover td{background:var(--accent-dim2);cursor:pointer}
+.rank-badge{width:26px;height:26px;border-radius:7px;background:var(--surface2);border:1px solid var(--border);display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--muted);font-family:var(--mono)}
+.score-val{font-family:var(--mono);font-size:13.5px;font-weight:700}.sh{color:var(--accent)}.sm{color:var(--amber)}
+.contact-phone{font-family:var(--mono);font-size:12.5px}.contact-link{color:var(--blue);font-weight:600}.address-txt{font-size:12.5px;color:var(--muted)}.val-txt{font-family:var(--mono);font-size:13.5px;font-weight:700;text-align:right}
+.status-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px var(--accent-dim);display:inline-block;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 3px var(--accent-dim)}50%{box-shadow:0 0 0 6px var(--accent-dim2)}}
+.content>*{animation:fadeUp .25s ease both}.content>*:nth-child(1){animation-delay:.04s}.content>*:nth-child(2){animation-delay:.08s}.content>*:nth-child(3){animation-delay:.12s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+<aside>
+  <div class="logo"><img class="brand-logo" id="brand-logo" src="Dark.png" alt="sqoutiq"></div>
+ <nav>
+    <div class="nav-section-label">Overview</div>
+    <a class="nav-item active" href="dash.html">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="1" width="6" height="6" rx="1.5"/><rect x="9" y="1" width="6" height="6" rx="1.5"/><rect x="1" y="9" width="6" height="6" rx="1.5"/><rect x="9" y="9" width="6" height="6" rx="1.5"/></svg>
+      Dashboard
+    </a>
+    <div class="nav-section-label">Intelligence</div>
+    <a class="nav-item" href="intel.html">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="7" cy="7" r="5"/><line x1="11" y1="11" x2="15" y2="15"/></svg>
+      Opportunity Intel
+    </a>
+    <a class="nav-item" href="map.html">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 1C5.24 1 3 3.24 3 6c0 3.75 5 9 5 9s5-5.25 5-9c0-2.76-2.24-5-5-5z"/><circle cx="8" cy="6" r="1.5"/></svg>
+      Map Insights
+    </a>
+    <div class="nav-section-label">Settings</div>
+    <a class="nav-item" href="settings.html">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="8" r="2.5"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.42 1.42M11.53 11.53l1.42 1.42M3.05 12.95l1.42-1.42M11.53 4.47l1.42-1.42"/></svg>
+      Settings
+    </a>
+  </nav>
+  <div class="sidebar-profile">
+    <button class="profile-btn" id="profile-btn">
+      <div class="profile-avatar">V</div>
+      <div class="profile-info"><div class="profile-name">Viewer</div></div>
+      <svg class="profile-caret" id="profile-caret" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div class="profile-dropdown" id="profile-dropdown">
+      <a class="pd-item" href="settings.html">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="5" r="3"/><path d="M1.5 14c0-3.5 3-5 6.5-5s6.5 1.5 6.5 5"/></svg>My Profile
+      </a>
+      <div class="theme-row" id="theme-toggle">
+        <div class="theme-row-left">
+          <svg id="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <span id="theme-text">Dark Mode</span>
+        </div>
+        <div class="pill on" id="theme-pill"><div class="knob"></div></div>
+      </div>
+      <div class="dd-divider"></div>
+      <div class="pd-item" style="color:var(--red)" data-logout>
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--red)"><path d="M11 3H13a1 1 0 011 1v9a1 1 0 01-1 1H3a1 1 0 01-1-1V4a1 1 0 011-1h2"/><line x1="8" y1="1" x2="8" y2="10"/><polyline points="5 7 8 10 11 7"/></svg>Sign Out
+      </div>
+    </div>
+  </div>
+</aside>
+
+<main>
+  <div class="topbar">
+    <div class="topbar-left">
+      <h1>Intent Dashboard <span class="status-dot"></span></h1>
+      <p id="dashboard-subtitle">All HVAC Cities &mdash; Last Updated: Just now</p>
+    </div>
+    <div class="topbar-right">
+      <div class="seg-ctrl">
+        <button>24h</button><button class="active">14d</button><button>30d</button><button>All</button>
+      </div>
+      <select class="top-select" id="city-select">
+        <option value="">All HVAC Cities</option>
+        <option value="murrieta">Murrieta</option>
+        <option value="temecula">Temecula</option>
+        <option value="menifee">Menifee</option>
+        <option value="perris">Perris</option>
+        <option value="riverside">Riverside</option>
+        <option value="oceanside">Oceanside</option>
+        <option value="corona">Corona</option>
+        <option value="lake_elsinore">Lake Elsinore</option>
+        <option value="moreno_valley">Moreno Valley</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="metrics">
+      <div class="metric-card amethyst">
+        <div class="metric-label">Total Volume Signals</div>
+        <div class="metric-value" id="metric-total">-- <span>loading</span></div>
+        <div class="metric-delta"><span class="delta-dot" style="background:var(--accent)"></span><span class="d-ac" id="metric-total-note">Waiting for data</span></div>
+      </div>
+      <div class="metric-card sapphire">
+        <div class="metric-label">Avg. Opportunity Score</div>
+        <div class="metric-value" id="metric-avg-score">-- <span>/ 100</span></div>
+        <div class="metric-delta"><span class="delta-dot" style="background:var(--muted)"></span><span class="d-nu" id="metric-score-note">Live scores only</span></div>
+      </div>
+      <div class="metric-card amber">
+        <div class="metric-label">New Opportunities Today</div>
+        <div class="metric-value" id="metric-new-today">-- <span>opportunities</span></div>
+        <div class="metric-delta"><span class="delta-dot" style="background:var(--amber)"></span><span class="d-am" id="metric-today-note">No fallback data</span></div>
+      </div>
+    </div>
+
+    <div class="row2">
+      <div class="card">
+        <div class="card-head">
+          <div><div class="card-title">Daily Demand Pulse</div><div class="card-sub">Daily opportunities refreshed over the past 7 days</div></div>
+          <div class="chart-legend">
+            <div class="legend-item"><div class="legend-sw" style="background:var(--accent)"></div>Opportunities Refreshed</div>
+          </div>
+        </div>
+        <div class="card-body" style="padding-bottom:12px">
+          <div style="position:relative;width:100%;height:280px"><canvas id="demandChart"></canvas></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row3">
+      <div class="card">
+        <div class="card-head"><div><div class="card-title">Top City Zones</div><div class="card-sub">Ranked by HVAC signal score</div></div></div>
+        <div class="card-body">
+          <table>
+            <thead><tr><th style="width:44px">Rank</th><th>City / ZIP</th><th style="text-align:right">Score</th></tr></thead>
+            <tbody id="top-city-tbody">
+              <tr><td colspan="3" class="address-txt">Loading live city data...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div><div class="card-title">Recent HVAC Opportunities</div><div class="card-sub">Live feed from city data</div></div></div>
+        <div class="card-body" style="overflow-x:auto">
+          <table class="spaced-t" style="min-width:480px">
+            <thead><tr><th>Contact Name</th><th>Phone Number</th><th>City</th><th>ZIP</th><th style="text-align:right">Score</th></tr></thead>
+            <tbody id="dashboard-leads-tbody">
+              <tr><td colspan="5" class="address-txt">Loading live opportunities...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+// Sidebar
+const pb=document.getElementById('profile-btn'),pd=document.getElementById('profile-dropdown'),pc=document.getElementById('profile-caret');
+pb.addEventListener('click',e=>{e.stopPropagation();const o=pd.classList.toggle('open');pc.classList.toggle('open',o)});
+document.addEventListener('click',()=>{pd.classList.remove('open');pc.classList.remove('open')});
+pd.addEventListener('click',e=>e.stopPropagation());
+// Seg ctrl
+document.querySelectorAll('.seg-ctrl button').forEach(btn=>{btn.addEventListener('click',()=>{btn.closest('.seg-ctrl').querySelectorAll('button').forEach(b=>b.classList.remove('active'));btn.classList.add('active')})});
+
+// Theme
+const THEME_STORAGE_KEY='sqoutiq-theme';
+let isLight=false;
+function applyTheme(light,persist=true){
+  isLight=light;document.documentElement.classList.toggle('light-mode',light);
+  if(persist){try{localStorage.setItem(THEME_STORAGE_KEY,light?'light':'dark')}catch(e){}}
+  const pill=document.getElementById('theme-pill'),icon=document.getElementById('theme-icon'),txt=document.getElementById('theme-text');
+  const logo=document.getElementById('brand-logo');
+  
+  if(light){
+    pill.classList.remove('on');txt.textContent='Light Mode';
+    icon.innerHTML='<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+    if(logo) logo.src = 'Light.png';
+  }
+  else{
+    pill.classList.add('on');txt.textContent='Dark Mode';
+    icon.innerHTML='<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+    if(logo) logo.src = 'Dark.png';
+  }
+  
+  // LEAVE ANY EXISTING FILE-SPECIFIC CODE HERE 
+  // e.g., updateChart(light); OR map.removeLayer... 
+  if (typeof updateCharts === 'function') updateCharts(light);
+  if (typeof updateChart === 'function') updateChart(light);
+  if (typeof darkTile !== 'undefined') {
+    if(light){map.removeLayer(darkTile);lightTile.addTo(map);}
+    else{map.removeLayer(lightTile);darkTile.addTo(map);}
+  }
+}
+document.getElementById('theme-toggle').addEventListener('click',()=>applyTheme(!isLight));
+
+// Chart
+Chart.defaults.font.family="'DM Sans',sans-serif";
+const ctxD=document.getElementById('demandChart').getContext('2d');
+const gA=ctxD.createLinearGradient(0,0,0,250);gA.addColorStop(0,'rgba(155,81,224,0.9)');gA.addColorStop(1,'rgba(155,81,224,0.35)');
+function lastSevenDayBuckets(){
+  const days=[];
+  const today=new Date();
+  today.setHours(0,0,0,0);
+  for(let offset=6;offset>=0;offset--){
+    const day=new Date(today);
+    day.setDate(today.getDate()-offset);
+    const key=`${day.getFullYear()}-${String(day.getMonth()+1).padStart(2,'0')}-${String(day.getDate()).padStart(2,'0')}`;
+    days.push({key,label:`${day.getMonth()+1}/${day.getDate()}`,count:0});
+  }
+  return days;
+}
+let chart=new Chart(ctxD,{type:'bar',data:{
+  labels:lastSevenDayBuckets().map(day=>day.label),
+  datasets:[
+    {label:'Opportunities Refreshed',data:Array(7).fill(0),backgroundColor:gA,borderColor:'#9b51e0',borderWidth:1,borderRadius:6,borderSkipped:false,maxBarThickness:54}
+  ]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{display:false},tooltip:{backgroundColor:'#1d1f2b',borderColor:'rgba(255,255,255,0.08)',borderWidth:1,titleColor:'#9ca3af',bodyColor:'#f3f4f6',padding:10,cornerRadius:8,callbacks:{label:ctx=>`${ctx.parsed.y} opportunities refreshed`}}},scales:{y:{beginAtZero:true,min:0,grid:{color:'rgba(255,255,255,0.04)'},border:{display:false},ticks:{precision:0,color:'#6b7280',font:{family:'DM Mono',size:11},maxTicksLimit:6}},x:{grid:{display:false},border:{display:false},ticks:{color:'#6b7280',font:{family:'DM Sans',size:11}}}}}});
+
+function updateChart(light){
+  const g=light?'rgba(0,0,0,0.05)':'rgba(255,255,255,0.04)',t='#6b7280',bg=light?'#fff':'#0b0c10',tb=light?'#fff':'#1d1f2b',tc=light?'rgba(0,0,0,0.1)':'rgba(255,255,255,0.08)',tt=light?'#4b5563':'#9ca3af',tb2=light?'#111827':'#f3f4f6';
+  chart.options.scales.y.grid.color=g;chart.options.scales.y.ticks.color=t;chart.options.scales.x.ticks.color=t;
+  chart.options.plugins.tooltip.backgroundColor=tb;chart.options.plugins.tooltip.borderColor=tc;chart.options.plugins.tooltip.titleColor=tt;chart.options.plugins.tooltip.bodyColor=tb2;
+  chart.update();
+}
+let allDashboardLeads=[];
+
+function updateDailyChart(leads){
+  const days=lastSevenDayBuckets();
+  const byKey=Object.fromEntries(days.map(day=>[day.key,day]));
+  leads.forEach(lead=>{
+    const raw=lead.timeStamp || lead.created_at || '';
+    const date=raw ? new Date(raw) : null;
+    if(!date || Number.isNaN(date.getTime())) return;
+    const key=`${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+    if(byKey[key]) byKey[key].count++;
+  });
+  chart.data.labels=days.map(day=>day.label);
+  chart.data.datasets[0].data=days.map(day=>day.count);
+  chart.update();
+}
+
+function selectedCity(){
+  const select=document.getElementById('city-select');
+  const region=select ? select.value : '';
+  return region ? SqoutiqData.CITY_TABLES.find(city=>city.slug===region) : null;
+}
+
+function filteredDashboardLeads(){
+  const city=selectedCity();
+  return city ? allDashboardLeads.filter(lead=>lead.region===city.slug) : allDashboardLeads.slice();
+}
+
+function updateDashboardSubtitle(city){
+  const subtitle=document.getElementById('dashboard-subtitle');
+  if(!subtitle) return;
+  subtitle.textContent=`${city ? city.label : 'All HVAC Cities'} - Last Updated: Just now`;
+}
+
+function renderTopZones(leads, city){
+  const topBody=document.getElementById('top-city-tbody');
+  if(!topBody) return;
+
+  if(city){
+    const byZip={};
+    leads.forEach(lead=>{
+      const zip=lead.zip || 'No ZIP';
+      byZip[zip] ??= {city:city.label,zips:new Set([zip]),count:0,totalScore:0};
+      byZip[zip].count++;
+      byZip[zip].totalScore+=lead.score;
+    });
+    const topZips=Object.entries(byZip)
+      .map(([zip,zone])=>({city:zone.city,zips:new Set([zip]),score:Math.round(zone.totalScore/zone.count),count:zone.count}))
+      .sort((a,b)=>b.score-a.score || b.count-a.count)
+      .slice(0,5);
+    topBody.innerHTML=topZips.map((zone,index)=>`<tr><td><span class="rank-badge">${String(index+1).padStart(2,'0')}</span></td><td><strong>${zone.city}</strong><br><span class="address-txt">${[...zone.zips].join(', ')}</span></td><td style="text-align:right"><span class="score-val ${zone.score>=90?'sh':'sm'}">${zone.score}</span></td></tr>`).join('');
+    return;
+  }
+
+  const byCity={};
+  leads.forEach(lead=>{
+    byCity[lead.region] ??= {city:lead.city,zips:new Set(),count:0,totalScore:0};
+    byCity[lead.region].count++;
+    byCity[lead.region].totalScore+=lead.score;
+    if(lead.zip) byCity[lead.region].zips.add(lead.zip);
+  });
+  const topCities=Object.values(byCity)
+    .map(zone=>({...zone,score:Math.round(zone.totalScore/zone.count)}))
+    .sort((a,b)=>b.score-a.score)
+    .slice(0,5);
+  topBody.innerHTML=topCities.map((zone,index)=>`<tr><td><span class="rank-badge">${String(index+1).padStart(2,'0')}</span></td><td><strong>${zone.city}</strong><br><span class="address-txt">${[...zone.zips].slice(0,3).join(', ')}</span></td><td style="text-align:right"><span class="score-val ${zone.score>=90?'sh':'sm'}">${zone.score}</span></td></tr>`).join('');
+}
+
+function renderDashboardFromLeads(leads){
+  const city=selectedCity();
+  updateDashboardSubtitle(city);
+  if(!leads.length){
+    showDashboardMessage(city ? `No live opportunities found for ${city.label}.` : 'No live opportunities found yet.');
+    return;
+  }
+  const total=document.getElementById('metric-total'),avg=document.getElementById('metric-avg-score'),today=document.getElementById('metric-new-today');
+  const totalNote=document.getElementById('metric-total-note'),scoreNote=document.getElementById('metric-score-note'),todayNote=document.getElementById('metric-today-note');
+  const avgScore=Math.round(leads.reduce((sum,lead)=>sum+lead.score,0)/leads.length);
+  if(total) total.innerHTML=`${leads.length.toLocaleString()} <span>active</span>`;
+  if(avg) avg.innerHTML=`${avgScore} <span>/ 100</span>`;
+  if(today) today.innerHTML=`${leads.length.toLocaleString()} <span>opportunities</span>`;
+  if(totalNote) totalNote.textContent='Live';
+  if(scoreNote) scoreNote.textContent='Live';
+  if(todayNote) todayNote.textContent='Current refresh';
+
+  updateDailyChart(leads);
+  renderTopZones(leads, city);
+
+  const leadsBody=document.getElementById('dashboard-leads-tbody');
+  if(leadsBody){
+    leadsBody.innerHTML=leads.slice(0,5).map(lead=>`<tr><td><strong class="contact-link">${lead.name}</strong></td><td><span class="contact-phone">${lead.phone}</span></td><td>${lead.city}</td><td><span class="address-txt">${lead.zip}</span></td><td class="val-txt">${lead.score}</td></tr>`).join('');
+  }
+}
+function showDashboardMessage(message){
+  const total=document.getElementById('metric-total'),avg=document.getElementById('metric-avg-score'),today=document.getElementById('metric-new-today');
+  const totalNote=document.getElementById('metric-total-note'),scoreNote=document.getElementById('metric-score-note'),todayNote=document.getElementById('metric-today-note');
+  if(total) total.innerHTML='-- <span>not connected</span>';
+  if(avg) avg.innerHTML='-- <span>/ 100</span>';
+  if(today) today.innerHTML='-- <span>opportunities</span>';
+  if(totalNote) totalNote.textContent=message;
+  if(scoreNote) scoreNote.textContent='No fallback data';
+  if(todayNote) todayNote.textContent='Live data only';
+  const top=document.getElementById('top-city-tbody');
+  const leadsBody=document.getElementById('dashboard-leads-tbody');
+  if(top) top.innerHTML=`<tr><td colspan="3" class="address-txt">${message}</td></tr>`;
+  if(leadsBody) leadsBody.innerHTML=`<tr><td colspan="5" class="address-txt">${message}</td></tr>`;
+  if(chart){
+    chart.data.labels=lastSevenDayBuckets().map(day=>day.label);
+    chart.data.datasets.forEach(ds=>{ds.data=Array(7).fill(0)});
+    chart.update();
+  }
+}
+async function loadLiveDashboard(){
+  if(!window.SqoutiqData || !SqoutiqData.isConfigured()){
+    showDashboardMessage('Waiting for live opportunity data.');
+    return;
+  }
+  try{
+    allDashboardLeads=await SqoutiqData.fetchLeads();
+    renderDashboardFromLeads(filteredDashboardLeads());
+  }
+  catch(error){
+    console.warn('Dashboard data load failed',error);
+    showDashboardMessage('Live opportunity data request failed.');
+  }
+}
+document.getElementById('city-select').addEventListener('change',()=>renderDashboardFromLeads(filteredDashboardLeads()));
+loadLiveDashboard();
+setInterval(loadLiveDashboard,60000);
+try{applyTheme(localStorage.getItem(THEME_STORAGE_KEY)==='light',false)}catch(e){applyTheme(false,false)}
+</script>
+</body>
+</html>

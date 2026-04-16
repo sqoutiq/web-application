@@ -7,6 +7,8 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="supabase-config.js"></script>
+<script src="auth.js"></script>
+<script>SqoutiqAuth.requireAuth();</script>
 <script src="leads.js"></script>
 <script src="profile.js"></script>
 <script>try{if(localStorage.getItem('sqoutiq-theme')==='light')document.documentElement.classList.add('light-mode')}catch(e){}</script>
@@ -89,7 +91,7 @@ tbody tr:last-child td{border-bottom:none}tbody tr:hover td{background:var(--acc
   <div class="logo"><img class="brand-logo" id="brand-logo" src="Dark.png" alt="sqoutiq"></div>
   <nav>
     <div class="nav-section-label">Overview</div>
-    <a class="nav-item" href="index.html">
+    <a class="nav-item" href="dash.html">
       <svg class="nav-icon" viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="1" width="6" height="6" rx="1.5"/><rect x="9" y="1" width="6" height="6" rx="1.5"/><rect x="1" y="9" width="6" height="6" rx="1.5"/><rect x="9" y="9" width="6" height="6" rx="1.5"/></svg>Dashboard</a>
     <div class="nav-section-label">Intelligence</div>
     <a class="nav-item active" href="intel.html">
@@ -106,7 +108,7 @@ tbody tr:last-child td{border-bottom:none}tbody tr:hover td{background:var(--acc
       <a class="pd-item" href="settings.html"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="5" r="3"/><path d="M1.5 14c0-3.5 3-5 6.5-5s6.5 1.5 6.5 5"/></svg>My Profile</a>
       <div class="theme-row" id="theme-toggle"><div class="theme-row-left"><svg id="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><span id="theme-text">Dark Mode</span></div><div class="pill on" id="theme-pill"><div class="knob"></div></div></div>
       <div class="dd-divider"></div>
-      <div class="pd-item" style="color:var(--red)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--red)"><path d="M11 3H13a1 1 0 011 1v9a1 1 0 01-1 1H3a1 1 0 01-1-1V4a1 1 0 011-1h2"/><line x1="8" y1="1" x2="8" y2="10"/><polyline points="5 7 8 10 11 7"/></svg>Sign Out</div>
+      <div class="pd-item" style="color:var(--red)" data-logout><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--red)"><path d="M11 3H13a1 1 0 011 1v9a1 1 0 01-1 1H3a1 1 0 01-1-1V4a1 1 0 011-1h2"/><line x1="8" y1="1" x2="8" y2="10"/><polyline points="5 7 8 10 11 7"/></svg>Sign Out</div>
     </div>
   </div>
 </aside>
@@ -115,10 +117,10 @@ tbody tr:last-child td{border-bottom:none}tbody tr:hover td{background:var(--acc
   <div class="topbar">
     <div class="topbar-left">
       <h1>Opportunity Intel</h1>
-      <p>Qualified lead pipeline &mdash; Real-time intent signals</p>
+      <p>Qualified opportunity pipeline &mdash; Real-time intent signals</p>
     </div>
     <div class="topbar-right">
-      <div class="seg-ctrl"><button class="active">All Leads</button><button>Qualified</button><button>Contacted</button></div>
+      <div class="seg-ctrl"><button class="active">All Opportunities</button><button>Qualified</button><button>Contacted</button></div>
       <button class="top-btn ghost">
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4h12M4 8h8M6 12h4"/></svg>Filter
       </button>
@@ -130,15 +132,15 @@ tbody tr:last-child td{border-bottom:none}tbody tr:hover td{background:var(--acc
 
   <div class="content">
     <div class="metrics-4">
-      <div class="metric-card amethyst"><div class="metric-label">Total Leads</div><div class="metric-value" id="intel-total">-- <span>not connected</span></div><div class="metric-delta"><span class="delta-dot" style="background:var(--green)"></span><span class="d-up">Live city tables</span></div></div>
-      <div class="metric-card green"><div class="metric-label">Qualified (Score &gt;= 80)</div><div class="metric-value" id="intel-qualified">-- <span>leads</span></div><div class="metric-delta"><span class="delta-dot" style="background:var(--green)"></span><span class="d-up">Ready for outreach</span></div></div>
-      <div class="metric-card amber"><div class="metric-label">Avg. Lead Score</div><div class="metric-value" id="intel-avg-score">-- <span>/ 100</span></div><div class="metric-delta"><span class="delta-dot" style="background:var(--amber)"></span><span class="d-am">Score range 75-100</span></div></div>
-      <div class="metric-card sapphire"><div class="metric-label">Active City Tables</div><div class="metric-value">9 <span>cities</span></div><div class="metric-delta"><span class="delta-dot" style="background:var(--blue)"></span><span class="d-bl">Supabase HVAC tables</span></div></div>
+      <div class="metric-card amethyst"><div class="metric-label">Total Opportunities</div><div class="metric-value" id="intel-total">-- <span>not connected</span></div><div class="metric-delta"><span class="delta-dot" style="background:var(--green)"></span><span class="d-up">Live city data</span></div></div>
+      <div class="metric-card green"><div class="metric-label">Qualified (Score &gt;= 80)</div><div class="metric-value" id="intel-qualified">-- <span>opportunities</span></div><div class="metric-delta"><span class="delta-dot" style="background:var(--green)"></span><span class="d-up">Ready for outreach</span></div></div>
+      <div class="metric-card amber"><div class="metric-label">Avg. Opportunity Score</div><div class="metric-value" id="intel-avg-score">-- <span>/ 100</span></div><div class="metric-delta"><span class="delta-dot" style="background:var(--amber)"></span><span class="d-am">Live</span></div></div>
+      <div class="metric-card sapphire"><div class="metric-label">Active City Data</div><div class="metric-value">9 <span>cities</span></div><div class="metric-delta"><span class="delta-dot" style="background:var(--blue)"></span><span class="d-bl">HVAC coverage</span></div></div>
     </div>
 
     <div class="row-half">
       <div class="card">
-        <div class="card-head"><div><div class="card-title">Score Distribution</div><div class="card-sub">Lead quality breakdown by score band</div></div></div>
+        <div class="card-head"><div><div class="card-title">Score Distribution</div><div class="card-sub">Opportunity quality breakdown by score band</div></div></div>
         <div class="card-body" style="padding-bottom:12px"><div style="position:relative;width:100%;height:200px"><canvas id="scoreChart"></canvas></div></div>
       </div>
       <div class="card">
@@ -167,7 +169,7 @@ tbody tr:last-child td{border-bottom:none}tbody tr:hover td{background:var(--acc
           <tbody id="intel-tbody"></tbody>
         </table>
       </div>
-      <div id="empty-state" style="display:none;padding:48px;text-align:center;color:var(--muted);font-size:14px">No leads match your filters.</div>
+      <div id="empty-state" style="display:none;padding:48px;text-align:center;color:var(--muted);font-size:14px">No opportunities match your filters.</div>
     </div>
   </div>
 </main>
@@ -229,7 +231,7 @@ function updateIntelMetrics(data){
   const total=document.getElementById('intel-total'),qualified=document.getElementById('intel-qualified'),avg=document.getElementById('intel-avg-score');
   const avgScore=data.length?Math.round(data.reduce((sum,lead)=>sum+lead.score,0)/data.length):0;
   if(total) total.innerHTML=`${data.length.toLocaleString()} <span>signals</span>`;
-  if(qualified) qualified.innerHTML=`${data.filter(lead=>lead.score>=80).length.toLocaleString()} <span>leads</span>`;
+  if(qualified) qualified.innerHTML=`${data.filter(lead=>lead.score>=80).length.toLocaleString()} <span>opportunities</span>`;
   if(avg) avg.innerHTML=`${data.length?avgScore:'--'} <span>/ 100</span>`;
 }
 function showIntelMessage(message){
@@ -242,7 +244,7 @@ function showIntelMessage(message){
 }
 async function loadLiveIntel(){
   if(!window.SqoutiqData || !SqoutiqData.isConfigured()){
-    showIntelMessage('Waiting for GitHub leads-data.json.');
+    showIntelMessage('Waiting for live opportunity data.');
     return;
   }
   try{
@@ -252,8 +254,8 @@ async function loadLiveIntel(){
     updateIntelCharts(activeLeads);
     filterLeads();
   }catch(error){
-    console.warn('Supabase intel load failed',error);
-    showIntelMessage('Live data request failed. Check leads-data.json or Supabase permissions.');
+    console.warn('Opportunity data load failed',error);
+    showIntelMessage('Live opportunity data request failed.');
   }
 }
 
