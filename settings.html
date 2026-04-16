@@ -86,7 +86,7 @@ main{flex:1;display:flex;flex-direction:column;overflow:hidden}
     <a class="nav-item active" href="settings.html"><svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="8" r="2.5"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.42 1.42M11.53 11.53l1.42 1.42M3.05 12.95l1.42-1.42M11.53 4.47l1.42-1.42"/></svg>Preferences</a>
   </nav>
   <div class="sidebar-profile">
-    <button class="profile-btn" id="profile-btn"><div class="profile-avatar">JD</div><div class="profile-info"><div class="profile-name">Jordan Davis</div><div class="profile-role">Admin · LA Metro</div></div><svg class="profile-caret" id="profile-caret" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 6 8 10 12 6"/></svg></button>
+    <button class="profile-btn" id="profile-btn"><div class="profile-avatar">JD</div><div class="profile-info"><div class="profile-name">Jordan Davis</div><div class="profile-role">Admin · HVAC Territory</div></div><svg class="profile-caret" id="profile-caret" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 6 8 10 12 6"/></svg></button>
     <div class="profile-dropdown" id="profile-dropdown">
       <a class="pd-item" href="settings.html"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="5" r="3"/><path d="M1.5 14c0-3.5 3-5 6.5-5s6.5 1.5 6.5 5"/></svg>My Profile</a>
       <div class="theme-row" id="theme-toggle"><div class="theme-row-left"><svg id="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><span id="theme-text">Dark Mode</span></div><div class="pill on" id="theme-pill"><div class="knob"></div></div></div>
@@ -196,7 +196,7 @@ main{flex:1;display:flex;flex-direction:column;overflow:hidden}
         <div class="s-panel" id="panel-notifications">
           <div class="s-section">
             <div class="s-head"><div class="s-title">Alert Types</div><div class="s-desc">Control which events trigger notifications</div></div>
-            <div class="s-row"><div><div class="s-row-lbl">High-Value Lead Alert</div><div class="s-row-desc">Notify when estimated job value exceeds $10K</div></div><div class="tog on" onclick="this.classList.toggle('on')"><div class="tog-k"></div></div></div>
+            <div class="s-row"><div><div class="s-row-lbl">High Score Lead Alert</div><div class="s-row-desc">Notify when HVAC lead score reaches 90+</div></div><div class="tog on" onclick="this.classList.toggle('on')"><div class="tog-k"></div></div></div>
             <div class="s-row"><div><div class="s-row-lbl">Zone Score Spike</div><div class="s-row-desc">Alert when a ZIP score jumps 20+ points</div></div><div class="tog on" onclick="this.classList.toggle('on')"><div class="tog-k"></div></div></div>
             <div class="s-row"><div><div class="s-row-lbl">Daily Digest Email</div><div class="s-row-desc">Receive a summary at 7:00 AM every morning</div></div><div class="tog on" onclick="this.classList.toggle('on')"><div class="tog-k"></div></div></div>
             <div class="s-row"><div><div class="s-row-lbl">Weekly Performance Report</div><div class="s-row-desc">Sent every Monday with full trend analysis</div></div><div class="tog" onclick="this.classList.toggle('on')"><div class="tog-k"></div></div></div>
@@ -215,15 +215,15 @@ main{flex:1;display:flex;flex-direction:column;overflow:hidden}
         <div class="s-panel" id="panel-regions">
           <div class="s-section">
             <div class="s-head"><div class="s-title">Service Territory</div><div class="s-desc">Configure your active monitoring regions</div></div>
-            <div class="s-row"><div><div class="s-row-lbl">Primary Region</div><div class="s-row-desc">Main tracking territory</div></div><select class="s-input"><option>Los Angeles Metro</option><option>San Francisco Bay Area</option><option>San Diego Metro</option><option>Sacramento Metro</option></select></div>
+            <div class="s-row"><div><div class="s-row-lbl">Primary Region</div><div class="s-row-desc">Main tracking territory</div></div><select class="s-input"><option>All HVAC Cities</option><option>Murrieta</option><option>Temecula</option><option>Menifee</option><option>Perris</option><option>Riverside</option><option>Oceanside</option><option>Corona</option><option>Lake Elsinore</option><option>Moreno Valley</option></select></div>
             <div class="s-row"><div><div class="s-row-lbl">ZIP Code Radius</div><div class="s-row-desc">Signal capture distance from center ZIP</div></div><select class="s-input" style="min-width:160px"><option>25 miles</option><option selected>38 miles</option><option>50 miles</option><option>Custom</option></select></div>
             <div class="s-row"><div><div class="s-row-lbl">Minimum Signal Score</div><div class="s-row-desc">Filter leads below this threshold</div></div><input class="s-input" type="number" value="50" style="min-width:120px"></div>
             <div class="s-row"><div><div class="s-row-lbl">Add Secondary Region</div></div><button class="s-btn s">+ Add Region</button></div>
           </div>
           <div class="s-section">
             <div class="s-head"><div class="s-title">Active Secondary Regions</div></div>
-            <div class="s-row"><div><div class="s-row-lbl">San Diego Metro</div><div class="s-row-desc">42 active ZIP codes · 312 signals this week</div></div><div style="display:flex;gap:8px;align-items:center"><span class="badge b-green">Active</span><button class="s-btn d" style="padding:4px 12px;font-size:12px">Remove</button></div></div>
-            <div class="s-row"><div><div class="s-row-lbl">Sacramento Metro</div><div class="s-row-desc">28 active ZIP codes · 188 signals this week</div></div><div style="display:flex;gap:8px;align-items:center"><span class="badge b-green">Active</span><button class="s-btn d" style="padding:4px 12px;font-size:12px">Remove</button></div></div>
+            <div class="s-row"><div><div class="s-row-lbl">Murrieta / Temecula</div><div class="s-row-desc">12 active ZIP codes · routed to city HVAC tables</div></div><div style="display:flex;gap:8px;align-items:center"><span class="badge b-green">Active</span><button class="s-btn d" style="padding:4px 12px;font-size:12px">Remove</button></div></div>
+            <div class="s-row"><div><div class="s-row-lbl">Riverside / Corona / Moreno Valley</div><div class="s-row-desc">29 active ZIP codes · routed to city HVAC tables</div></div><div style="display:flex;gap:8px;align-items:center"><span class="badge b-green">Active</span><button class="s-btn d" style="padding:4px 12px;font-size:12px">Remove</button></div></div>
           </div>
         </div>
 
@@ -232,7 +232,7 @@ main{flex:1;display:flex;flex-direction:column;overflow:hidden}
           <div class="s-section">
             <div class="s-head"><div class="s-title">Connected Tools</div><div class="s-desc">Sync sqoutIQ with your existing stack</div></div>
             <div class="int-item"><div class="int-icon" style="background:#ff7a59">🔗</div><div class="int-info"><div class="int-name">HubSpot CRM</div><div class="int-desc">Push qualified leads automatically when score ≥ 80</div></div><span class="badge b-green">Connected</span></div>
-            <div class="int-item"><div class="int-icon" style="background:#4A154B">💬</div><div class="int-info"><div class="int-name">Slack Alerts</div><div class="int-desc">Post high-value lead alerts to #leads channel</div></div><span class="badge b-green">Connected</span></div>
+            <div class="int-item"><div class="int-icon" style="background:#4A154B">💬</div><div class="int-info"><div class="int-name">Slack Alerts</div><div class="int-desc">Post high-score HVAC lead alerts to #leads channel</div></div><span class="badge b-green">Connected</span></div>
             <div class="int-item"><div class="int-icon" style="background:#0078D4">📧</div><div class="int-info"><div class="int-name">Outlook Calendar</div><div class="int-desc">Schedule follow-ups directly from sqoutIQ</div></div><span class="badge b-amber">Pending Auth</span></div>
             <div class="int-item"><div class="int-icon" style="background:#0F9D58">📊</div><div class="int-info"><div class="int-name">Google Sheets</div><div class="int-desc">Export weekly lead reports to a shared spreadsheet</div></div><button class="s-btn s">Connect</button></div>
             <div class="int-item"><div class="int-icon" style="background:#4285F4">🗺️</div><div class="int-info"><div class="int-name">Google Maps API</div><div class="int-desc">Enable live interactive map view for territory zones</div></div><button class="s-btn s">Connect</button></div>
