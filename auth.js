@@ -32,6 +32,17 @@
     return Boolean(session?.access_token && !isExpired(session));
   }
 
+  function currentUser(){
+    return getSession()?.user || null;
+  }
+
+  function isAdmin(){
+    const user=currentUser();
+    const appRole=user?.app_metadata?.role || user?.app_metadata?.user_role;
+    const metaRole=user?.user_metadata?.role || user?.user_metadata?.user_role;
+    return appRole === "admin" || metaRole === "admin";
+  }
+
   async function login(email,password){
     if(!isConfigured()) throw new Error("Login is not configured yet. Contact your workspace admin.");
     const cfg=config();
@@ -65,6 +76,15 @@
     return true;
   }
 
+  function requireAdmin(){
+    if(!requireAuth()) return false;
+    if(!isAdmin()){
+      window.location.replace("dash.html");
+      return false;
+    }
+    return true;
+  }
+
   function redirectIfLoggedIn(){
     if(isLoggedIn()) window.location.replace("dash.html");
   }
@@ -73,7 +93,7 @@
     document.querySelectorAll("[data-logout]").forEach(el=>el.addEventListener("click",logout));
   }
 
-  window.SqoutiqAuth = {SESSION_KEY,getSession,isLoggedIn,login,logout,requireAuth,redirectIfLoggedIn,bindLogout};
+  window.SqoutiqAuth = {SESSION_KEY,getSession,currentUser,isLoggedIn,isAdmin,login,logout,requireAuth,requireAdmin,redirectIfLoggedIn,bindLogout};
   if(document.readyState === "loading") document.addEventListener("DOMContentLoaded",bindLogout);
   else bindLogout();
 })();

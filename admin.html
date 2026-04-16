@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>sqoutIQ - Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="supabase-config.js"></script>
+<script src="auth.js"></script>
+<script>SqoutiqAuth.requireAdmin();</script>
+<script>try{if(localStorage.getItem('sqoutiq-theme')==='light')document.documentElement.classList.add('light-mode')}catch(e){}</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0b0c10;--surface:#161821;--surface2:#1d1f2b;--border:rgba(255,255,255,.1);--text:#f3f4f6;--muted:#9ca3af;--accent:#9b51e0;--green:#10b981;--red:#ef4444;--font:'DM Sans',sans-serif;--mono:'DM Mono',monospace}
+:root.light-mode{--bg:#f0f2f5;--surface:#fff;--surface2:#f8fafc;--border:#e2e8f0;--text:#0f172a;--muted:#64748b;--accent:#7c3aed;--green:#047857;--red:#b91c1c}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;padding:28px}
+.wrap{max-width:980px;margin:0 auto}.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}.logo{width:170px;height:82px;object-fit:cover}.back{color:var(--muted);text-decoration:none;font-size:13px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden}.head{padding:20px 22px;border-bottom:1px solid var(--border)}h1{font-size:24px;letter-spacing:-.03em}.sub{font-size:13px;color:var(--muted);margin-top:4px;max-width:650px}
+form{padding:22px;display:grid;grid-template-columns:1fr 1fr;gap:16px}.field{display:flex;flex-direction:column;gap:7px}.field.full{grid-column:1/-1}label{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700}
+input,select{height:44px;border:1px solid var(--border);border-radius:8px;background:var(--surface2);color:var(--text);padding:0 12px;font:500 14px var(--font);outline:none}input:focus,select:focus{border-color:var(--accent)}
+.metros{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.metro{display:flex;align-items:center;gap:9px;border:1px solid var(--border);border-radius:8px;background:var(--surface2);padding:10px 12px;font-size:13px}.metro input{width:16px;height:16px}
+.actions{grid-column:1/-1;display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-top:4px}.btn{height:44px;border:0;border-radius:8px;padding:0 18px;font-weight:700;font-family:var(--font);cursor:pointer}.primary{background:var(--accent);color:white}.secondary{background:var(--surface2);color:var(--text);border:1px solid var(--border)}
+.msg{grid-column:1/-1;min-height:20px;font-size:13px}.err{color:var(--red)}.ok{color:var(--green)}
+.note{margin-top:14px;color:var(--muted);font-size:12.5px;line-height:1.6}
+@media(max-width:760px){body{padding:18px}form{grid-template-columns:1fr}.metros{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <img class="logo" id="brand-logo" src="Dark.png" alt="sqoutIQ">
+    <a class="back" href="dash.html">Back to dashboard</a>
+  </div>
+  <div class="card">
+    <div class="head">
+      <h1>Create Account</h1>
+      <p class="sub">Admin-only access. This page creates approved viewer accounts and assigns city access. Public registration stays closed.</p>
+    </div>
+    <form id="admin-form">
+      <div class="field"><label for="full_name">Name</label><input id="full_name" required autocomplete="name"></div>
+      <div class="field"><label for="email">Email</label><input id="email" type="email" required autocomplete="email"></div>
+      <div class="field"><label for="phone">Phone</label><input id="phone" autocomplete="tel"></div>
+      <div class="field"><label for="password">Password</label><input id="password" type="password" required minlength="8" autocomplete="new-password"></div>
+      <div class="field"><label for="role">Role</label><select id="role"><option value="viewer">Viewer</option><option value="admin">Admin</option></select></div>
+      <div class="field"><label for="access">Access</label><select id="access"><option value="selected">Selected metros</option><option value="all">All HVAC cities</option></select></div>
+      <div class="field full"><label>Metro Access</label></div>
+      <div class="metros" id="metro-list"></div>
+      <div class="msg" id="msg"></div>
+      <div class="actions">
+        <button class="btn secondary" type="reset">Clear</button>
+        <button class="btn primary" id="submit-btn" type="submit">Create Account</button>
+      </div>
+    </form>
+  </div>
+  <p class="note">Security note: account creation is completed by a protected backend function. This page alone cannot create accounts unless the signed-in user is verified as admin by the backend.</p>
+</div>
+<script>
+const metroOptions=[
+  ["murrieta","Murrieta"],["temecula","Temecula"],["menifee","Menifee"],["perris","Perris"],["riverside","Riverside"],["oceanside","Oceanside"],["corona","Corona"],["lake_elsinore","Lake Elsinore"],["moreno_valley","Moreno Valley"]
+];
+const list=document.getElementById('metro-list');
+list.innerHTML=metroOptions.map(([value,label])=>`<label class="metro"><input type="checkbox" name="metros" value="${value}">${label}</label>`).join('');
+if(document.documentElement.classList.contains('light-mode')) document.getElementById('brand-logo').src='Light.png';
+document.getElementById('access').addEventListener('change',event=>{
+  const all=event.target.value==='all';
+  document.querySelectorAll('input[name="metros"]').forEach(input=>{input.checked=all;input.disabled=all});
+});
+document.getElementById('admin-form').addEventListener('submit',async event=>{
+  event.preventDefault();
+  const msg=document.getElementById('msg'),btn=document.getElementById('submit-btn');
+  const endpoint=window.SQOUTIQ_ADMIN?.createUserEndpoint;
+  msg.className='msg';msg.textContent='';
+  if(!endpoint){msg.className='msg err';msg.textContent='Account creation endpoint is not configured.';return;}
+  const metros=[...document.querySelectorAll('input[name="metros"]:checked')].map(input=>input.value);
+  if(document.getElementById('access').value==='selected' && !metros.length){msg.className='msg err';msg.textContent='Select at least one metro.';return;}
+  const session=SqoutiqAuth.getSession();
+  const body={
+    full_name:document.getElementById('full_name').value.trim(),
+    email:document.getElementById('email').value.trim(),
+    phone:document.getElementById('phone').value.trim(),
+    password:document.getElementById('password').value,
+    role:document.getElementById('role').value,
+    metros:document.getElementById('access').value==='all'?metroOptions.map(([value])=>value):metros
+  };
+  btn.disabled=true;btn.textContent='Creating...';
+  try{
+    const response=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${session.access_token}`},body:JSON.stringify(body)});
+    const payload=await response.json().catch(()=>({}));
+    if(!response.ok) throw new Error(payload.error || 'Account creation failed.');
+    msg.className='msg ok';msg.textContent='Account created.';
+    event.target.reset();
+    document.querySelectorAll('input[name="metros"]').forEach(input=>{input.disabled=false});
+  }catch(error){
+    msg.className='msg err';msg.textContent=error.message || 'Account creation failed.';
+  }finally{
+    btn.disabled=false;btn.textContent='Create Account';
+  }
+});
+</script>
+</body>
+</html>
