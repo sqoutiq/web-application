@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>sqoutIQ — Preferences</title>
+<title>sqoutIQ - Settings</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="profile.js"></script>
@@ -37,7 +37,7 @@ main{flex:1;display:flex;flex-direction:column;overflow:hidden}
 .topbar{display:flex;align-items:center;justify-content:space-between;padding:18px 28px;border-bottom:1px solid var(--border);background:var(--surface);flex-shrink:0;transition:background .3s,border-color .3s}
 .topbar-left h1{font-size:18px;font-weight:600;letter-spacing:-.015em}.topbar-left p{font-size:12.5px;color:var(--muted);margin-top:2px}
 .content{flex:1;overflow-y:auto;padding:24px 28px}
-.settings-layout{display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:start}
+.settings-layout{display:grid;grid-template-columns:1fr;gap:20px;align-items:start}
 .settings-nav{display:flex;flex-direction:column;gap:2px;position:sticky;top:0}
 .sn-item{display:flex;align-items:center;gap:9px;padding:9px 12px;border-radius:9px;font-size:13.5px;font-weight:500;color:var(--muted);cursor:pointer;transition:all .15s;user-select:none}
 .sn-item:hover{background:var(--surface2);color:var(--text)}.sn-item.active{background:var(--accent-dim);color:var(--accent)}
@@ -72,7 +72,7 @@ main{flex:1;display:flex;flex-direction:column;overflow:hidden}
 .sw-sidebar{width:18px;border-radius:4px}
 .sw-content{flex:1;border-radius:4px}
 .sw-label{font-size:11px;font-weight:600;text-align:center;padding:5px 0;background:var(--surface2);color:var(--muted)}
-.sn-item[data-panel="appearance"],.sn-item[data-panel="notifications"],.sn-item[data-panel="regions"],.sn-item[data-panel="integrations"],#panel-appearance,#panel-notifications,#panel-regions,#panel-integrations,#panel-security .s-section:last-child{display:none!important}
+.settings-nav,.sn-item[data-panel="appearance"],.sn-item[data-panel="notifications"],.sn-item[data-panel="regions"],.sn-item[data-panel="integrations"],.sn-item[data-panel="security"],#panel-appearance,#panel-notifications,#panel-regions,#panel-integrations,#panel-security{display:none!important}
 </style>
 </head>
 <body>
@@ -85,7 +85,7 @@ main{flex:1;display:flex;flex-direction:column;overflow:hidden}
     <a class="nav-item" href="intel.html"><svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="7" cy="7" r="5"/><line x1="11" y1="11" x2="15" y2="15"/></svg>Opportunity Intel</a>
     <a class="nav-item" href="map.html"><svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 1C5.24 1 3 3.24 3 6c0 3.75 5 9 5 9s5-5.25 5-9c0-2.76-2.24-5-5-5z"/><circle cx="8" cy="6" r="1.5"/></svg>Map Insights</a>
     <div class="nav-section-label">Settings</div>
-    <a class="nav-item active" href="settings.html"><svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="8" r="2.5"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.42 1.42M11.53 11.53l1.42 1.42M3.05 12.95l1.42-1.42M11.53 4.47l1.42-1.42"/></svg>Preferences</a>
+    <a class="nav-item active" href="settings.html"><svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="8" r="2.5"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.42 1.42M11.53 11.53l1.42 1.42M3.05 12.95l1.42-1.42M11.53 4.47l1.42-1.42"/></svg>Settings</a>
   </nav>
   <div class="sidebar-profile">
     <button class="profile-btn" id="profile-btn"><div class="profile-avatar">V</div><div class="profile-info"><div class="profile-name">Viewer</div></div><svg class="profile-caret" id="profile-caret" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 6 8 10 12 6"/></svg></button>
@@ -101,7 +101,7 @@ main{flex:1;display:flex;flex-direction:column;overflow:hidden}
 <main>
   <div class="topbar">
     <div class="topbar-left">
-      <h1>Preferences</h1>
+      <h1>Settings</h1>
       <p>View your account and security details</p>
     </div>
   </div>
@@ -147,6 +147,11 @@ main{flex:1;display:flex;flex-direction:column;overflow:hidden}
             </div>
             <div class="s-row"><div><div class="s-row-lbl">Full Name</div><div class="s-row-desc">Pulled from the signed-in Supabase account</div></div><input class="s-input" data-profile-name-input value="Viewer" readonly></div>
             <div class="s-row"><div><div class="s-row-lbl">Email Address</div><div class="s-row-desc">Used for login</div></div><input class="s-input" data-profile-email-input value="" type="email" readonly></div>
+          </div>
+          <div class="s-section">
+            <div class="s-head"><div class="s-title">Security</div><div class="s-desc">Account protection for the signed-in viewer</div></div>
+            <div class="s-row"><div><div class="s-row-lbl">Password</div><div class="s-row-desc">Managed through your Supabase login flow</div></div><span class="badge b-green">Protected</span></div>
+            <div class="s-row"><div><div class="s-row-lbl">Two-Factor Authentication</div><div class="s-row-desc">Extra protection for your account</div></div><span class="badge b-green">Enabled</span></div>
           </div>
         </div>
 
