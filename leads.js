@@ -42,18 +42,46 @@
     };
   }
 
-  function hashText(text){
-    let hash = 0;
-    for(const ch of String(text || "")){
-      hash = ((hash << 5) - hash) + ch.charCodeAt(0);
-      hash |= 0;
-    }
-    return Math.abs(hash);
+  function parseMoneyValue(value){
+    const text = String(value || "").toLowerCase();
+    if(!text) return 0;
+    const numbers = text.match(/\d+(?:,\d{3})*(?:\.\d+)?/g);
+    if(!numbers) return 0;
+    const parsed = numbers.map(item => {
+      let amount = Number(item.replace(/,/g, ""));
+      if(text.includes("k") && amount < 1000) amount *= 1000;
+      if(text.includes("m") && amount < 1000000) amount *= 1000000;
+      return amount;
+    }).filter(Number.isFinite);
+    return parsed.length ? Math.max(...parsed) : 0;
+  }
+
+  function incomePoints(incomeRange){
+    const income = parseMoneyValue(incomeRange);
+    if(income >= 250000) return 8;
+    if(income >= 200000) return 7;
+    if(income >= 150000) return 6;
+    if(income >= 100000) return 4;
+    if(income >= 75000) return 2;
+    return 0;
+  }
+
+  function netWorthPoints(netWorth){
+    const worth = parseMoneyValue(netWorth);
+    if(worth >= 1000000) return 2;
+    if(worth >= 500000) return 1;
+    return 0;
   }
 
   function leadScore(row){
-    const key = row.SKIPTRACE_WIRELESS_NUMBERS || row.PERSONAL_ADDRESS || row.PERSONAL_ZIP || row.PERSONAL_VERIFIED_EMAIL;
-    return 75 + (hashText(key) % 26);
+    let score = 75;
+    if(row.FIRST_NAME && row.LAST_NAME) score += 3;
+    if(row.SKIPTRACE_WIRELESS_NUMBERS) score += 4;
+    if(row.PERSONAL_VERIFIED_EMAIL) score += 3;
+    if(row.PERSONAL_ADDRESS && row.PERSONAL_CITY && row.PERSONAL_STATE && row.PERSONAL_ZIP) score += 5;
+    score += incomePoints(row.INCOME_RANGE);
+    score += netWorthPoints(row.NET_WORTH);
+    return Math.min(100, Math.max(75, score));
   }
 
   function signalStrength(score){
@@ -87,6 +115,8 @@
       table: city.table,
       zip: cleanZip(row.PERSONAL_ZIP),
       email: row.PERSONAL_VERIFIED_EMAIL || "",
+      incomeRange: row.INCOME_RANGE || "",
+      netWorth: row.NET_WORTH || "",
       score,
       sig: signalStrength(score),
       type: "HVAC",
@@ -106,6 +136,8 @@
       "PERSONAL_CITY",
       "PERSONAL_STATE",
       "PERSONAL_ZIP",
+      "NET_WORTH",
+      "INCOME_RANGE",
       "time_stamp",
       "created_at"
     ].join(",");

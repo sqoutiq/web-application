@@ -47,6 +47,8 @@ SELECT_COLUMNS = ",".join(
         "PERSONAL_CITY",
         "PERSONAL_STATE",
         "PERSONAL_ZIP",
+        "NET_WORTH",
+        "INCOME_RANGE",
         "time_stamp",
         "created_at",
     ]
@@ -67,18 +69,59 @@ def headers() -> dict[str, str]:
     }
 
 
-def hash_text(text: Any) -> int:
-    value = str(text or "")
-    result = 0
-    for char in value:
-        result = ((result << 5) - result) + ord(char)
-        result &= 0xFFFFFFFF
-    return abs(result if result < 0x80000000 else result - 0x100000000)
+def parse_money_value(value: Any) -> float:
+    text = str(value or "").lower()
+    if not text:
+        return 0
+    matches = re.findall(r"\d+(?:,\d{3})*(?:\.\d+)?", text)
+    amounts: list[float] = []
+    for match in matches:
+        amount = float(match.replace(",", ""))
+        if "k" in text and amount < 1000:
+            amount *= 1000
+        if "m" in text and amount < 1_000_000:
+            amount *= 1_000_000
+        amounts.append(amount)
+    return max(amounts) if amounts else 0
+
+
+def income_points(income_range: Any) -> int:
+    income = parse_money_value(income_range)
+    if income >= 250_000:
+        return 8
+    if income >= 200_000:
+        return 7
+    if income >= 150_000:
+        return 6
+    if income >= 100_000:
+        return 4
+    if income >= 75_000:
+        return 2
+    return 0
+
+
+def net_worth_points(net_worth: Any) -> int:
+    worth = parse_money_value(net_worth)
+    if worth >= 1_000_000:
+        return 2
+    if worth >= 500_000:
+        return 1
+    return 0
 
 
 def lead_score(row: dict[str, Any]) -> int:
-    key = row.get("SKIPTRACE_WIRELESS_NUMBERS") or row.get("PERSONAL_ADDRESS") or row.get("PERSONAL_ZIP")
-    return 75 + (hash_text(key) % 26)
+    score = 75
+    if row.get("FIRST_NAME") and row.get("LAST_NAME"):
+        score += 3
+    if row.get("SKIPTRACE_WIRELESS_NUMBERS"):
+        score += 4
+    if row.get("PERSONAL_VERIFIED_EMAIL"):
+        score += 3
+    if row.get("PERSONAL_ADDRESS") and row.get("PERSONAL_CITY") and row.get("PERSONAL_STATE") and row.get("PERSONAL_ZIP"):
+        score += 5
+    score += income_points(row.get("INCOME_RANGE"))
+    score += net_worth_points(row.get("NET_WORTH"))
+    return min(100, max(75, score))
 
 
 def signal_strength(score: int) -> int:
@@ -118,6 +161,8 @@ def normalize_lead(row: dict[str, Any], city: dict[str, str]) -> dict[str, Any]:
         "table": city["table"],
         "zip": clean_zip(row.get("PERSONAL_ZIP")),
         "email": row.get("PERSONAL_VERIFIED_EMAIL") or "",
+        "incomeRange": row.get("INCOME_RANGE") or "",
+        "netWorth": row.get("NET_WORTH") or "",
         "score": score,
         "sig": signal_strength(score),
         "type": "HVAC",
