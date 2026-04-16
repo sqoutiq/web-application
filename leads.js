@@ -103,8 +103,10 @@
   }
 
   function cleanCoordinate(value){
+    if(value === null || value === undefined || String(value).trim() === "") return null;
     const number = Number(value);
-    return Number.isFinite(number) ? number : null;
+    if(!Number.isFinite(number)) return null;
+    return number >= 32 && number <= 35 ? number : number <= -116 && number >= -119 ? number : null;
   }
 
   function normalizeLead(row, city){
