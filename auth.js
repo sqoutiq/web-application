@@ -57,7 +57,8 @@
     });
     const payload=await response.json().catch(()=>({}));
     if(!response.ok){
-      throw new Error(payload.error_description || payload.msg || payload.error || "Login failed.");
+      const detail = payload.error_description || payload.msg || payload.error || `HTTP ${response.status}`;
+      throw new Error(`Login failed: ${detail}`);
     }
     setSession(payload);
     return payload;
