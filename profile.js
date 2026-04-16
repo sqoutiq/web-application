@@ -4,6 +4,9 @@
   }
 
   function findSupabaseUser(){
+    const sqoutiqSession=parseJson(localStorage.getItem("sqoutiq-auth-session"));
+    if(sqoutiqSession?.user) return sqoutiqSession.user;
+
     const stores=[localStorage,sessionStorage];
     for(const store of stores){
       for(let i=0;i<store.length;i++){
@@ -19,7 +22,10 @@
 
   function displayName(user){
     const meta=user?.user_metadata || {};
-    return meta.full_name || meta.name || meta.display_name || user?.email?.split("@")[0] || "Viewer";
+    const fromMeta = meta.full_name || meta.fullName || meta.name || meta.display_name || meta.displayName;
+    if(fromMeta) return fromMeta;
+    const emailName = user?.email ? user.email.split("@")[0].replace(/[._-]+/g," ").trim() : "";
+    return emailName ? emailName.replace(/\b\w/g,ch=>ch.toUpperCase()) : "Viewer";
   }
 
   function initials(name,email){
@@ -41,6 +47,9 @@
     document.querySelectorAll("input[data-profile-email-input]").forEach(el=>{el.value=email});
   }
 
+  window.SqoutiqProfile = {applyProfile,findSupabaseUser};
   if(document.readyState === "loading") document.addEventListener("DOMContentLoaded",applyProfile);
   else applyProfile();
+  setTimeout(applyProfile,100);
+  setTimeout(applyProfile,500);
 })();

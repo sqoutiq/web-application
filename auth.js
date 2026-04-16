@@ -60,18 +60,24 @@
       const detail = payload.error_description || payload.msg || payload.error || `HTTP ${response.status}`;
       throw new Error(`Login failed: ${detail}`);
     }
+    if(payload.user && !payload.user.user_metadata?.full_name){
+      payload.user.user_metadata = {
+        ...(payload.user.user_metadata || {}),
+        full_name: payload.user.email ? payload.user.email.split("@")[0].replace(/[._-]+/g," ").replace(/\b\w/g,ch=>ch.toUpperCase()) : "Viewer"
+      };
+    }
     setSession(payload);
     return payload;
   }
 
   function logout(){
     clearSession();
-    window.location.href="index.html";
+    window.location.href="/";
   }
 
   function requireAuth(){
     if(!isLoggedIn()){
-      window.location.replace("index.html");
+      window.location.replace("/");
       return false;
     }
     return true;
@@ -80,14 +86,14 @@
   function requireAdmin(){
     if(!requireAuth()) return false;
     if(!isAdmin()){
-      window.location.replace("dash.html");
+      window.location.replace("/dash");
       return false;
     }
     return true;
   }
 
   function redirectIfLoggedIn(){
-    if(isLoggedIn()) window.location.replace("dash.html");
+    if(isLoggedIn()) window.location.replace("/dash");
   }
 
   function bindLogout(){
