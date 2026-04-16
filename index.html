@@ -127,14 +127,23 @@ tbody tr:last-child td{border-bottom:none}tbody tr:hover td{background:var(--acc
   <div class="topbar">
     <div class="topbar-left">
       <h1>Intent Dashboard <span class="status-dot"></span></h1>
-      <p>Southwest Riverside & North County HVAC Territory &mdash; Last Updated: Just now</p>
+      <p id="dashboard-subtitle">All HVAC Cities &mdash; Last Updated: Just now</p>
     </div>
     <div class="topbar-right">
       <div class="seg-ctrl">
         <button>24h</button><button class="active">14d</button><button>30d</button><button>All</button>
       </div>
-      <select class="top-select">
-        <option>All HVAC Cities</option><option>Murrieta</option><option>Temecula</option><option>Menifee</option><option>Perris</option><option>Riverside</option><option>Oceanside</option><option>Corona</option><option>Lake Elsinore</option><option>Moreno Valley</option>
+      <select class="top-select" id="city-select">
+        <option value="">All HVAC Cities</option>
+        <option value="murrieta">Murrieta</option>
+        <option value="temecula">Temecula</option>
+        <option value="menifee">Menifee</option>
+        <option value="perris">Perris</option>
+        <option value="riverside">Riverside</option>
+        <option value="oceanside">Oceanside</option>
+        <option value="corona">Corona</option>
+        <option value="lake_elsinore">Lake Elsinore</option>
+        <option value="moreno_valley">Moreno Valley</option>
       </select>
     </div>
   </div>
@@ -259,9 +268,64 @@ function updateChart(light){
   chart.options.plugins.tooltip.backgroundColor=tb;chart.options.plugins.tooltip.borderColor=tc;chart.options.plugins.tooltip.titleColor=tt;chart.options.plugins.tooltip.bodyColor=tb2;
   chart.update();
 }
+let allDashboardLeads=[];
+
+function selectedCity(){
+  const select=document.getElementById('city-select');
+  const region=select ? select.value : '';
+  return region ? SqoutiqData.CITY_TABLES.find(city=>city.slug===region) : null;
+}
+
+function filteredDashboardLeads(){
+  const city=selectedCity();
+  return city ? allDashboardLeads.filter(lead=>lead.region===city.slug) : allDashboardLeads.slice();
+}
+
+function updateDashboardSubtitle(city){
+  const subtitle=document.getElementById('dashboard-subtitle');
+  if(!subtitle) return;
+  subtitle.textContent=`${city ? city.label : 'All HVAC Cities'} - Last Updated: Just now`;
+}
+
+function renderTopZones(leads, city){
+  const topBody=document.getElementById('top-city-tbody');
+  if(!topBody) return;
+
+  if(city){
+    const byZip={};
+    leads.forEach(lead=>{
+      const zip=lead.zip || 'No ZIP';
+      byZip[zip] ??= {city:city.label,zips:new Set([zip]),count:0,totalScore:0};
+      byZip[zip].count++;
+      byZip[zip].totalScore+=lead.score;
+    });
+    const topZips=Object.entries(byZip)
+      .map(([zip,zone])=>({city:zone.city,zips:new Set([zip]),score:Math.round(zone.totalScore/zone.count),count:zone.count}))
+      .sort((a,b)=>b.score-a.score || b.count-a.count)
+      .slice(0,5);
+    topBody.innerHTML=topZips.map((zone,index)=>`<tr><td><span class="rank-badge">${String(index+1).padStart(2,'0')}</span></td><td><strong>${zone.city}</strong><br><span class="address-txt">${[...zone.zips].join(', ')}</span></td><td style="text-align:right"><span class="score-val ${zone.score>=90?'sh':'sm'}">${zone.score}</span></td></tr>`).join('');
+    return;
+  }
+
+  const byCity={};
+  leads.forEach(lead=>{
+    byCity[lead.region] ??= {city:lead.city,zips:new Set(),count:0,totalScore:0};
+    byCity[lead.region].count++;
+    byCity[lead.region].totalScore+=lead.score;
+    if(lead.zip) byCity[lead.region].zips.add(lead.zip);
+  });
+  const topCities=Object.values(byCity)
+    .map(zone=>({...zone,score:Math.round(zone.totalScore/zone.count)}))
+    .sort((a,b)=>b.score-a.score)
+    .slice(0,5);
+  topBody.innerHTML=topCities.map((zone,index)=>`<tr><td><span class="rank-badge">${String(index+1).padStart(2,'0')}</span></td><td><strong>${zone.city}</strong><br><span class="address-txt">${[...zone.zips].slice(0,3).join(', ')}</span></td><td style="text-align:right"><span class="score-val ${zone.score>=90?'sh':'sm'}">${zone.score}</span></td></tr>`).join('');
+}
+
 function renderDashboardFromLeads(leads){
+  const city=selectedCity();
+  updateDashboardSubtitle(city);
   if(!leads.length){
-    showDashboardMessage('No live Supabase rows found yet.');
+    showDashboardMessage(city ? `No live rows found for ${city.label}.` : 'No live Supabase rows found yet.');
     return;
   }
   const total=document.getElementById('metric-total'),avg=document.getElementById('metric-avg-score'),today=document.getElementById('metric-new-today');
@@ -274,21 +338,7 @@ function renderDashboardFromLeads(leads){
   if(scoreNote) scoreNote.textContent='Score range 75-100';
   if(todayNote) todayNote.textContent='Current refresh';
 
-  const byCity={};
-  leads.forEach(lead=>{
-    byCity[lead.region] ??= {city:lead.city,zips:new Set(),count:0,totalScore:0};
-    byCity[lead.region].count++;
-    byCity[lead.region].totalScore+=lead.score;
-    if(lead.zip) byCity[lead.region].zips.add(lead.zip);
-  });
-  const topCities=Object.values(byCity)
-    .map(city=>({...city,score:Math.round(city.totalScore/city.count)}))
-    .sort((a,b)=>b.score-a.score)
-    .slice(0,5);
-  const topBody=document.getElementById('top-city-tbody');
-  if(topBody){
-    topBody.innerHTML=topCities.map((city,index)=>`<tr><td><span class="rank-badge">${String(index+1).padStart(2,'0')}</span></td><td><strong>${city.city}</strong><br><span class="address-txt">${[...city.zips].slice(0,3).join(', ')}</span></td><td style="text-align:right"><span class="score-val ${city.score>=90?'sh':'sm'}">${city.score}</span></td></tr>`).join('');
-  }
+  renderTopZones(leads, city);
 
   const leadsBody=document.getElementById('dashboard-leads-tbody');
   if(leadsBody){
@@ -318,12 +368,16 @@ async function loadLiveDashboard(){
     showDashboardMessage('Waiting for GitHub leads-data.json.');
     return;
   }
-  try{renderDashboardFromLeads(await SqoutiqData.fetchLeads());}
+  try{
+    allDashboardLeads=await SqoutiqData.fetchLeads();
+    renderDashboardFromLeads(filteredDashboardLeads());
+  }
   catch(error){
     console.warn('Supabase dashboard load failed',error);
     showDashboardMessage('Live data request failed. Check leads-data.json or Supabase permissions.');
   }
 }
+document.getElementById('city-select').addEventListener('change',()=>renderDashboardFromLeads(filteredDashboardLeads()));
 loadLiveDashboard();
 setInterval(loadLiveDashboard,60000);
 try{applyTheme(localStorage.getItem(THEME_STORAGE_KEY)==='light',false)}catch(e){applyTheme(false,false)}
