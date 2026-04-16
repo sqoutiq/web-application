@@ -30,7 +30,7 @@ Deno.serve(async (req) => {
   if (req.method !== "POST") return json({ error: "Method not allowed." }, 405);
 
   const supabaseUrl = Deno.env.get("SUPABASE_URL") || "";
-  const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "";
+  const serviceKey = Deno.env.get("SERVICE_ROLE_KEY") || "";
   if (!supabaseUrl || !serviceKey) return json({ error: "Server is not configured." }, 500);
 
   const token = (req.headers.get("Authorization") || "").replace(/^Bearer\s+/i, "");
