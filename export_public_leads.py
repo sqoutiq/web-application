@@ -37,8 +37,7 @@ CITY_TABLES = [
     {"slug": "moreno_valley", "label": "Moreno Valley", "table": f"moreno_valley_{TYPE_SUFFIX}"},
 ]
 
-SELECT_COLUMNS = ",".join(
-    [
+CORE_COLUMNS = [
         "FIRST_NAME",
         "LAST_NAME",
         "PERSONAL_VERIFIED_EMAIL",
@@ -47,14 +46,18 @@ SELECT_COLUMNS = ",".join(
         "PERSONAL_CITY",
         "PERSONAL_STATE",
         "PERSONAL_ZIP",
+        "time_stamp",
+        "created_at",
+]
+
+ENRICH_COLUMNS = [
         "LATITUDE",
         "LONGITUDE",
         "NET_WORTH",
         "INCOME_RANGE",
-        "time_stamp",
-        "created_at",
-    ]
-)
+]
+
+SELECT_COLUMNS = ",".join(CORE_COLUMNS + ENRICH_COLUMNS)
 
 
 def require_env() -> None:
@@ -188,8 +191,8 @@ def fetch_city(city: dict[str, str]) -> list[dict[str, Any]]:
         f"?select={SELECT_COLUMNS}&order=created_at.desc&limit={MAX_ROWS_PER_CITY}"
     )
     response = requests.get(url, headers=headers(), timeout=90)
-    if response.status_code == 400 and ("LATITUDE" in response.text or "LONGITUDE" in response.text):
-        fallback_columns = SELECT_COLUMNS.replace(",LATITUDE,LONGITUDE", "")
+    if response.status_code == 400:
+        fallback_columns = ",".join(CORE_COLUMNS)
         url = (
             f"{SUPABASE_URL}/rest/v1/{city['table']}"
             f"?select={fallback_columns}&order=created_at.desc&limit={MAX_ROWS_PER_CITY}"

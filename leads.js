@@ -134,7 +134,7 @@
   async function fetchCityTable(city){
     const cfg = config();
     const base = cfg.url.replace(/\/$/, "");
-    const baseColumns = [
+    const coreColumns = [
       "FIRST_NAME",
       "LAST_NAME",
       "PERSONAL_VERIFIED_EMAIL",
@@ -143,17 +143,19 @@
       "PERSONAL_CITY",
       "PERSONAL_STATE",
       "PERSONAL_ZIP",
-      "NET_WORTH",
-      "INCOME_RANGE",
       "time_stamp",
       "created_at"
     ];
+    const enrichColumns = [
+      "NET_WORTH",
+      "INCOME_RANGE"
+    ];
     const geoColumns = ["LATITUDE", "LONGITUDE"];
-    const columns = baseColumns.concat(geoColumns).join(",");
+    const columns = coreColumns.concat(enrichColumns, geoColumns).join(",");
     const url = `${base}/rest/v1/${city.table}?select=${columns}&order=created_at.desc&limit=${MAX_ROWS_PER_CITY}`;
     let response = await fetch(url, { headers: requestHeaders() });
     if(!response.ok && response.status === 400){
-      const fallbackUrl = `${base}/rest/v1/${city.table}?select=${baseColumns.join(",")}&order=created_at.desc&limit=${MAX_ROWS_PER_CITY}`;
+      const fallbackUrl = `${base}/rest/v1/${city.table}?select=${coreColumns.join(",")}&order=created_at.desc&limit=${MAX_ROWS_PER_CITY}`;
       response = await fetch(fallbackUrl, { headers: requestHeaders() });
     }
     if(!response.ok){
