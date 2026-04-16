@@ -93,7 +93,7 @@ document.getElementById('admin-form').addEventListener('submit',async event=>{
   }catch(error){
     msg.className='msg err';
     msg.textContent=(error instanceof TypeError && String(error.message).includes('fetch'))
-      ? 'Account creation service is not deployed or is not reachable yet.'
+      ? 'Account creation service is not reachable. Deploy the create-user function and hard refresh this page.'
       : (error.message || 'Account creation failed.');
   }finally{
     btn.disabled=false;btn.textContent='Create Account';
