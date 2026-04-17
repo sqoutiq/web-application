@@ -236,8 +236,8 @@ def process_lead(row: dict[str, Any]) -> dict[str, Any] | None:
     if state.upper() != "CA":
         return None
 
-    commercial_or_unit_keywords = r"\b(ste|ste\.|suite|apt|apt\.|unit|bldg|building|floor|fl|lot|spc|space)\b|#"
-    if re.search(commercial_or_unit_keywords, address.lower()):
+    commercial_keywords = r"\b(commercial|business|office|industrial|warehouse|retail|storefront|shop|factory|plant|mall|plaza|center|centre)\b"
+    if re.search(commercial_keywords, address.lower()):
         return None
 
     name_parts = name.split()
