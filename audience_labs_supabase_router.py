@@ -211,6 +211,11 @@ def get_safe_phone(row: dict[str, Any]) -> str:
     return ""
 
 
+def router_run_timestamp() -> str:
+    run_date = datetime.now(timezone.utc).date()
+    return f"{run_date.isoformat()}T09:30:00+00:00"
+
+
 def process_lead(row: dict[str, Any]) -> dict[str, Any] | None:
     name = first_present(row, "SKIPTRACE_NAME")
     if not name:
@@ -243,7 +248,7 @@ def process_lead(row: dict[str, Any]) -> dict[str, Any] | None:
         return None
 
     email = first_present(row, "PERSONAL_VERIFIED_EMAILS", "PERSONAL_VERIFIED_EMAIL", "PERSONAL_EMAILS")
-    timestamp = first_present(row, "time_stamp", "created_at", "updated_at") or datetime.now(timezone.utc).isoformat()
+    timestamp = router_run_timestamp()
     lat = normalize_coordinate(
         first_present(row, "LATITUDE", "PROPERTY_LATITUDE", "PERSONAL_LATITUDE", "SKIPTRACE_LATITUDE", "lat"),
         kind="lat",
