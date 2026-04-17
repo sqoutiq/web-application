@@ -88,9 +88,10 @@ tbody tr:last-child td{border-bottom:none}tbody tr:hover td{background:var(--acc
 .page-info{font-size:12.5px;color:var(--muted)}
 .page-controls{display:flex;align-items:center;gap:8px}
 .page-btn{border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:8px;padding:7px 12px;font-family:var(--font);font-size:13px;font-weight:700;cursor:pointer}
-.page-btn:hover:not(:disabled){border-color:var(--border2);color:var(--accent)}
+.page-btn:hover:not(:disabled),.page-btn.active{border-color:var(--accent);color:var(--accent);background:var(--accent-dim)}
 .page-btn:disabled{opacity:.45;cursor:not-allowed}
-.page-size{background:var(--surface);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:13px;font-weight:600;padding:7px 10px;border-radius:8px;outline:none}
+.page-numbers{display:flex;align-items:center;gap:6px}
+.page-ellipsis{font-size:12.5px;color:var(--muted);padding:0 2px}
 .content>*{animation:fadeUp .25s ease both}.content>*:nth-child(1){animation-delay:.04s}.content>*:nth-child(2){animation-delay:.08s}.content>*:nth-child(3){animation-delay:.12s}
 @keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 @media(max-width:900px){.table-scroll{max-height:calc(100vh - 420px)}.pagination{align-items:flex-start;flex-direction:column}.page-controls{width:100%;justify-content:space-between}}
@@ -171,12 +172,8 @@ tbody tr:last-child td{border-bottom:none}tbody tr:hover td{background:var(--acc
       <div class="pagination" id="intel-pagination">
         <div class="page-info" id="page-info">Showing 0 opportunities</div>
         <div class="page-controls">
-          <select class="page-size" id="page-size" aria-label="Opportunities per page">
-            <option value="25">25 / page</option>
-            <option value="50" selected>50 / page</option>
-            <option value="100">100 / page</option>
-          </select>
           <button class="page-btn" id="prev-page" type="button">Previous</button>
+          <div class="page-numbers" id="page-numbers" aria-label="Opportunity pages"></div>
           <button class="page-btn" id="next-page" type="button">Next</button>
         </div>
       </div>
@@ -198,7 +195,7 @@ document.getElementById('theme-toggle').addEventListener('click',()=>applyTheme(
 let activeLeads=[];
 let allIntelLeads=[];
 let currentPage=1;
-let pageSize=50;
+const pageSize=15;
 
 function scClass(s){return s>=90?'sh':s>=80?'sm':'sl'}
 function barColor(s){return s>=90?'var(--accent)':s>=80?'var(--amber)':'var(--muted)'}
@@ -222,7 +219,7 @@ function selectedExactDate(){
 
 function render(data){
   const tb=document.getElementById('intel-tbody'),es=document.getElementById('empty-state');
-  const pagination=document.getElementById('intel-pagination'),pageInfo=document.getElementById('page-info'),prev=document.getElementById('prev-page'),next=document.getElementById('next-page');
+  const pagination=document.getElementById('intel-pagination'),pageInfo=document.getElementById('page-info'),prev=document.getElementById('prev-page'),next=document.getElementById('next-page'),pageNumbers=document.getElementById('page-numbers');
   const totalPages=Math.max(1,Math.ceil(data.length/pageSize));
   currentPage=Math.min(Math.max(currentPage,1),totalPages);
   if(!data.length){
@@ -232,6 +229,7 @@ function render(data){
     if(pageInfo) pageInfo.textContent='Showing 0 opportunities';
     if(prev) prev.disabled=true;
     if(next) next.disabled=true;
+    if(pageNumbers) pageNumbers.innerHTML='';
     return;
   }
   es.style.display='none';
@@ -251,6 +249,28 @@ function render(data){
   if(pageInfo) pageInfo.textContent=`Showing ${start+1}-${end} of ${data.length.toLocaleString()} opportunities`;
   if(prev) prev.disabled=currentPage<=1;
   if(next) next.disabled=currentPage>=totalPages;
+  renderPageNumbers(totalPages);
+}
+
+function paginationItems(totalPages){
+  if(totalPages<=7) return Array.from({length:totalPages},(_,i)=>i+1);
+  const items=[1];
+  const start=Math.max(2,currentPage-1);
+  const end=Math.min(totalPages-1,currentPage+1);
+  if(start>2) items.push('...');
+  for(let page=start;page<=end;page++) items.push(page);
+  if(end<totalPages-1) items.push('...');
+  items.push(totalPages);
+  return items;
+}
+
+function renderPageNumbers(totalPages){
+  const wrap=document.getElementById('page-numbers');
+  if(!wrap) return;
+  wrap.innerHTML=paginationItems(totalPages).map(item=>{
+    if(item==='...') return '<span class="page-ellipsis">...</span>';
+    return `<button class="page-btn ${item===currentPage?'active':''}" type="button" data-page="${item}">${item}</button>`;
+  }).join('');
 }
 
 function filterLeads(){
@@ -298,9 +318,14 @@ document.querySelectorAll('#intel-time-filter button').forEach(btn=>{
   });
 });
 document.getElementById('intel-date-filter').addEventListener('change',filterLeads);
-document.getElementById('page-size').addEventListener('change',e=>{pageSize=Number(e.target.value)||50;currentPage=1;render(activeLeads)});
 document.getElementById('prev-page').addEventListener('click',()=>{currentPage=Math.max(1,currentPage-1);render(activeLeads)});
 document.getElementById('next-page').addEventListener('click',()=>{currentPage+=1;render(activeLeads)});
+document.getElementById('page-numbers').addEventListener('click',e=>{
+  const btn=e.target.closest('[data-page]');
+  if(!btn) return;
+  currentPage=Number(btn.dataset.page)||1;
+  render(activeLeads);
+});
 document.getElementById('export-csv').addEventListener('click',()=>{
   const headers=['Contact','Email','Phone','Property Address','City','ZIP','Score'];
   const rows=activeLeads.map(row=>[row.name,row.email,row.phone,row.address,row.city,row.zip,row.score]);
