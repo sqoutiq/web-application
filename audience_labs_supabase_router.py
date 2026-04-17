@@ -180,33 +180,34 @@ def geocode_address(address: str, city: str, state: str, zip_code: str) -> tuple
 
 
 def get_safe_phone(row: dict[str, Any]) -> str:
-    phone_columns = [
-        ("VALID_PHONES", None),
+    paired_phone_columns = [
         ("MOBILE_PHONE", "MOBILE_PHONE_DNC"),
         ("PERSONAL_PHONE", "PERSONAL_PHONE_DNC"),
-        ("SKIPTRACE_WIRELESS_NUMBERS", None),
+        ("DIRECT_NUMBER", "DIRECT_NUMBER_DNC"),
     ]
 
-    for phone_col, dnc_col in phone_columns:
+    for phone_col, dnc_col in paired_phone_columns:
         phone_value = row.get(phone_col)
         if is_blank(phone_value):
             continue
 
         phones = str(phone_value).split(",")
-        dnc_flags = str(row.get(dnc_col)).split(",") if dnc_col and not is_blank(row.get(dnc_col)) else []
+        dnc_flags = str(row.get(dnc_col)).split(",") if not is_blank(row.get(dnc_col)) else []
 
         for index, raw_phone in enumerate(phones):
             phone = normalize_phone(raw_phone)
             if not phone:
                 continue
 
-            if dnc_col:
-                # Missing DNC flags are treated as unsafe.
-                flag = dnc_flags[index].strip().upper() if index < len(dnc_flags) else "Y"
-                if flag != "N":
-                    continue
+            # Missing or mismatched DNC flags are treated as unsafe.
+            flag = dnc_flags[index].strip().upper() if index < len(dnc_flags) else "Y"
+            if flag != "N":
+                continue
 
             return phone
+
+    if first_present(row, "SKIPTRACE_DNC").upper() == "N":
+        return normalize_phone(row.get("SKIPTRACE_WIRELESS_NUMBERS"))
 
     return ""
 
@@ -323,7 +324,7 @@ def fetch_audience_rows() -> list[dict[str, Any]]:
 
 def clean_and_dedupe(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     clean_rows = [lead for row in rows if (lead := process_lead(row)) is not None]
-    print(f"Kept {len(clean_rows)} valid residential CA leads in your target ZIPs.")
+    print(f"Kept {len(clean_rows)} valid residential CA leads in your target ZIPs with explicit DNC=N callable phones.")
 
     clean_rows.sort(key=lambda row: str(row.get("time_stamp") or ""), reverse=True)
 
@@ -362,6 +363,13 @@ def delete_existing_phone_from_all_route_tables(phone: str) -> None:
         delete_existing_phone(f"{region}_{TYPE_SUFFIX}", phone)
 
 
+def clear_route_table(table_name: str) -> None:
+    url = f"{SUPABASE_URL}/rest/v1/{table_name}?SKIPTRACE_WIRELESS_NUMBERS=not.is.null"
+    response = requests.delete(url, headers=supabase_headers(), timeout=90)
+    if response.status_code not in {200, 204}:
+        raise RuntimeError(f"Supabase clear failed for {table_name}: HTTP {response.status_code} {response.text}")
+
+
 def insert_rows(table_name: str, rows: list[dict[str, Any]]) -> int:
     url = f"{SUPABASE_URL}/rest/v1/{table_name}"
     total = 0
@@ -383,12 +391,10 @@ def route_to_supabase(rows: list[dict[str, Any]]) -> None:
         region = ZIP_TO_REGION[row["PERSONAL_ZIP"]]
         routed[region].append({key: row.get(key, "") for key in ALLOWED_COLUMNS})
 
-    phones = sorted({row["SKIPTRACE_WIRELESS_NUMBERS"] for row in rows})
-    print(f"Deleting existing Supabase duplicates for {len(phones)} phones across all route tables...")
-    for index, phone in enumerate(phones, start=1):
-        delete_existing_phone_from_all_route_tables(phone)
-        if index % 100 == 0:
-            print(f"Checked/deleted duplicates for {index}/{len(phones)} phones...")
+    print("Clearing old route-table rows so only the latest explicit DNC=N callable phones remain...")
+    for region in REGION_ZIPS:
+        table_name = f"{region}_{TYPE_SUFFIX}"
+        clear_route_table(table_name)
 
     for region, region_rows in routed.items():
         if not region_rows:
