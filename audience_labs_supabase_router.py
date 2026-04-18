@@ -85,10 +85,6 @@ ALLOWED_COLUMNS = [
     "LONGITUDE",
     "NET_WORTH",
     "INCOME_RANGE",
-    "PHONE_SOURCE",
-    "PHONE_DNC_STATUS",
-    "PHONE_MATCH_SCORE",
-    "PHONE_MATCH_QUALITY",
     "time_stamp",
 ]
 
@@ -277,10 +273,13 @@ def router_run_timestamp() -> str:
 
 def process_lead(row: dict[str, Any]) -> dict[str, Any] | None:
     name = f"{first_present(row, 'FIRST_NAME')} {first_present(row, 'LAST_NAME')}".strip()
-    address = first_present(row, "PERSONAL_ADDRESS")
-    city = first_present(row, "PERSONAL_CITY")
-    state = first_present(row, "PERSONAL_STATE")
-    zip_code = normalize_zip(first_present(row, "PERSONAL_ZIP"))
+    if not name:
+        name = first_present(row, "SKIPTRACE_NAME")
+
+    address = first_present(row, "PERSONAL_ADDRESS", "SKIPTRACE_ADDRESS")
+    city = first_present(row, "PERSONAL_CITY", "SKIPTRACE_CITY")
+    state = first_present(row, "PERSONAL_STATE", "SKIPTRACE_STATE")
+    zip_code = normalize_zip(first_present(row, "PERSONAL_ZIP", "SKIPTRACE_ZIP"))
     phone_candidate = get_best_phone(row)
     phone = phone_candidate.number if phone_candidate else None
 
@@ -464,7 +463,7 @@ def route_to_supabase(rows: list[dict[str, Any]]) -> None:
         region = ZIP_TO_REGION[row["PERSONAL_ZIP"]]
         routed[region].append({key: row.get(key, "") for key in ALLOWED_COLUMNS})
 
-    print("Clearing old route-table rows so only the latest explicit DNC=N callable phones remain...")
+    print("Clearing old route-table rows before refreshing the latest leads...")
     for region in REGION_ZIPS:
         table_name = f"{region}_{TYPE_SUFFIX}"
         clear_route_table(table_name)
