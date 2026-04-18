@@ -463,17 +463,12 @@ def route_to_supabase(rows: list[dict[str, Any]]) -> None:
         region = ZIP_TO_REGION[row["PERSONAL_ZIP"]]
         routed[region].append({key: row.get(key, "") for key in ALLOWED_COLUMNS})
 
-    print("Clearing old route-table rows before refreshing the latest leads...")
-    for region in REGION_ZIPS:
-        table_name = f"{region}_{TYPE_SUFFIX}"
-        clear_route_table(table_name)
-
     for region, region_rows in routed.items():
         if not region_rows:
             continue
 
         table_name = f"{region}_{TYPE_SUFFIX}"
-        print(f"Refreshing {len(region_rows)} leads in {table_name}...")
+        print(f"Inserting {len(region_rows)} leads into {table_name} without clearing existing rows...")
 
         inserted = insert_rows(table_name, region_rows)
         print(f"Sent {inserted} fresh leads to {table_name}.")
