@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>sqoutIQ — Dashboard</title>
+<title>sqoutiq — Dashboard</title>
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -319,6 +319,57 @@ function selectedTimeLabel(){
   return 'Last 24 Hours';
 }
 
+function hasContactValue(value){
+  const cleaned=String(value??'').trim().toLowerCase();
+  return cleaned!==''&&cleaned!=='null'&&cleaned!=='undefined'&&cleaned!=='nan';
+}
+
+function rangeHighValue(value){
+  const text=String(value??'').toLowerCase();
+  if(!hasContactValue(text)) return 0;
+  if(text.includes('million')||text.includes('mm')){
+    const nums=text.match(/\d+(?:\.\d+)?/g)||[];
+    return nums.length?Math.max(...nums.map(Number))*1000000:1000000;
+  }
+  const nums=text.match(/\d[\d,]*/g)||[];
+  return nums.length?Math.max(...nums.map(n=>Number(n.replace(/,/g,'')))):0;
+}
+
+function incomePoints(value){
+  const high=rangeHighValue(value);
+  if(high>=200000) return 7;
+  if(high>=150000) return 6;
+  if(high>=100000) return 5;
+  if(high>=75000) return 4;
+  if(high>=45000) return 3;
+  if(high>0) return 1;
+  return 0;
+}
+
+function netWorthPoints(value){
+  const high=rangeHighValue(value);
+  if(high>=1000000) return 7;
+  if(high>=500000) return 5;
+  if(high>=250000) return 4;
+  if(high>=100000) return 3;
+  if(high>0) return 1;
+  return 0;
+}
+
+function calculateIntentScore(lead){
+  const score=75+
+    incomePoints(lead.incomeRange||lead.INCOME_RANGE||lead.INCOME||lead.ESTIMATED_HOUSEHOLD_INCOME)+
+    netWorthPoints(lead.netWorth||lead.NET_WORTH||lead.ESTIMATED_NET_WORTH)+
+    (hasContactValue(lead.phone||lead.SKIPTRACE_WIRELESS_NUMBERS)?8:0)+
+    (hasContactValue(lead.email||lead.PERSONAL_VERIFIED_EMAIL||lead.PERSONAL_VERIFIED_EMAILS)?2:0);
+  return Math.max(75,Math.min(score,99));
+}
+
+function withCalculatedIntentScore(lead){
+  const score=calculateIntentScore(lead);
+  return {...lead,score,sig:score>=94?4:score>=86?3:score>=80?2:1};
+}
+
 function updateDailyChart(leads){
   const days=lastSevenDayBuckets();
   const byKey=Object.fromEntries(days.map(day=>[day.key,day]));
@@ -464,7 +515,7 @@ async function loadLiveDashboard(){
     return;
   }
   try{
-    allDashboardLeads=await SqoutiqData.fetchLeads();
+    allDashboardLeads=(await SqoutiqData.fetchLeads()).map(withCalculatedIntentScore);
     renderDashboardFromLeads(filteredDashboardLeads());
   }
   catch(error){

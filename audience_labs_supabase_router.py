@@ -22,6 +22,7 @@ Example:
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 import os
 import re
 import sys
@@ -41,6 +42,7 @@ AUDIENCE_ID = "690932ed-86d3-4348-9851-fdec475a1db9"
 TYPE_SUFFIX = os.environ.get("TYPE_SUFFIX", "hvac")
 PAGE_SIZE = int(os.environ.get("AUDIENCE_PAGE_SIZE", "500"))
 GEOCODE_SLEEP_SECONDS = float(os.environ.get("GEOCODE_SLEEP_SECONDS", "0.15"))
+MIN_SKIPTRACE_MATCH_SCORE = int(os.environ.get("MIN_SKIPTRACE_MATCH_SCORE", "9"))
 
 REGION_ZIPS = {
     "murrieta": ["92562", "92563", "92564", "92595"],
@@ -83,8 +85,21 @@ ALLOWED_COLUMNS = [
     "LONGITUDE",
     "NET_WORTH",
     "INCOME_RANGE",
+    "PHONE_SOURCE",
+    "PHONE_DNC_STATUS",
+    "PHONE_MATCH_SCORE",
+    "PHONE_MATCH_QUALITY",
     "time_stamp",
 ]
+
+
+@dataclass(frozen=True)
+class PhoneCandidate:
+    number: str
+    source: str
+    dnc_status: str
+    match_score: int
+    match_quality: str
 
 
 def require_env() -> None:
@@ -123,6 +138,51 @@ def normalize_phone(value: Any) -> str:
     if len(digits) == 11 and digits.startswith("1"):
         digits = digits[1:]
     return digits if len(digits) == 10 else ""
+
+
+def normalize_words(value: Any) -> str:
+    return re.sub(r"\s+", " ", re.sub(r"[^a-z0-9\s]", " ", str(value or "").lower())).strip()
+
+
+def numeric_prefix(value: Any) -> str:
+    match = re.search(r"\d+", str(value or ""))
+    return match.group(0) if match else ""
+
+
+def numeric_score(value: Any) -> int:
+    match = re.search(r"\d+", str(value or ""))
+    return int(match.group(0)) if match else 0
+
+
+def skiptrace_identity_matches(row: dict[str, Any]) -> bool:
+    score = numeric_score(first_present(row, "SKIPTRACE_MATCH_SCORE"))
+    if score < MIN_SKIPTRACE_MATCH_SCORE:
+        return False
+
+    first = normalize_words(first_present(row, "FIRST_NAME"))
+    last = normalize_words(first_present(row, "LAST_NAME"))
+    skip_name = normalize_words(first_present(row, "SKIPTRACE_NAME"))
+    if not first or not last or first not in skip_name or last not in skip_name:
+        return False
+
+    personal_zip = normalize_zip(first_present(row, "PERSONAL_ZIP"))
+    skip_zip = normalize_zip(first_present(row, "SKIPTRACE_ZIP"))
+    if personal_zip and skip_zip and personal_zip != skip_zip:
+        return False
+
+    personal_number = numeric_prefix(first_present(row, "PERSONAL_ADDRESS"))
+    skip_number = numeric_prefix(first_present(row, "SKIPTRACE_ADDRESS"))
+    if personal_number and skip_number and personal_number != skip_number:
+        return False
+
+    return True
+
+
+def dnc_flag_for_index(row: dict[str, Any], dnc_col: str, index: int) -> str:
+    if is_blank(row.get(dnc_col)):
+        return ""
+    flags = str(row.get(dnc_col)).split(",")
+    return flags[index].strip().upper() if index < len(flags) else ""
 
 
 def normalize_coordinate(value: Any, *, kind: str) -> float | None:
@@ -179,37 +239,35 @@ def geocode_address(address: str, city: str, state: str, zip_code: str) -> tuple
         return GEOCODE_CACHE[cache_key]
 
 
-def get_safe_phone(row: dict[str, Any]) -> str:
-    paired_phone_columns = [
-        ("MOBILE_PHONE", "MOBILE_PHONE_DNC"),
-        ("PERSONAL_PHONE", "PERSONAL_PHONE_DNC"),
-        ("DIRECT_NUMBER", "DIRECT_NUMBER_DNC"),
-    ]
+def get_best_phone(row: dict[str, Any]) -> PhoneCandidate | None:
+    phone_value = row.get("PERSONAL_PHONE")
+    if is_blank(phone_value):
+        return None
 
-    for phone_col, dnc_col in paired_phone_columns:
-        phone_value = row.get(phone_col)
-        if is_blank(phone_value):
-            continue
+    phones = str(phone_value).split(",")
 
-        phones = str(phone_value).split(",")
-        dnc_flags = str(row.get(dnc_col)).split(",") if not is_blank(row.get(dnc_col)) else []
-
-        for index, raw_phone in enumerate(phones):
-            phone = normalize_phone(raw_phone)
-            if not phone:
-                continue
-
+    for index, raw_phone in enumerate(phones):
+        phone = normalize_phone(raw_phone)
+        if phone:
             # Missing or mismatched DNC flags are treated as unsafe.
-            flag = dnc_flags[index].strip().upper() if index < len(dnc_flags) else "Y"
+            flag = dnc_flag_for_index(row, "PERSONAL_PHONE_DNC", index)
             if flag != "N":
                 continue
 
-            return phone
+            return PhoneCandidate(
+                number=phone,
+                source="personal",
+                dnc_status=flag,
+                match_score=10,
+                match_quality="personal_profile_dnc_clear",
+            )
 
-    if first_present(row, "SKIPTRACE_DNC").upper() == "N":
-        return normalize_phone(row.get("SKIPTRACE_WIRELESS_NUMBERS"))
+    return None
 
-    return ""
+
+def get_safe_phone(row: dict[str, Any]) -> str:
+    candidate = get_best_phone(row)
+    return candidate.number if candidate else ""
 
 
 def router_run_timestamp() -> str:
@@ -218,17 +276,15 @@ def router_run_timestamp() -> str:
 
 
 def process_lead(row: dict[str, Any]) -> dict[str, Any] | None:
-    name = first_present(row, "SKIPTRACE_NAME")
-    if not name:
-        name = f"{first_present(row, 'FIRST_NAME')} {first_present(row, 'LAST_NAME')}".strip()
+    name = f"{first_present(row, 'FIRST_NAME')} {first_present(row, 'LAST_NAME')}".strip()
+    address = first_present(row, "PERSONAL_ADDRESS")
+    city = first_present(row, "PERSONAL_CITY")
+    state = first_present(row, "PERSONAL_STATE")
+    zip_code = normalize_zip(first_present(row, "PERSONAL_ZIP"))
+    phone_candidate = get_best_phone(row)
+    phone = phone_candidate.number if phone_candidate else None
 
-    address = first_present(row, "SKIPTRACE_ADDRESS", "PERSONAL_ADDRESS")
-    city = first_present(row, "SKIPTRACE_CITY", "PERSONAL_CITY")
-    state = first_present(row, "SKIPTRACE_STATE", "PERSONAL_STATE")
-    zip_code = normalize_zip(first_present(row, "SKIPTRACE_ZIP", "PERSONAL_ZIP"))
-    phone = get_safe_phone(row)
-
-    if not name or not address or not city or not state or not zip_code or not phone:
+    if not name or not address or not city or not state or not zip_code:
         return None
 
     if zip_code not in ZIP_TO_REGION:
@@ -275,6 +331,10 @@ def process_lead(row: dict[str, Any]) -> dict[str, Any] | None:
         "PERSONAL_VERIFIED_EMAIL": email,
         "NET_WORTH": first_present(row, "NET_WORTH"),
         "INCOME_RANGE": first_present(row, "INCOME_RANGE"),
+        "PHONE_SOURCE": phone_candidate.source if phone_candidate else "",
+        "PHONE_DNC_STATUS": phone_candidate.dnc_status if phone_candidate else "",
+        "PHONE_MATCH_SCORE": phone_candidate.match_score if phone_candidate else "",
+        "PHONE_MATCH_QUALITY": phone_candidate.match_quality if phone_candidate else "",
         "time_stamp": timestamp,
     }
 
@@ -324,17 +384,30 @@ def fetch_audience_rows() -> list[dict[str, Any]]:
 
 def clean_and_dedupe(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     clean_rows = [lead for row in rows if (lead := process_lead(row)) is not None]
-    print(f"Kept {len(clean_rows)} valid residential CA leads in your target ZIPs with explicit DNC=N callable phones.")
+    print(
+        f"Kept {len(clean_rows)} valid residential CA opportunities in your target ZIPs "
+        f"with personal DNC=N phones where available."
+    )
 
     clean_rows.sort(key=lambda row: str(row.get("time_stamp") or ""), reverse=True)
 
     unique_by_phone: dict[str, dict[str, Any]] = {}
+    unique_without_phone: dict[tuple[str, str, str, str], dict[str, Any]] = {}
     for row in clean_rows:
-        phone = row["SKIPTRACE_WIRELESS_NUMBERS"]
-        if phone not in unique_by_phone:
+        phone = row.get("SKIPTRACE_WIRELESS_NUMBERS")
+        if phone and phone not in unique_by_phone:
             unique_by_phone[phone] = row
+        elif not phone:
+            key = (
+                str(row.get("FIRST_NAME") or "").lower(),
+                str(row.get("LAST_NAME") or "").lower(),
+                str(row.get("PERSONAL_ADDRESS") or "").lower(),
+                str(row.get("PERSONAL_ZIP") or ""),
+            )
+            if key not in unique_without_phone:
+                unique_without_phone[key] = row
 
-    deduped = list(unique_by_phone.values())
+    deduped = list(unique_by_phone.values()) + list(unique_without_phone.values())
     print(f"Removed duplicates inside this pull. {len(deduped)} unique leads remain.")
     return deduped
 
@@ -364,7 +437,7 @@ def delete_existing_phone_from_all_route_tables(phone: str) -> None:
 
 
 def clear_route_table(table_name: str) -> None:
-    url = f"{SUPABASE_URL}/rest/v1/{table_name}?SKIPTRACE_WIRELESS_NUMBERS=not.is.null"
+    url = f"{SUPABASE_URL}/rest/v1/{table_name}?PERSONAL_ZIP=not.is.null"
     response = requests.delete(url, headers=supabase_headers(), timeout=90)
     if response.status_code not in {200, 204}:
         raise RuntimeError(f"Supabase clear failed for {table_name}: HTTP {response.status_code} {response.text}")
