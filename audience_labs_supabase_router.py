@@ -42,7 +42,7 @@ AUDIENCE_ID = "690932ed-86d3-4348-9851-fdec475a1db9"
 TYPE_SUFFIX = os.environ.get("TYPE_SUFFIX", "hvac")
 PAGE_SIZE = int(os.environ.get("AUDIENCE_PAGE_SIZE", "500"))
 GEOCODE_SLEEP_SECONDS = float(os.environ.get("GEOCODE_SLEEP_SECONDS", "0.15"))
-MIN_SKIPTRACE_MATCH_SCORE = int(os.environ.get("MIN_SKIPTRACE_MATCH_SCORE", "9"))
+MIN_SKIPTRACE_MATCH_SCORE = int(os.environ.get("MIN_SKIPTRACE_MATCH_SCORE", "5"))
 
 REGION_ZIPS = {
     "murrieta": ["92562", "92563", "92564", "92595"],
@@ -236,7 +236,14 @@ def geocode_address(address: str, city: str, state: str, zip_code: str) -> tuple
 
 
 def get_best_phone(row: dict[str, Any]) -> PhoneCandidate | None:
-    phone_value = row.get("PERSONAL_PHONE")
+    score = numeric_score(first_present(row, "SKIPTRACE_MATCH_SCORE"))
+    if score < MIN_SKIPTRACE_MATCH_SCORE:
+        return None
+
+    if str(first_present(row, "SKIPTRACE_DNC")).strip().upper() in {"Y", "YES", "TRUE", "1"}:
+        return None
+
+    phone_value = row.get("SKIPTRACE_WIRELESS_NUMBERS")
     if is_blank(phone_value):
         return None
 
@@ -245,17 +252,12 @@ def get_best_phone(row: dict[str, Any]) -> PhoneCandidate | None:
     for index, raw_phone in enumerate(phones):
         phone = normalize_phone(raw_phone)
         if phone:
-            # Missing or mismatched DNC flags are treated as unsafe.
-            flag = dnc_flag_for_index(row, "PERSONAL_PHONE_DNC", index)
-            if flag != "N":
-                continue
-
             return PhoneCandidate(
                 number=phone,
-                source="personal",
-                dnc_status=flag,
-                match_score=10,
-                match_quality="personal_profile_dnc_clear",
+                source="skiptrace_wireless",
+                dnc_status=first_present(row, "SKIPTRACE_DNC"),
+                match_score=score,
+                match_quality=f"skiptrace_wireless_score_{score}",
             )
 
     return None
@@ -385,28 +387,18 @@ def clean_and_dedupe(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     clean_rows = [lead for row in rows if (lead := process_lead(row)) is not None]
     print(
         f"Kept {len(clean_rows)} valid residential CA opportunities in your target ZIPs "
-        f"with personal DNC=N phones where available."
+        f"with skiptraced wireless phones and match score >= {MIN_SKIPTRACE_MATCH_SCORE}."
     )
 
     clean_rows.sort(key=lambda row: str(row.get("time_stamp") or ""), reverse=True)
 
     unique_by_phone: dict[str, dict[str, Any]] = {}
-    unique_without_phone: dict[tuple[str, str, str, str], dict[str, Any]] = {}
     for row in clean_rows:
         phone = row.get("SKIPTRACE_WIRELESS_NUMBERS")
         if phone and phone not in unique_by_phone:
             unique_by_phone[phone] = row
-        elif not phone:
-            key = (
-                str(row.get("FIRST_NAME") or "").lower(),
-                str(row.get("LAST_NAME") or "").lower(),
-                str(row.get("PERSONAL_ADDRESS") or "").lower(),
-                str(row.get("PERSONAL_ZIP") or ""),
-            )
-            if key not in unique_without_phone:
-                unique_without_phone[key] = row
 
-    deduped = list(unique_by_phone.values()) + list(unique_without_phone.values())
+    deduped = list(unique_by_phone.values())
     print(f"Removed duplicates inside this pull. {len(deduped)} unique leads remain.")
     return deduped
 
