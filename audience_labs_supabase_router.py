@@ -29,8 +29,6 @@ import sys
 import time
 from datetime import datetime, timezone
 from typing import Any
-from urllib.parse import quote
-
 import requests
 
 
@@ -418,26 +416,6 @@ def supabase_headers(prefer: str | None = None) -> dict[str, str]:
     return headers
 
 
-def delete_existing_phone(table_name: str, phone: str) -> None:
-    encoded_phone = quote(phone, safe="")
-    url = f"{SUPABASE_URL}/rest/v1/{table_name}?SKIPTRACE_WIRELESS_NUMBERS=eq.{encoded_phone}"
-    response = requests.delete(url, headers=supabase_headers(), timeout=60)
-    if response.status_code not in {200, 204}:
-        raise RuntimeError(f"Supabase delete failed for {table_name}/{phone}: HTTP {response.status_code} {response.text}")
-
-
-def delete_existing_phone_from_all_route_tables(phone: str) -> None:
-    for region in REGION_ZIPS:
-        delete_existing_phone(f"{region}_{TYPE_SUFFIX}", phone)
-
-
-def clear_route_table(table_name: str) -> None:
-    url = f"{SUPABASE_URL}/rest/v1/{table_name}?PERSONAL_ZIP=not.is.null"
-    response = requests.delete(url, headers=supabase_headers(), timeout=90)
-    if response.status_code not in {200, 204}:
-        raise RuntimeError(f"Supabase clear failed for {table_name}: HTTP {response.status_code} {response.text}")
-
-
 def insert_rows(table_name: str, rows: list[dict[str, Any]]) -> int:
     url = f"{SUPABASE_URL}/rest/v1/{table_name}?on_conflict=SKIPTRACE_WIRELESS_NUMBERS"
     total = 0
@@ -446,7 +424,7 @@ def insert_rows(table_name: str, rows: list[dict[str, Any]]) -> int:
         chunk = rows[start : start + 500]
         response = requests.post(
             url,
-            headers=supabase_headers("resolution=merge-duplicates,return=minimal"),
+            headers=supabase_headers("resolution=ignore-duplicates,return=minimal"),
             json=chunk,
             timeout=90,
         )
