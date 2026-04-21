@@ -424,7 +424,7 @@ def insert_rows(table_name: str, rows: list[dict[str, Any]]) -> int:
         chunk = rows[start : start + 500]
         response = requests.post(
             url,
-            headers=supabase_headers("resolution=ignore-duplicates,return=minimal"),
+           headers=supabase_headers("resolution=merge-duplicates,return=minimal"),
             json=chunk,
             timeout=90,
         )
