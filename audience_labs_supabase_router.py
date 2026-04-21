@@ -39,6 +39,7 @@ SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
 AUDIENCE_ID = "690932ed-86d3-4348-9851-fdec475a1db9"
 TYPE_SUFFIX = os.environ.get("TYPE_SUFFIX", "hvac")
 PAGE_SIZE = int(os.environ.get("AUDIENCE_PAGE_SIZE", "500"))
+AUDIENCE_REQUEST_TIMEOUT = int(os.environ.get("AUDIENCE_REQUEST_TIMEOUT", "180"))
 GEOCODE_SLEEP_SECONDS = float(os.environ.get("GEOCODE_SLEEP_SECONDS", "0.15"))
 MIN_SKIPTRACE_MATCH_SCORE = int(os.environ.get("MIN_SKIPTRACE_MATCH_SCORE", "5"))
 
@@ -353,14 +354,33 @@ def fetch_audience_rows() -> list[dict[str, Any]]:
 
     while True:
         url = f"https://api.audiencelab.io/audiences/{AUDIENCE_ID}?page={page}&page_size={PAGE_SIZE}"
-        response = requests.get(url, headers=headers, timeout=90)
+
+        try:
+            response = requests.get(url, headers=headers, timeout=(15, AUDIENCE_REQUEST_TIMEOUT))
+        except requests.RequestException as exc:
+            retries += 1
+            if retries > max_retries:
+                raise RuntimeError(f"Audience Labs kept failing on page {page}: {exc}") from exc
+
+            wait_seconds = min(30 * retries, 180)
+            print(
+                f"Audience Labs request failed on page {page}: {exc}. "
+                f"Waiting {wait_seconds} seconds ({retries}/{max_retries})..."
+            )
+            time.sleep(wait_seconds)
+            continue
 
         if response.status_code in {429, 500, 502, 503, 504}:
             retries += 1
             if retries > max_retries:
                 raise RuntimeError(f"Audience Labs kept failing with HTTP {response.status_code}")
-            print(f"Audience Labs returned HTTP {response.status_code}. Waiting 30 seconds ({retries}/{max_retries})...")
-            time.sleep(30)
+
+            wait_seconds = min(30 * retries, 180)
+            print(
+                f"Audience Labs returned HTTP {response.status_code} on page {page}. "
+                f"Waiting {wait_seconds} seconds ({retries}/{max_retries})..."
+            )
+            time.sleep(wait_seconds)
             continue
 
         if response.status_code != 200:
