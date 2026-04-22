@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>sqoutIQ - Admin</title>
+<title>sqoutiq - Admin</title>
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -29,7 +29,7 @@ input,select{height:44px;border:1px solid var(--border);border-radius:8px;backgr
 <body>
 <div class="wrap">
   <div class="top">
-    <img class="logo" id="brand-logo" src="Dark.png" alt="sqoutIQ">
+    <img class="logo" id="brand-logo" src="Dark.png" alt="sqoutiq">
     <a class="back" href="/dash">Back to dashboard</a>
   </div>
   <div class="card">
@@ -57,7 +57,7 @@ input,select{height:44px;border:1px solid var(--border);border-radius:8px;backgr
 </div>
 <script>
 const metroOptions=[
-  ["murrieta","Murrieta"],["temecula","Temecula"],["menifee","Menifee"],["perris","Perris"],["riverside","Riverside"],["oceanside","Oceanside"],["corona","Corona"],["lake_elsinore","Lake Elsinore"],["moreno_valley","Moreno Valley"]
+  ["murrieta","Murrieta, CA"],["temecula","Temecula, CA"],["menifee","Menifee, CA"],["perris","Perris, CA"],["riverside","Riverside, CA"],["oceanside","Oceanside, CA"],["corona","Corona, CA"],["lake_elsinore","Lake Elsinore, CA"],["moreno_valley","Moreno Valley, CA"],["opelika","Opelika, AL"],["san_antonio","San Antonio, TX"]
 ];
 const list=document.getElementById('metro-list');
 list.innerHTML=metroOptions.map(([value,label])=>`<label class="metro"><input type="checkbox" name="metros" value="${value}">${label}</label>`).join('');
