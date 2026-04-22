@@ -35,6 +35,8 @@ CITY_TABLES = [
     {"slug": "corona", "label": "Corona", "table": f"corona_{TYPE_SUFFIX}"},
     {"slug": "lake_elsinore", "label": "Lake Elsinore", "table": f"lake_elsinore_{TYPE_SUFFIX}"},
     {"slug": "moreno_valley", "label": "Moreno Valley", "table": f"moreno_valley_{TYPE_SUFFIX}"},
+    {"slug": "opelika", "label": "Opelika", "table": f"opelika_{TYPE_SUFFIX}"},
+    {"slug": "san_antonio", "label": "San Antonio", "table": f"san_antonio_{TYPE_SUFFIX}"},
 ]
 
 CORE_COLUMNS = [

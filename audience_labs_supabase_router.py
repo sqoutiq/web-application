@@ -66,6 +66,8 @@ REGION_ZIPS = {
     "corona": ["92877", "92878", "92879", "92880", "92881", "92882", "92883", "92870"],
     "lake_elsinore": ["92530", "92531", "92532"],
     "moreno_valley": ["92551", "92552", "92553", "92554", "92555", "92556", "92557", "92373", "92223"],
+    "opelika": ["36801", "36804", "36830"],
+    "san_antonio": ["78249", "78258", "78260"],
 }
 
 ZIP_TO_REGION = {zip_code: region for region, zips in REGION_ZIPS.items() for zip_code in zips}
@@ -189,9 +191,9 @@ def normalize_coordinate(value: Any, *, kind: str) -> float | None:
     except ValueError:
         return None
 
-    if kind == "lat" and 32 <= number <= 35:
+    if kind == "lat" and 24 <= number <= 50:
         return round(number, 7)
-    if kind == "lng" and -119 <= number <= -116:
+    if kind == "lng" and -125 <= number <= -66:
         return round(number, 7)
     return None
 
@@ -294,7 +296,7 @@ def process_lead(row: dict[str, Any]) -> dict[str, Any] | None:
     if zip_code not in ZIP_TO_REGION:
         return None
 
-    if state.upper() != "CA":
+    if state.upper() not in {"CA", "AL", "TX"}:
         return None
 
     commercial_keywords = r"\b(commercial|business|office|industrial|warehouse|retail|storefront|shop|factory|plant|mall|plaza|center|centre)\b"

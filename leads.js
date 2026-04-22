@@ -12,7 +12,9 @@
     { slug:"oceanside", label:"Oceanside", table:`oceanside_${TABLE_SUFFIX}`, center:[33.1959,-117.3795], zips:["92054","92056","92057","92058","92081","92083","92084","92008","92010","92003"] },
     { slug:"corona", label:"Corona", table:`corona_${TABLE_SUFFIX}`, center:[33.8753,-117.5664], zips:["92877","92878","92879","92880","92881","92882","92883","92870"] },
     { slug:"lake_elsinore", label:"Lake Elsinore", table:`lake_elsinore_${TABLE_SUFFIX}`, center:[33.6681,-117.3273], zips:["92530","92531","92532"] },
-    { slug:"moreno_valley", label:"Moreno Valley", table:`moreno_valley_${TABLE_SUFFIX}`, center:[33.9425,-117.2297], zips:["92551","92552","92553","92554","92555","92556","92557","92373","92223"] }
+    { slug:"moreno_valley", label:"Moreno Valley", table:`moreno_valley_${TABLE_SUFFIX}`, center:[33.9425,-117.2297], zips:["92551","92552","92553","92554","92555","92556","92557","92373","92223"] },
+    { slug:"opelika", label:"Opelika", table:`opelika_${TABLE_SUFFIX}`, center:[32.6454,-85.3783], zips:["36801","36804","36830"] },
+    { slug:"san_antonio", label:"San Antonio", table:`san_antonio_${TABLE_SUFFIX}`, center:[29.617,-98.536], zips:["78249","78258","78260"] }
   ];
 
   function config(){
@@ -106,7 +108,7 @@
     if(value === null || value === undefined || String(value).trim() === "") return null;
     const number = Number(value);
     if(!Number.isFinite(number)) return null;
-    return number >= 32 && number <= 35 ? number : number <= -116 && number >= -119 ? number : null;
+    return number >= 24 && number <= 50 ? number : number <= -66 && number >= -125 ? number : null;
   }
 
   function normalizeLead(row, city){
@@ -126,6 +128,10 @@
       lng: cleanCoordinate(row.LONGITUDE),
       incomeRange: row.INCOME_RANGE || "",
       netWorth: row.NET_WORTH || "",
+      phoneSource: row.PHONE_SOURCE || "",
+      phoneDncStatus: row.PHONE_DNC_STATUS || "",
+      phoneMatchScore: row.PHONE_MATCH_SCORE || "",
+      phoneMatchQuality: row.PHONE_MATCH_QUALITY || "",
       score,
       sig: signalStrength(score),
       type: "HVAC",
@@ -153,7 +159,13 @@
       "INCOME_RANGE"
     ];
     const geoColumns = ["LATITUDE", "LONGITUDE"];
-    const columns = coreColumns.concat(enrichColumns, geoColumns).join(",");
+    const phoneQualityColumns = [
+      "PHONE_SOURCE",
+      "PHONE_DNC_STATUS",
+      "PHONE_MATCH_SCORE",
+      "PHONE_MATCH_QUALITY"
+    ];
+    const columns = coreColumns.concat(enrichColumns, geoColumns, phoneQualityColumns).join(",");
     const url = `${base}/rest/v1/${city.table}?select=${columns}&order=created_at.desc&limit=${MAX_ROWS_PER_CITY}`;
     let response = await fetch(url, { headers: requestHeaders() });
     if(!response.ok && response.status === 400){

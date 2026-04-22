@@ -125,7 +125,7 @@ main{flex:1;display:flex;flex-direction:column;overflow:hidden}
   <div class="topbar">
     <div class="topbar-left">
       <h1>Map Insights</h1>
-      <p>Live opportunity heatmap - Southwest Riverside & North County HVAC cities</p>
+      <p>Live opportunity heatmap across active HVAC cities</p>
     </div>
     <div class="topbar-right">
       <div class="seg-ctrl" id="layer-filter"><button class="active" onclick="setLayer('heat',this)">Heatmap</button><button onclick="setLayer('pins',this)">Opportunity Pins</button><button onclick="setLayer('both',this)">Both</button></div><div class="seg-ctrl" id="map-time-filter"><button data-range="24h">24h</button><button data-range="48h">48h</button><button class="active" data-range="all">All Time</button></div><input class="top-select date-select" type="date" id="map-date-filter" aria-label="Show opportunities from exact date"><select class="top-select" id="region-select">
@@ -139,6 +139,8 @@ main{flex:1;display:flex;flex-direction:column;overflow:hidden}
         <option value="corona">Corona</option>
         <option value="lake_elsinore">Lake Elsinore</option>
         <option value="moreno_valley">Moreno Valley</option>
+        <option value="opelika">Opelika</option>
+        <option value="san_antonio">San Antonio</option>
       </select>
     </div>
   </div>
@@ -213,7 +215,7 @@ function calculateIntentScore(lead){const score=75+incomePoints(lead.incomeRange
 function withCalculatedIntentScore(lead){const score=calculateIntentScore(lead);return{...lead,score,sig:score>=94?4:score>=86?3:score>=80?2:1}}
 function filteredMapLeads(){let leads=allMapLeads.slice();const region=selectedRegion();if(region&&region!=='all')leads=leads.filter(lead=>lead.region===region);const exact=selectedExactDate();if(exact){return leads.filter(lead=>{const date=leadDate(lead);return date&&localDateKey(date)===exact})}const range=selectedRange();if(range==='all')return leads;const cutoff=Date.now()-((range==='48h'?48:24)*60*60*1000);return leads.filter(lead=>{const date=leadDate(lead);return date&&date.getTime()>=cutoff})}
 function parsedCoordinate(value){if(value===null||value===undefined||String(value).trim()==='')return null;const number=Number(value);return Number.isFinite(number)?number:null}
-function hasExactPoint(lead){const lat=parsedCoordinate(lead.lat),lng=parsedCoordinate(lead.lng);return lat!==null&&lng!==null&&lat>=32&&lat<=35&&lng>=-119&&lng<=-116}
+function hasExactPoint(lead){const lat=parsedCoordinate(lead.lat),lng=parsedCoordinate(lead.lng);return lat!==null&&lng!==null&&lat>=24&&lat<=50&&lng>=-125&&lng<=-66}
 function leadPoint(lead){if(hasExactPoint(lead))return{lat:parsedCoordinate(lead.lat),lng:parsedCoordinate(lead.lng)};const city=SqoutiqData.CITY_TABLES.find(c=>c.slug===lead.region)||SqoutiqData.CITY_TABLES[0];const seed=(lead.phone||lead.name||lead.address||'').split('').reduce((sum,ch)=>sum+ch.charCodeAt(0),0);return{lat:city.center[0]+((seed%5)-2)*0.00035,lng:city.center[1]+(((seed>>3)%5)-2)*0.00035}}
 function renderableMapEntries(leads=currentMapLeads){return leads.map(lead=>({lead,point:leadPoint(lead)})).filter(entry=>Number.isFinite(entry.point.lat)&&Number.isFinite(entry.point.lng))}
 function heatColor(score){return score>=90?'#ec4899':score>=80?'#9b51e0':'#00a8cc'}
@@ -244,7 +246,7 @@ function setLayer(mode,button){
 }
 
 // ── Region jump ─────────────────────────────────────────────────────────────
-const regions={all:[33.79,-117.18,10],murrieta:[33.5539,-117.2139,12],temecula:[33.4936,-117.1484,12],menifee:[33.6971,-117.1853,12],perris:[33.7825,-117.2286,12],riverside:[33.9806,-117.3755,11],oceanside:[33.1959,-117.3795,12],corona:[33.8753,-117.5664,12],lake_elsinore:[33.6681,-117.3273,12],moreno_valley:[33.9425,-117.2297,12]};
+const regions={all:[32.2,-101.5,5],murrieta:[33.5539,-117.2139,12],temecula:[33.4936,-117.1484,12],menifee:[33.6971,-117.1853,12],perris:[33.7825,-117.2286,12],riverside:[33.9806,-117.3755,11],oceanside:[33.1959,-117.3795,12],corona:[33.8753,-117.5664,12],lake_elsinore:[33.6681,-117.3273,12],moreno_valley:[33.9425,-117.2297,12],opelika:[32.6454,-85.3783,12],san_antonio:[29.617,-98.536,11]};
 function jumpToRegion(r){const [lat,lng,z]=regions[r]||regions.all;map.setView([lat,lng],z);}
 
 document.querySelectorAll('#map-time-filter button').forEach(btn=>{
