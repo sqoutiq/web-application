@@ -10,7 +10,9 @@ Required environment variables:
 
 Optional environment variables:
   TYPE_SUFFIX          Defaults to "hvac"
-  AUDIENCE_PAGE_SIZE   Defaults to 500
+  AUDIENCE_PAGE_SIZE   Defaults to 5000
+  AUDIENCE_PAGE_DELAY  Defaults to 0.2 seconds
+  GEOCODE_ENABLED      Defaults to false
 
 The Supabase table name is built as:
   <region_slug>_<TYPE_SUFFIX>
@@ -38,8 +40,10 @@ SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
 
 AUDIENCE_ID = "690932ed-86d3-4348-9851-fdec475a1db9"
 TYPE_SUFFIX = os.environ.get("TYPE_SUFFIX", "hvac")
-PAGE_SIZE = int(os.environ.get("AUDIENCE_PAGE_SIZE", "500"))
+PAGE_SIZE = int(os.environ.get("AUDIENCE_PAGE_SIZE", "5000"))
 AUDIENCE_REQUEST_TIMEOUT = int(os.environ.get("AUDIENCE_REQUEST_TIMEOUT", "180"))
+AUDIENCE_PAGE_DELAY = float(os.environ.get("AUDIENCE_PAGE_DELAY", "0.2"))
+GEOCODE_ENABLED = os.environ.get("GEOCODE_ENABLED", "false").strip().lower() in {"1", "true", "yes", "y"}
 GEOCODE_SLEEP_SECONDS = float(os.environ.get("GEOCODE_SLEEP_SECONDS", "0.15"))
 MIN_SKIPTRACE_MATCH_SCORE = int(os.environ.get("MIN_SKIPTRACE_MATCH_SCORE", "5"))
 
@@ -321,7 +325,7 @@ def process_lead(row: dict[str, Any]) -> dict[str, Any] | None:
         kind="lng",
     )
 
-    if lat is None or lng is None:
+    if GEOCODE_ENABLED and (lat is None or lng is None):
         lat, lng = geocode_address(address, city, state.upper(), zip_code)
 
     return {
@@ -352,7 +356,10 @@ def fetch_audience_rows() -> list[dict[str, Any]]:
     retries = 0
     max_retries = 20
 
-    print(f"Fetching Audience Labs list: {AUDIENCE_ID}")
+    print(
+        f"Fetching Audience Labs list: {AUDIENCE_ID} "
+        f"(page_size={PAGE_SIZE}, page_delay={AUDIENCE_PAGE_DELAY}s, geocode_enabled={GEOCODE_ENABLED})"
+    )
 
     while True:
         url = f"https://api.audiencelab.io/audiences/{AUDIENCE_ID}?page={page}&page_size={PAGE_SIZE}"
@@ -401,7 +408,8 @@ def fetch_audience_rows() -> list[dict[str, Any]]:
             print(f"Downloaded {len(rows)} raw rows...")
 
         page += 1
-        time.sleep(1.5)
+        if AUDIENCE_PAGE_DELAY > 0:
+            time.sleep(AUDIENCE_PAGE_DELAY)
 
     print(f"Extracted {len(rows)} raw rows from Audience Labs.")
     return rows
@@ -446,12 +454,12 @@ def insert_rows(table_name: str, rows: list[dict[str, Any]]) -> int:
         chunk = rows[start : start + 500]
         response = requests.post(
             url,
-           headers=supabase_headers("resolution=merge-duplicates,return=minimal"),
+            headers=supabase_headers("resolution=ignore-duplicates,return=minimal"),
             json=chunk,
             timeout=90,
         )
         if response.status_code not in {200, 201}:
-            raise RuntimeError(f"Supabase upsert failed for {table_name}: HTTP {response.status_code} {response.text}")
+            raise RuntimeError(f"Supabase insert failed for {table_name}: HTTP {response.status_code} {response.text}")
         total += len(chunk)
 
     return total
@@ -469,10 +477,10 @@ def route_to_supabase(rows: list[dict[str, Any]]) -> None:
             continue
 
         table_name = f"{region}_{TYPE_SUFFIX}"
-        print(f"Upserting {len(region_rows)} leads into {table_name} without clearing existing rows...")
+        print(f"Inserting {len(region_rows)} leads into {table_name}; existing phone numbers keep their original dates...")
 
         inserted = insert_rows(table_name, region_rows)
-        print(f"Sent {inserted} fresh/updated leads to {table_name}.")
+        print(f"Sent {inserted} candidate leads to {table_name}; duplicates were ignored by phone number.")
 
 
 def main() -> int:
