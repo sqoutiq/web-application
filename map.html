@@ -202,7 +202,7 @@ let currentLayerMode='heat';
 function escapeHtml(value){return String(value||'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]))}
 function phoneHref(phone){const digits=String(phone||'').replace(/\D/g,'');return digits ? `tel:${digits.length===10?'+1':''}${digits}` : '#'}
 function mapHref(lead){return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(`${lead.address || ''}, ${lead.city || ''}, CA ${lead.zip || ''}`)}`}
-function leadDate(lead){const raw=lead.timeStamp || lead.created_at || '';const date=raw ? new Date(raw) : null;return date && !Number.isNaN(date.getTime()) ? date : null}
+function leadDate(lead){const raw=lead.createdAt || lead.created_at || lead.timeStamp || '';const date=raw ? new Date(raw) : null;return date && !Number.isNaN(date.getTime()) ? date : null}
 function localDateKey(date){return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`}
 function selectedRange(){const active=document.querySelector('#map-time-filter button.active');return active ? active.dataset.range : 'all'}
 function selectedRegion(){const select=document.getElementById('region-select');return select ? select.value : 'all'}

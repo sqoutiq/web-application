@@ -203,7 +203,7 @@ function escapeHtml(value){return String(value||'').replace(/[&<>"']/g,ch=>({'&'
 function phoneHref(phone){const digits=String(phone||'').replace(/\D/g,'');return digits ? `tel:${digits.length===10?'+1':''}${digits}` : '#'}
 function mapHref(row){return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(`${row.address || ''}, ${row.city || ''}, CA ${row.zip || ''}`)}`}
 function leadDate(lead){
-  const raw=lead.timeStamp || lead.created_at || '';
+  const raw=lead.createdAt || lead.created_at || lead.timeStamp || '';
   const date=raw ? new Date(raw) : null;
   return date && !Number.isNaN(date.getTime()) ? date : null;
 }

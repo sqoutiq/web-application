@@ -135,7 +135,9 @@
       score,
       sig: signalStrength(score),
       type: "HVAC",
-      timeStamp: row.time_stamp || row.created_at || ""
+      timeStamp: row.created_at || row.time_stamp || "",
+      batchTimeStamp: row.time_stamp || "",
+      createdAt: row.created_at || ""
     };
   }
 

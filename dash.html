@@ -289,7 +289,7 @@ function updateChart(light){
 let allDashboardLeads=[];
 
 function leadDate(lead){
-  const raw=lead.timeStamp || lead.created_at || '';
+  const raw=lead.createdAt || lead.created_at || lead.timeStamp || '';
   const date=raw ? new Date(raw) : null;
   return date && !Number.isNaN(date.getTime()) ? date : null;
 }
