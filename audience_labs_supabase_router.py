@@ -11,7 +11,8 @@ Required environment variables:
 Optional environment variables:
   TYPE_SUFFIX          Defaults to "hvac"
   AUDIENCE_PAGE_SIZE   Defaults to 5000
-  AUDIENCE_PAGE_DELAY  Defaults to 0.2 seconds
+  AUDIENCE_PAGE_DELAY  Defaults to 0.1 seconds
+  AUDIENCE_RETRY_WAIT_SECONDS Defaults to 5 seconds
   GEOCODE_ENABLED      Defaults to false
 
 The Supabase table name is built as:
@@ -42,7 +43,10 @@ AUDIENCE_ID = "690932ed-86d3-4348-9851-fdec475a1db9"
 TYPE_SUFFIX = os.environ.get("TYPE_SUFFIX", "hvac")
 PAGE_SIZE = int(os.environ.get("AUDIENCE_PAGE_SIZE", "5000"))
 AUDIENCE_REQUEST_TIMEOUT = int(os.environ.get("AUDIENCE_REQUEST_TIMEOUT", "180"))
-AUDIENCE_PAGE_DELAY = float(os.environ.get("AUDIENCE_PAGE_DELAY", "0.2"))
+AUDIENCE_PAGE_DELAY = float(os.environ.get("AUDIENCE_PAGE_DELAY", "0.1"))
+AUDIENCE_RETRY_WAIT_SECONDS = float(os.environ.get("AUDIENCE_RETRY_WAIT_SECONDS", "5"))
+AUDIENCE_MAX_RETRY_WAIT_SECONDS = float(os.environ.get("AUDIENCE_MAX_RETRY_WAIT_SECONDS", "30"))
+AUDIENCE_MAX_RETRIES = int(os.environ.get("AUDIENCE_MAX_RETRIES", "20"))
 GEOCODE_ENABLED = os.environ.get("GEOCODE_ENABLED", "false").strip().lower() in {"1", "true", "yes", "y"}
 GEOCODE_SLEEP_SECONDS = float(os.environ.get("GEOCODE_SLEEP_SECONDS", "0.15"))
 MIN_SKIPTRACE_MATCH_SCORE = int(os.environ.get("MIN_SKIPTRACE_MATCH_SCORE", "5"))
@@ -354,24 +358,31 @@ def fetch_audience_rows() -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     page = 1
     retries = 0
-    max_retries = 20
+    max_retries = AUDIENCE_MAX_RETRIES
+    current_page_delay = max(AUDIENCE_PAGE_DELAY, 0.0)
+    last_batch_size: int | None = None
+    session = requests.Session()
+    session.headers.update(headers)
 
     print(
         f"Fetching Audience Labs list: {AUDIENCE_ID} "
-        f"(page_size={PAGE_SIZE}, page_delay={AUDIENCE_PAGE_DELAY}s, geocode_enabled={GEOCODE_ENABLED})"
+        f"(page_size={PAGE_SIZE}, page_delay={current_page_delay}s, retry_wait={AUDIENCE_RETRY_WAIT_SECONDS}s, geocode_enabled={GEOCODE_ENABLED})"
     )
 
     while True:
-        url = f"https://api.audiencelab.io/audiences/{AUDIENCE_ID}?page={page}&page_size={PAGE_SIZE}"
-
         try:
-            response = requests.get(url, headers=headers, timeout=(15, AUDIENCE_REQUEST_TIMEOUT))
+            response = session.get(
+                f"https://api.audiencelab.io/audiences/{AUDIENCE_ID}",
+                params={"page": page, "page_size": PAGE_SIZE},
+                timeout=(10, AUDIENCE_REQUEST_TIMEOUT),
+            )
         except requests.RequestException as exc:
             retries += 1
             if retries > max_retries:
                 raise RuntimeError(f"Audience Labs kept failing on page {page}: {exc}") from exc
 
-            wait_seconds = min(30 * retries, 180)
+            wait_seconds = min(AUDIENCE_RETRY_WAIT_SECONDS * retries, AUDIENCE_MAX_RETRY_WAIT_SECONDS)
+            current_page_delay = min(max(current_page_delay, AUDIENCE_PAGE_DELAY) + 0.1, 1.5)
             print(
                 f"Audience Labs request failed on page {page}: {exc}. "
                 f"Waiting {wait_seconds} seconds ({retries}/{max_retries})..."
@@ -384,7 +395,8 @@ def fetch_audience_rows() -> list[dict[str, Any]]:
             if retries > max_retries:
                 raise RuntimeError(f"Audience Labs kept failing with HTTP {response.status_code}")
 
-            wait_seconds = min(30 * retries, 180)
+            wait_seconds = min(AUDIENCE_RETRY_WAIT_SECONDS * retries, AUDIENCE_MAX_RETRY_WAIT_SECONDS)
+            current_page_delay = min(max(current_page_delay, AUDIENCE_PAGE_DELAY) + 0.1, 1.5)
             print(
                 f"Audience Labs returned HTTP {response.status_code} on page {page}. "
                 f"Waiting {wait_seconds} seconds ({retries}/{max_retries})..."
@@ -398,18 +410,30 @@ def fetch_audience_rows() -> list[dict[str, Any]]:
         retries = 0
         payload = response.json()
         data = payload.get("data", []) if isinstance(payload, dict) else payload
+        batch_size = len(data) if isinstance(data, list) else 0
 
         if not data:
             print(f"Finished fetching at page {page - 1}.")
             break
 
+        if last_batch_size is None:
+            last_batch_size = batch_size
+            if batch_size and batch_size < PAGE_SIZE:
+                print(
+                    f"Audience Labs is effectively returning {batch_size} rows per page "
+                    f"even though page_size={PAGE_SIZE} was requested."
+                )
+
         rows.extend(data)
         if page % 10 == 0:
             print(f"Downloaded {len(rows)} raw rows...")
 
+        if current_page_delay > 0 and page % 25 == 0:
+            current_page_delay = max(AUDIENCE_PAGE_DELAY, round(current_page_delay - 0.05, 2))
+
         page += 1
-        if AUDIENCE_PAGE_DELAY > 0:
-            time.sleep(AUDIENCE_PAGE_DELAY)
+        if current_page_delay > 0:
+            time.sleep(current_page_delay)
 
     print(f"Extracted {len(rows)} raw rows from Audience Labs.")
     return rows
@@ -418,7 +442,7 @@ def fetch_audience_rows() -> list[dict[str, Any]]:
 def clean_and_dedupe(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     clean_rows = [lead for row in rows if (lead := process_lead(row)) is not None]
     print(
-        f"Kept {len(clean_rows)} valid residential CA opportunities in your target ZIPs "
+        f"Kept {len(clean_rows)} valid residential opportunities in your target ZIPs "
         f"with skiptraced wireless phones and match score >= {MIN_SKIPTRACE_MATCH_SCORE}."
     )
 
@@ -447,7 +471,7 @@ def supabase_headers(prefer: str | None = None) -> dict[str, str]:
 
 
 def insert_rows(table_name: str, rows: list[dict[str, Any]]) -> int:
-    url = f"{SUPABASE_URL}/rest/v1/{table_name}?on_conflict=SKIPTRACE_WIRELESS_NUMBERS"
+    url = f"{SUPABASE_URL}/rest/v1/{table_name}?on_conflict=SKIPTRACE_WIRELESS_NUMBERS,time_stamp"
     total = 0
 
     for start in range(0, len(rows), 500):
@@ -477,10 +501,10 @@ def route_to_supabase(rows: list[dict[str, Any]]) -> None:
             continue
 
         table_name = f"{region}_{TYPE_SUFFIX}"
-        print(f"Inserting {len(region_rows)} leads into {table_name}; existing phone numbers keep their original dates...")
+        print(f"Inserting {len(region_rows)} opportunities into {table_name}; same phone can reappear in a new dated batch...")
 
         inserted = insert_rows(table_name, region_rows)
-        print(f"Sent {inserted} candidate leads to {table_name}; duplicates were ignored by phone number.")
+        print(f"Sent {inserted} candidate opportunities to {table_name}; duplicates were ignored only inside the same batch date.")
 
 
 def main() -> int:
