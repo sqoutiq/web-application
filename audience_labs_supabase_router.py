@@ -10,9 +10,9 @@ Required environment variables:
 
 Optional environment variables:
   TYPE_SUFFIX          Defaults to "hvac"
-  AUDIENCE_PAGE_SIZE   Defaults to 5000
-  AUDIENCE_PAGE_DELAY  Defaults to 0.1 seconds
-  AUDIENCE_RETRY_WAIT_SECONDS Defaults to 5 seconds
+  AUDIENCE_PAGE_SIZE   Defaults to 500
+  AUDIENCE_PAGE_DELAY  Defaults to 1.5 seconds
+  AUDIENCE_RETRY_WAIT_SECONDS Defaults to 30 seconds
   GEOCODE_ENABLED      Defaults to false
 
 The Supabase table name is built as:
@@ -41,11 +41,11 @@ SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
 
 AUDIENCE_ID = "690932ed-86d3-4348-9851-fdec475a1db9"
 TYPE_SUFFIX = os.environ.get("TYPE_SUFFIX", "hvac")
-PAGE_SIZE = int(os.environ.get("AUDIENCE_PAGE_SIZE", "5000"))
+PAGE_SIZE = int(os.environ.get("AUDIENCE_PAGE_SIZE", "500"))
 AUDIENCE_REQUEST_TIMEOUT = int(os.environ.get("AUDIENCE_REQUEST_TIMEOUT", "180"))
-AUDIENCE_PAGE_DELAY = float(os.environ.get("AUDIENCE_PAGE_DELAY", "0.1"))
-AUDIENCE_RETRY_WAIT_SECONDS = float(os.environ.get("AUDIENCE_RETRY_WAIT_SECONDS", "5"))
-AUDIENCE_MAX_RETRY_WAIT_SECONDS = float(os.environ.get("AUDIENCE_MAX_RETRY_WAIT_SECONDS", "30"))
+AUDIENCE_PAGE_DELAY = float(os.environ.get("AUDIENCE_PAGE_DELAY", "1.5"))
+AUDIENCE_RETRY_WAIT_SECONDS = float(os.environ.get("AUDIENCE_RETRY_WAIT_SECONDS", "30"))
+AUDIENCE_MAX_RETRY_WAIT_SECONDS = float(os.environ.get("AUDIENCE_MAX_RETRY_WAIT_SECONDS", "180"))
 AUDIENCE_MAX_RETRIES = int(os.environ.get("AUDIENCE_MAX_RETRIES", "20"))
 GEOCODE_ENABLED = os.environ.get("GEOCODE_ENABLED", "false").strip().lower() in {"1", "true", "yes", "y"}
 GEOCODE_SLEEP_SECONDS = float(os.environ.get("GEOCODE_SLEEP_SECONDS", "0.15"))
@@ -382,7 +382,7 @@ def fetch_audience_rows() -> list[dict[str, Any]]:
                 raise RuntimeError(f"Audience Labs kept failing on page {page}: {exc}") from exc
 
             wait_seconds = min(AUDIENCE_RETRY_WAIT_SECONDS * retries, AUDIENCE_MAX_RETRY_WAIT_SECONDS)
-            current_page_delay = min(max(current_page_delay, AUDIENCE_PAGE_DELAY) + 0.1, 1.5)
+            current_page_delay = min(max(current_page_delay, AUDIENCE_PAGE_DELAY) + 0.25, 3.0)
             print(
                 f"Audience Labs request failed on page {page}: {exc}. "
                 f"Waiting {wait_seconds} seconds ({retries}/{max_retries})..."
@@ -396,7 +396,7 @@ def fetch_audience_rows() -> list[dict[str, Any]]:
                 raise RuntimeError(f"Audience Labs kept failing with HTTP {response.status_code}")
 
             wait_seconds = min(AUDIENCE_RETRY_WAIT_SECONDS * retries, AUDIENCE_MAX_RETRY_WAIT_SECONDS)
-            current_page_delay = min(max(current_page_delay, AUDIENCE_PAGE_DELAY) + 0.1, 1.5)
+            current_page_delay = min(max(current_page_delay, AUDIENCE_PAGE_DELAY) + 0.25, 3.0)
             print(
                 f"Audience Labs returned HTTP {response.status_code} on page {page}. "
                 f"Waiting {wait_seconds} seconds ({retries}/{max_retries})..."
