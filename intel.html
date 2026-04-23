@@ -78,7 +78,7 @@ thead th{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(-
 thead th{position:sticky;top:0;z-index:2}
 tbody td{padding:12px 14px;font-size:13.5px;color:var(--text);border-bottom:1px solid var(--border);vertical-align:middle}
 tbody tr:last-child td{border-bottom:none}tbody tr:hover td{background:var(--accent-dim2)}
-.contact-link{color:var(--blue);font-weight:600}.contact-phone{font-family:var(--mono);font-size:12.5px;color:var(--blue);text-decoration:none}.contact-phone:hover,.address-link:hover,.email-link:hover{text-decoration:underline}.address-txt{font-size:12.5px;color:var(--muted)}.address-link,.email-link{font-size:12.5px;color:var(--blue);text-decoration:none}.val-txt{font-family:var(--mono);font-size:13.5px;font-weight:700;text-align:right}
+.contact-link{color:var(--blue);font-weight:600}.contact-phone{font-family:var(--mono);font-size:12.5px;color:var(--blue);text-decoration:none}.contact-phone:hover,.address-link:hover,.email-link:hover{text-decoration:underline}.address-txt{font-size:12.5px;color:var(--muted)}.address-link,.email-link{font-size:12.5px;color:var(--blue);text-decoration:none}.email-cell{max-width:170px}.email-link{display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.date-cell,.date-head{white-space:nowrap;min-width:106px}.date-txt{font-family:var(--mono);font-size:12px;color:var(--muted)}.val-txt{font-family:var(--mono);font-size:13.5px;font-weight:700;text-align:right}
 .badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:700}
 .b-blue{background:var(--blue-dim);color:var(--blue)}.b-accent{background:var(--accent-dim);color:var(--accent)}.b-green{background:var(--green-dim);color:var(--green)}.b-amber{background:var(--amber-dim);color:var(--amber)}
 .score-wrap{display:flex;align-items:center;gap:8px}
@@ -162,7 +162,7 @@ tbody tr:last-child td{border-bottom:none}tbody tr:hover td{background:var(--acc
         <table>
           <thead>
             <tr>
-              <th>Contact</th><th>Email</th><th>Phone</th><th>Property Address</th><th>City</th><th>ZIP</th><th>Score</th>
+              <th>Contact</th><th>Email</th><th class="date-head">Lead Date</th><th>Phone</th><th>Property Address</th><th>City</th><th>ZIP</th><th>Score</th>
             </tr>
           </thead>
           <tbody id="intel-tbody"></tbody>
@@ -203,9 +203,14 @@ function escapeHtml(value){return String(value||'').replace(/[&<>"']/g,ch=>({'&'
 function phoneHref(phone){const digits=String(phone||'').replace(/\D/g,'');return digits ? `tel:${digits.length===10?'+1':''}${digits}` : '#'}
 function mapHref(row){return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(`${row.address || ''}, ${row.city || ''}, CA ${row.zip || ''}`)}`}
 function leadDate(lead){
-  const raw=lead.createdAt || lead.created_at || lead.timeStamp || '';
+  const raw=lead.batchTimeStamp || lead.timeStamp || lead.createdAt || lead.created_at || '';
   const date=raw ? new Date(raw) : null;
   return date && !Number.isNaN(date.getTime()) ? date : null;
+}
+function leadDateLabel(lead){
+  const date=leadDate(lead);
+  if(!date) return '--';
+  return date.toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'});
 }
 function localDateKey(date){return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`}
 function selectedRange(){
@@ -289,7 +294,8 @@ function render(data){
   const pageRows=data.slice(start,start+pageSize);
   tb.innerHTML=pageRows.map(r=>`<tr>
     <td><strong class="contact-link">${escapeHtml(r.name)}</strong></td>
-    <td>${r.email ? `<a class="email-link" href="mailto:${escapeHtml(r.email)}">${escapeHtml(r.email)}</a>` : '<span class="address-txt">--</span>'}</td>
+    <td class="email-cell">${r.email ? `<a class="email-link" href="mailto:${escapeHtml(r.email)}" title="${escapeHtml(r.email)}">${escapeHtml(r.email)}</a>` : '<span class="address-txt">--</span>'}</td>
+    <td class="date-cell"><span class="date-txt">${escapeHtml(leadDateLabel(r))}</span></td>
     <td>${r.phone ? `<a class="contact-phone" href="${phoneHref(r.phone)}">${escapeHtml(r.phone)}</a>` : '<span class="address-txt">--</span>'}</td>
     <td>${r.address ? `<a class="address-link" href="${mapHref(r)}" target="_blank" rel="noopener">${escapeHtml(r.address)}</a>` : '<span class="address-txt">--</span>'}</td>
     <td>${escapeHtml(r.city)}</td>
@@ -378,8 +384,8 @@ document.getElementById('page-numbers').addEventListener('click',e=>{
   render(activeLeads);
 });
 document.getElementById('export-csv').addEventListener('click',()=>{
-  const headers=['Contact','Email','Phone','Property Address','City','ZIP','Score'];
-  const rows=activeLeads.map(row=>[row.name,row.email,row.phone,row.address,row.city,row.zip,row.score]);
+  const headers=['Contact','Email','Lead Date','Phone','Property Address','City','ZIP','Score'];
+  const rows=activeLeads.map(row=>[row.name,row.email,leadDateLabel(row),row.phone,row.address,row.city,row.zip,row.score]);
   const csv=[headers,...rows].map(row=>row.map(value=>`"${String(value??'').replace(/"/g,'""')}"`).join(',')).join('\n');
   const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
   const url=URL.createObjectURL(blob);
