@@ -111,6 +111,10 @@
     return number >= 24 && number <= 50 ? number : number <= -66 && number >= -125 ? number : null;
   }
 
+  function hasExactCoordinates(row){
+    return cleanCoordinate(row.LATITUDE) !== null && cleanCoordinate(row.LONGITUDE) !== null;
+  }
+
   function normalizeLead(row, city){
     const first = String(row.FIRST_NAME || "").trim();
     const last = String(row.LAST_NAME || "").trim();
@@ -178,7 +182,23 @@
       throw new Error(`${city.table}: ${response.status} ${await response.text()}`);
     }
     const rows = await response.json();
-    return rows.map(row => normalizeLead(row, city));
+    const coordinateByPhone = new Map();
+
+    rows.forEach(row => {
+      const phone = String(row.SKIPTRACE_WIRELESS_NUMBERS || "").replace(/\D/g, "");
+      if(!phone || coordinateByPhone.has(phone) || !hasExactCoordinates(row)) return;
+      coordinateByPhone.set(phone, {
+        LATITUDE: cleanCoordinate(row.LATITUDE),
+        LONGITUDE: cleanCoordinate(row.LONGITUDE)
+      });
+    });
+
+    return rows.map(row => {
+      const phone = String(row.SKIPTRACE_WIRELESS_NUMBERS || "").replace(/\D/g, "");
+      if(hasExactCoordinates(row) || !phone || !coordinateByPhone.has(phone)) return normalizeLead(row, city);
+      const exact = coordinateByPhone.get(phone);
+      return normalizeLead({ ...row, LATITUDE: exact.LATITUDE, LONGITUDE: exact.LONGITUDE }, city);
+    });
   }
 
   async function fetchLeads(){
