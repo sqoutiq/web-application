@@ -1,6 +1,6 @@
 (function(){
   const TABLE_SUFFIX = "hvac";
-  const MAX_ROWS_PER_CITY = 1000;
+  const PAGE_SIZE = 1000;
   const STATIC_DATA_URL = "leads-data.json";
 
   const CITY_TABLES = [
@@ -171,17 +171,29 @@
       "PHONE_MATCH_SCORE",
       "PHONE_MATCH_QUALITY"
     ];
-    const columns = coreColumns.concat(enrichColumns, geoColumns, phoneQualityColumns).join(",");
-    const url = `${base}/rest/v1/${city.table}?select=${columns}&order=created_at.desc&limit=${MAX_ROWS_PER_CITY}`;
-    let response = await fetch(url, { headers: requestHeaders() });
-    if(!response.ok && response.status === 400){
-      const fallbackUrl = `${base}/rest/v1/${city.table}?select=${coreColumns.join(",")}&order=created_at.desc&limit=${MAX_ROWS_PER_CITY}`;
-      response = await fetch(fallbackUrl, { headers: requestHeaders() });
+    const fullColumns = coreColumns.concat(enrichColumns, geoColumns, phoneQualityColumns).join(",");
+    const fallbackColumns = coreColumns.join(",");
+    let selectColumns = fullColumns;
+    let offset = 0;
+    const rows = [];
+
+    while(true){
+      const url = `${base}/rest/v1/${city.table}?select=${selectColumns}&order=created_at.desc&limit=${PAGE_SIZE}&offset=${offset}`;
+      let response = await fetch(url, { headers: requestHeaders() });
+      if(!response.ok && response.status === 400 && selectColumns !== fallbackColumns){
+        selectColumns = fallbackColumns;
+        continue;
+      }
+      if(!response.ok){
+        throw new Error(`${city.table}: ${response.status} ${await response.text()}`);
+      }
+      const batch = await response.json();
+      if(!Array.isArray(batch) || batch.length === 0) break;
+      rows.push(...batch);
+      if(batch.length < PAGE_SIZE) break;
+      offset += PAGE_SIZE;
     }
-    if(!response.ok){
-      throw new Error(`${city.table}: ${response.status} ${await response.text()}`);
-    }
-    const rows = await response.json();
+
     const coordinateByPhone = new Map();
 
     rows.forEach(row => {

@@ -23,7 +23,7 @@ SUPABASE_URL = (os.environ.get("SUPABASE_URL") or "").rstrip("/")
 SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
 TYPE_SUFFIX = os.environ.get("TYPE_SUFFIX", "hvac")
 OUTPUT_PATH = Path(os.environ.get("LEADS_OUTPUT_PATH", "leads-data.json"))
-MAX_ROWS_PER_CITY = int(os.environ.get("LEADS_EXPORT_LIMIT", "1000"))
+PAGE_SIZE = int(os.environ.get("LEADS_EXPORT_PAGE_SIZE", "1000"))
 
 CITY_TABLES = [
     {"slug": "murrieta", "label": "Murrieta", "table": f"murrieta_{TYPE_SUFFIX}"},
@@ -188,21 +188,33 @@ def normalize_lead(row: dict[str, Any], city: dict[str, str]) -> dict[str, Any]:
 
 
 def fetch_city(city: dict[str, str]) -> list[dict[str, Any]]:
-    url = (
-        f"{SUPABASE_URL}/rest/v1/{city['table']}"
-        f"?select={SELECT_COLUMNS}&order=created_at.desc&limit={MAX_ROWS_PER_CITY}"
-    )
-    response = requests.get(url, headers=headers(), timeout=90)
-    if response.status_code == 400:
-        fallback_columns = ",".join(CORE_COLUMNS)
+    all_rows: list[dict[str, Any]] = []
+    offset = 0
+    select_columns = SELECT_COLUMNS
+    fallback_columns = ",".join(CORE_COLUMNS)
+
+    while True:
         url = (
             f"{SUPABASE_URL}/rest/v1/{city['table']}"
-            f"?select={fallback_columns}&order=created_at.desc&limit={MAX_ROWS_PER_CITY}"
+            f"?select={select_columns}&order=created_at.desc&limit={PAGE_SIZE}&offset={offset}"
         )
         response = requests.get(url, headers=headers(), timeout=90)
-    if response.status_code != 200:
-        raise RuntimeError(f"{city['table']} failed: HTTP {response.status_code} {response.text}")
-    return [normalize_lead(row, city) for row in response.json()]
+        if response.status_code == 400 and select_columns != fallback_columns:
+            select_columns = fallback_columns
+            continue
+        if response.status_code != 200:
+            raise RuntimeError(f"{city['table']} failed: HTTP {response.status_code} {response.text}")
+
+        batch = response.json()
+        if not batch:
+            break
+
+        all_rows.extend(batch)
+        if len(batch) < PAGE_SIZE:
+            break
+        offset += PAGE_SIZE
+
+    return [normalize_lead(row, city) for row in all_rows]
 
 
 def main() -> int:
