@@ -128,7 +128,7 @@ main{flex:1;display:flex;flex-direction:column;overflow:hidden}
       <p>Live opportunity heatmap across active HVAC cities</p>
     </div>
     <div class="topbar-right">
-      <div class="seg-ctrl" id="layer-filter"><button class="active" onclick="setLayer('heat',this)">Heatmap</button><button onclick="setLayer('pins',this)">Opportunity Pins</button><button onclick="setLayer('both',this)">Both</button></div><div class="seg-ctrl" id="map-time-filter"><button data-range="24h">24h</button><button data-range="48h">48h</button><button class="active" data-range="all">All Time</button></div><input class="top-select date-select" type="date" id="map-date-filter" aria-label="Show opportunities from exact date"><select class="top-select" id="region-select">
+      <div class="seg-ctrl" id="layer-filter"><button class="active" onclick="setLayer('heat',this)">Heatmap</button><button onclick="setLayer('pins',this)">Opportunity Pins</button><button onclick="setLayer('both',this)">Both</button></div><div class="seg-ctrl" id="map-time-filter"><button data-range="24h">24h</button><button data-range="48h">48h</button><button class="active" data-range="7d">7d</button></div><input class="top-select date-select" type="date" id="map-date-filter" aria-label="Show opportunities from exact date"><select class="top-select" id="region-select">
         <option value="all">All HVAC Cities</option>
         <option value="murrieta">Murrieta, CA</option>
         <option value="temecula">Temecula, CA</option>
@@ -204,7 +204,7 @@ function phoneHref(phone){const digits=String(phone||'').replace(/\D/g,'');retur
 function mapHref(lead){return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(`${lead.address || ''}, ${lead.city || ''}, CA ${lead.zip || ''}`)}`}
 function leadDate(lead){const raw=lead.batchTimeStamp || lead.timeStamp || lead.createdAt || lead.created_at || '';const date=raw ? new Date(raw) : null;return date && !Number.isNaN(date.getTime()) ? date : null}
 function localDateKey(date){return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`}
-function selectedRange(){const active=document.querySelector('#map-time-filter button.active');return active ? active.dataset.range : 'all'}
+function selectedRange(){const active=document.querySelector('#map-time-filter button.active');return active ? active.dataset.range : '7d'}
 function selectedRegion(){const select=document.getElementById('region-select');return select ? select.value : 'all'}
 function selectedExactDate(){const input=document.getElementById('map-date-filter');return input ? input.value : ''}
 function hasContactValue(value){const cleaned=String(value??'').trim().toLowerCase();return cleaned!==''&&cleaned!=='null'&&cleaned!=='undefined'&&cleaned!=='nan'}
@@ -213,7 +213,7 @@ function incomePoints(value){const high=rangeHighValue(value);if(high>=200000)re
 function netWorthPoints(value){const high=rangeHighValue(value);if(high>=1000000)return 7;if(high>=500000)return 5;if(high>=250000)return 4;if(high>=100000)return 3;if(high>0)return 1;return 0}
 function calculateIntentScore(lead){const score=75+incomePoints(lead.incomeRange||lead.INCOME_RANGE||lead.INCOME||lead.ESTIMATED_HOUSEHOLD_INCOME)+netWorthPoints(lead.netWorth||lead.NET_WORTH||lead.ESTIMATED_NET_WORTH)+(hasContactValue(lead.phone||lead.SKIPTRACE_WIRELESS_NUMBERS)?8:0)+(hasContactValue(lead.email||lead.PERSONAL_VERIFIED_EMAIL||lead.PERSONAL_VERIFIED_EMAILS)?2:0);return Math.max(75,Math.min(score,99))}
 function withCalculatedIntentScore(lead){const score=calculateIntentScore(lead);return{...lead,score,sig:score>=94?4:score>=86?3:score>=80?2:1}}
-function filteredMapLeads(){let leads=allMapLeads.slice();const region=selectedRegion();if(region&&region!=='all')leads=leads.filter(lead=>lead.region===region);const exact=selectedExactDate();if(exact){return leads.filter(lead=>{const date=leadDate(lead);return date&&localDateKey(date)===exact})}const range=selectedRange();if(range==='all')return leads;const cutoff=Date.now()-((range==='48h'?48:24)*60*60*1000);return leads.filter(lead=>{const date=leadDate(lead);return date&&date.getTime()>=cutoff})}
+function filteredMapLeads(){let leads=allMapLeads.slice();const region=selectedRegion();if(region&&region!=='all')leads=leads.filter(lead=>lead.region===region);const exact=selectedExactDate();if(exact){return leads.filter(lead=>{const date=leadDate(lead);return date&&localDateKey(date)===exact})}const range=selectedRange();const cutoff=Date.now()-((range==='7d'?168:range==='48h'?48:24)*60*60*1000);return leads.filter(lead=>{const date=leadDate(lead);return date&&date.getTime()>=cutoff})}
 function parsedCoordinate(value){if(value===null||value===undefined||String(value).trim()==='')return null;const number=Number(value);return Number.isFinite(number)?number:null}
 function hasExactPoint(lead){const lat=parsedCoordinate(lead.lat),lng=parsedCoordinate(lead.lng);return lat!==null&&lng!==null&&lat>=24&&lat<=50&&lng>=-125&&lng<=-66}
 function leadPoint(lead){if(!hasExactPoint(lead))return null;return{lat:parsedCoordinate(lead.lat),lng:parsedCoordinate(lead.lng)}}

@@ -134,7 +134,7 @@ tbody tr:last-child td{border-bottom:none}tbody tr:hover td{background:var(--acc
       <div class="seg-ctrl" id="intel-time-filter">
         <button class="active" data-range="24h">24h</button>
         <button data-range="48h">48h</button>
-        <button data-range="all">All Time</button>
+        <button data-range="7d">7d</button>
       </div>
       <input class="top-select date-select" type="date" id="intel-date-filter" aria-label="Show opportunities from exact date">
       <select class="top-select" id="sf-score"><option value="">All Scores</option><option value="h">High (90-100)</option><option value="m">Qualified (80-89)</option><option value="l">Review (75-79)</option></select>
@@ -343,13 +343,11 @@ function filterLeads(){
     });
   }else{
     const range=selectedRange();
-    if(range!=='all'){
-      const cutoff=Date.now()-((range==='48h'?48:24)*60*60*1000);
-      filtered=filtered.filter(r=>{
-        const date=leadDate(r);
-        return date && date.getTime()>=cutoff;
-      });
-    }
+    const cutoff=Date.now()-((range==='7d'?168:range==='48h'?48:24)*60*60*1000);
+    filtered=filtered.filter(r=>{
+      const date=leadDate(r);
+      return date && date.getTime()>=cutoff;
+    });
   }
   filtered=filtered.filter(r=>{
     const ms=!q||r.name.toLowerCase().includes(q)||r.address.toLowerCase().includes(q)||r.city.toLowerCase().includes(q)||r.zip.includes(q)||(r.email||'').toLowerCase().includes(q)||r.phone.includes(q);

@@ -138,7 +138,7 @@ tbody tr:last-child td{border-bottom:none}tbody tr:hover td{background:var(--acc
       <div class="seg-ctrl" id="time-filter">
         <button class="active" data-range="24h">24h</button>
         <button data-range="48h">48h</button>
-        <button data-range="all">All Time</button>
+        <button data-range="7d">7d</button>
       </div>
       <input class="top-select date-select" type="date" id="date-filter" aria-label="Show opportunities from exact date">
       <select class="top-select" id="city-select">
@@ -317,7 +317,7 @@ function selectedTimeLabel(){
   }
   const range=selectedRange();
   if(range==='48h') return 'Last 48 Hours';
-  if(range==='all') return 'All Time';
+  if(range==='7d') return 'Last 7 Days';
   return 'Last 24 Hours';
 }
 
@@ -403,8 +403,7 @@ function filteredDashboardLeads(){
     });
   }
   const range=selectedRange();
-  if(range==='all') return leads;
-  const hours=range==='48h' ? 48 : 24;
+  const hours=range==='7d' ? 168 : range==='48h' ? 48 : 24;
   const cutoff=Date.now()-(hours*60*60*1000);
   return leads.filter(lead=>{
     const date=leadDate(lead);
