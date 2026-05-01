@@ -32,6 +32,7 @@ import sys
 import time
 from datetime import datetime, timezone
 from typing import Any
+from urllib.parse import quote
 import requests
 
 
@@ -470,6 +471,65 @@ def supabase_headers(prefer: str | None = None) -> dict[str, str]:
     return headers
 
 
+def fetch_existing_coordinates(table_name: str, phone_numbers: list[str]) -> dict[str, tuple[float, float]]:
+    if not phone_numbers:
+        return {}
+
+    coordinate_lookup: dict[str, tuple[float, float]] = {}
+    session = requests.Session()
+    session.headers.update(supabase_headers())
+
+    for start in range(0, len(phone_numbers), 150):
+        chunk = sorted(set(phone_numbers[start : start + 150]))
+        in_clause = ",".join(chunk)
+        url = (
+            f"{SUPABASE_URL}/rest/v1/{table_name}"
+            f"?select=SKIPTRACE_WIRELESS_NUMBERS,LATITUDE,LONGITUDE"
+            f"&SKIPTRACE_WIRELESS_NUMBERS=in.({quote(in_clause, safe=',()')})"
+            f"&limit=150"
+        )
+        response = session.get(url, timeout=90)
+        if response.status_code != 200:
+            raise RuntimeError(
+                f"Supabase coordinate lookup failed for {table_name}: HTTP {response.status_code} {response.text}"
+            )
+
+        for row in response.json():
+            phone = normalize_phone(row.get("SKIPTRACE_WIRELESS_NUMBERS"))
+            lat = normalize_coordinate(row.get("LATITUDE"), kind="lat")
+            lng = normalize_coordinate(row.get("LONGITUDE"), kind="lng")
+            if phone and lat is not None and lng is not None and phone not in coordinate_lookup:
+                coordinate_lookup[phone] = (lat, lng)
+
+    return coordinate_lookup
+
+
+def backfill_coordinates_from_existing(table_name: str, rows: list[dict[str, Any]]) -> None:
+    phones_needing_coordinates = [
+        row["SKIPTRACE_WIRELESS_NUMBERS"]
+        for row in rows
+        if row.get("SKIPTRACE_WIRELESS_NUMBERS")
+        and (row.get("LATITUDE") is None or row.get("LONGITUDE") is None)
+    ]
+    if not phones_needing_coordinates:
+        return
+
+    existing_coordinates = fetch_existing_coordinates(table_name, phones_needing_coordinates)
+    reused = 0
+
+    for row in rows:
+        phone = row.get("SKIPTRACE_WIRELESS_NUMBERS")
+        if not phone or phone not in existing_coordinates:
+            continue
+        if row.get("LATITUDE") is not None and row.get("LONGITUDE") is not None:
+            continue
+        row["LATITUDE"], row["LONGITUDE"] = existing_coordinates[phone]
+        reused += 1
+
+    if reused:
+        print(f"Reused exact saved coordinates for {reused} opportunities in {table_name}.")
+
+
 def insert_rows(table_name: str, rows: list[dict[str, Any]]) -> int:
     url = f"{SUPABASE_URL}/rest/v1/{table_name}?on_conflict=SKIPTRACE_WIRELESS_NUMBERS,time_stamp"
     total = 0
@@ -501,6 +561,7 @@ def route_to_supabase(rows: list[dict[str, Any]]) -> None:
             continue
 
         table_name = f"{region}_{TYPE_SUFFIX}"
+        backfill_coordinates_from_existing(table_name, region_rows)
         print(f"Inserting {len(region_rows)} opportunities into {table_name}; same phone can reappear in a new dated batch...")
 
         inserted = insert_rows(table_name, region_rows)
