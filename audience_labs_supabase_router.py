@@ -40,7 +40,7 @@ AUDIENCE_LABS_API_KEY = os.environ.get("AUDIENCE_LABS_API_KEY")
 SUPABASE_URL = (os.environ.get("SUPABASE_URL") or "").rstrip("/")
 SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
 
-AUDIENCE_ID = "690932ed-86d3-4348-9851-fdec475a1db9"
+AUDIENCE_ID = "cacd9c3-d065-43d3-b2d0-1211d3f7aeba"
 TYPE_SUFFIX = os.environ.get("TYPE_SUFFIX", "hvac")
 PAGE_SIZE = int(os.environ.get("AUDIENCE_PAGE_SIZE", "500"))
 AUDIENCE_REQUEST_TIMEOUT = int(os.environ.get("AUDIENCE_REQUEST_TIMEOUT", "180"))
