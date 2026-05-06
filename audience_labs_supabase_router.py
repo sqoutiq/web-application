@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Fetch one hardcoded Audience Labs list, clean/validate the leads, and route them
+Fetch configured Audience Labs lists, clean/validate the leads, and route them
 into Supabase tables by region.
 
 Required environment variables:
@@ -9,6 +9,8 @@ Required environment variables:
   SUPABASE_KEY
 
 Optional environment variables:
+  AUDIENCE_IDS         Comma-separated Audience Labs list IDs. Defaults to the
+                       four IDs below.
   TYPE_SUFFIX          Defaults to "hvac"
   AUDIENCE_PAGE_SIZE   Defaults to 500
   AUDIENCE_PAGE_DELAY  Defaults to 1.5 seconds
@@ -40,7 +42,17 @@ AUDIENCE_LABS_API_KEY = os.environ.get("AUDIENCE_LABS_API_KEY")
 SUPABASE_URL = (os.environ.get("SUPABASE_URL") or "").rstrip("/")
 SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
 
-AUDIENCE_ID = "fcacd9c3-d065-43d3-b2d0-1211d3f7aeba"
+DEFAULT_AUDIENCE_IDS = [
+    "163800d0-517f-4aa0-9aad-7672fb40950e",
+    "eced91ce-c368-4c95-a1a3-229cf8841f5d",
+    "e151583c-39cc-4cd0-927c-0a66e813b6fa",
+    "fcacd9c3-d065-43d3-b2d0-1211d3f7aeba",
+]
+AUDIENCE_IDS = [
+    audience_id.strip()
+    for audience_id in os.environ.get("AUDIENCE_IDS", ",".join(DEFAULT_AUDIENCE_IDS)).split(",")
+    if audience_id.strip()
+]
 TYPE_SUFFIX = os.environ.get("TYPE_SUFFIX", "hvac")
 PAGE_SIZE = int(os.environ.get("AUDIENCE_PAGE_SIZE", "500"))
 AUDIENCE_REQUEST_TIMEOUT = int(os.environ.get("AUDIENCE_REQUEST_TIMEOUT", "180"))
@@ -354,7 +366,7 @@ def process_lead(row: dict[str, Any]) -> dict[str, Any] | None:
     }
 
 
-def fetch_audience_rows() -> list[dict[str, Any]]:
+def fetch_audience_rows_for_id(audience_id: str) -> list[dict[str, Any]]:
     headers = {"X-Api-Key": AUDIENCE_LABS_API_KEY}
     rows: list[dict[str, Any]] = []
     page = 1
@@ -366,26 +378,26 @@ def fetch_audience_rows() -> list[dict[str, Any]]:
     session.headers.update(headers)
 
     print(
-        f"Fetching Audience Labs list: {AUDIENCE_ID} "
+        f"Fetching Audience Labs list: {audience_id} "
         f"(page_size={PAGE_SIZE}, page_delay={current_page_delay}s, retry_wait={AUDIENCE_RETRY_WAIT_SECONDS}s, geocode_enabled={GEOCODE_ENABLED})"
     )
 
     while True:
         try:
             response = session.get(
-                f"https://api.audiencelab.io/audiences/{AUDIENCE_ID}",
+                f"https://api.audiencelab.io/audiences/{audience_id}",
                 params={"page": page, "page_size": PAGE_SIZE},
                 timeout=(10, AUDIENCE_REQUEST_TIMEOUT),
             )
         except requests.RequestException as exc:
             retries += 1
             if retries > max_retries:
-                raise RuntimeError(f"Audience Labs kept failing on page {page}: {exc}") from exc
+                raise RuntimeError(f"Audience Labs list {audience_id} kept failing on page {page}: {exc}") from exc
 
             wait_seconds = min(AUDIENCE_RETRY_WAIT_SECONDS * retries, AUDIENCE_MAX_RETRY_WAIT_SECONDS)
             current_page_delay = min(max(current_page_delay, AUDIENCE_PAGE_DELAY) + 0.25, 3.0)
             print(
-                f"Audience Labs request failed on page {page}: {exc}. "
+                f"Audience Labs list {audience_id} request failed on page {page}: {exc}. "
                 f"Waiting {wait_seconds} seconds ({retries}/{max_retries})..."
             )
             time.sleep(wait_seconds)
@@ -394,19 +406,19 @@ def fetch_audience_rows() -> list[dict[str, Any]]:
         if response.status_code in {429, 500, 502, 503, 504}:
             retries += 1
             if retries > max_retries:
-                raise RuntimeError(f"Audience Labs kept failing with HTTP {response.status_code}")
+                raise RuntimeError(f"Audience Labs list {audience_id} kept failing with HTTP {response.status_code}")
 
             wait_seconds = min(AUDIENCE_RETRY_WAIT_SECONDS * retries, AUDIENCE_MAX_RETRY_WAIT_SECONDS)
             current_page_delay = min(max(current_page_delay, AUDIENCE_PAGE_DELAY) + 0.25, 3.0)
             print(
-                f"Audience Labs returned HTTP {response.status_code} on page {page}. "
+                f"Audience Labs list {audience_id} returned HTTP {response.status_code} on page {page}. "
                 f"Waiting {wait_seconds} seconds ({retries}/{max_retries})..."
             )
             time.sleep(wait_seconds)
             continue
 
         if response.status_code != 200:
-            raise RuntimeError(f"Audience Labs HTTP {response.status_code}: {response.text}")
+            raise RuntimeError(f"Audience Labs list {audience_id} HTTP {response.status_code}: {response.text}")
 
         retries = 0
         payload = response.json()
@@ -436,7 +448,19 @@ def fetch_audience_rows() -> list[dict[str, Any]]:
         if current_page_delay > 0:
             time.sleep(current_page_delay)
 
-    print(f"Extracted {len(rows)} raw rows from Audience Labs.")
+    print(f"Extracted {len(rows)} raw rows from Audience Labs list {audience_id}.")
+    return rows
+
+
+def fetch_audience_rows() -> list[dict[str, Any]]:
+    if not AUDIENCE_IDS:
+        raise RuntimeError("No Audience Labs IDs configured.")
+
+    rows: list[dict[str, Any]] = []
+    for audience_id in AUDIENCE_IDS:
+        rows.extend(fetch_audience_rows_for_id(audience_id))
+
+    print(f"Extracted {len(rows)} raw rows across {len(AUDIENCE_IDS)} Audience Labs list(s).")
     return rows
 
 
